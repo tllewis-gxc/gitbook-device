@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GXC Compatible Devices</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f7f8fa; color: #1a1a2e; }
+
+  header { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .header-text h1 { font-size: 1.6rem; font-weight: 700; }
+  .header-text p { font-size: 0.85rem; color: #666; margin-top: 4px; }
+  .header-text p span { font-weight: 600; color: #1a1a2e; }
+  .header-actions { display: flex; gap: 8px; align-items: center; }
+  .add-btn { background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 9px 18px; font-size: 0.88rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .add-btn:hover { background: #1d4ed8; }
+  .export-btn { background: #f3f4f6; color: #374151; border: 1px solid #d1d5db; border-radius: 8px; padding: 9px 14px; font-size: 0.88rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .export-btn:hover { background: #e5e7eb; }
+  .admin-badge { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; border-radius: 6px; padding: 4px 10px; font-size: 0.75rem; font-weight: 600; }
+
+  /* Modal */
+  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; align-items: center; justify-content: center; }
+  .overlay.open { display: flex; }
+  .modal { background: #fff; border-radius: 14px; padding: 28px; width: 100%; max-width: 460px; margin: 16px; box-shadow: 0 8px 40px rgba(0,0,0,0.18); max-height: 90vh; overflow-y: auto; }
+  .modal h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 20px; }
+  .form-row { margin-bottom: 16px; }
+  .form-row label { display: block; font-size: 0.78rem; font-weight: 600; color: #555; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .form-row input, .form-row select { width: 100%; border: 1px solid #d1d5db; border-radius: 8px; padding: 9px 12px; font-size: 0.9rem; background: #f9fafb; }
+  .form-row input:focus, .form-row select:focus { outline: none; border-color: #2563eb; background: #fff; }
+  .bands-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .band-check { display: flex; align-items: center; gap: 5px; font-size: 0.85rem; cursor: pointer; }
+  .band-check input[type=checkbox] { width: 15px; height: 15px; accent-color: #2563eb; cursor: pointer; }
+  .modal-actions { display: flex; gap: 10px; margin-top: 22px; }
+  .btn-save { flex: 1; background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
+  .btn-save:hover { background: #1d4ed8; }
+  .btn-cancel { flex: 1; background: #f3f4f6; color: #555; border: none; border-radius: 8px; padding: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
+  .btn-cancel:hover { background: #e5e7eb; }
+  .error-msg { color: #dc2626; font-size: 0.8rem; margin-top: 5px; display: none; }
+
+  /* Export modal */
+  .export-area { width: 100%; height: 200px; border: 1px solid #d1d5db; border-radius: 8px; padding: 10px; font-size: 0.78rem; font-family: monospace; background: #f9fafb; resize: none; }
+  .copy-btn { width: 100%; background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; margin-top: 10px; }
+  .copy-btn:hover { background: #1d4ed8; }
+  .export-hint { font-size: 0.78rem; color: #888; margin-top: 8px; line-height: 1.5; }
+
+  /* Filters */
+  .filters { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 14px 32px; display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+  .filter-group { display: flex; flex-direction: column; gap: 4px; }
+  .filter-group label { font-size: 0.72rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
+  .filter-group select { border: 1px solid #d1d5db; border-radius: 8px; padding: 7px 32px 7px 10px; font-size: 0.88rem; background: #f9fafb; color: #1a1a2e; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; min-width: 140px; }
+  .filter-group select:focus { outline: none; border-color: #2563eb; }
+  .search-wrap { flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 4px; }
+  .search-wrap label { font-size: 0.72rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
+  .search-wrap input { border: 1px solid #d1d5db; border-radius: 8px; padding: 7px 12px; font-size: 0.88rem; background: #f9fafb; width: 100%; }
+  .search-wrap input:focus { outline: none; border-color: #2563eb; }
+  .clear-btn { margin-top: 18px; padding: 7px 14px; border: 1px solid #d1d5db; border-radius: 8px; background: #fff; font-size: 0.82rem; cursor: pointer; color: #555; }
+  .clear-btn:hover { background: #f3f4f6; }
+
+  .results-bar { padding: 12px 32px; font-size: 0.82rem; color: #888; }
+  main { padding: 16px 32px 40px; }
+  .manufacturer-section { margin-bottom: 32px; }
+  .manufacturer-section h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #e5e7eb; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
+  .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: box-shadow 0.2s, transform 0.2s; position: relative; }
+  .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.09); transform: translateY(-2px); }
+  .card:hover .delete-btn { opacity: 1; }
+  .delete-btn { position: absolute; top: 8px; right: 8px; background: #fee2e2; border: none; border-radius: 6px; width: 24px; height: 24px; font-size: 0.75rem; cursor: pointer; color: #dc2626; opacity: 0; transition: opacity 0.15s; display: flex; align-items: center; justify-content: center; }
+  .delete-btn:hover { background: #fecaca; }
+  .card-img-placeholder { width: 80px; height: 100px; background: #f3f4f6; border-radius: 8px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+  .card-name { font-size: 0.85rem; font-weight: 600; color: #1a1a2e; margin-bottom: 6px; line-height: 1.3; }
+  .band-tag { display: inline-block; background: #eff6ff; color: #2563eb; border-radius: 4px; padding: 2px 6px; margin: 2px 2px 0; font-size: 0.7rem; font-weight: 500; }
+  .band-tag.empty { background: #f3f4f6; color: #aaa; }
+  .no-results { text-align: center; padding: 60px 20px; color: #aaa; font-size: 1rem; }
+  .no-results span { font-size: 2.5rem; display: block; margin-bottom: 10px; }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #1a1a2e; color: #fff; padding: 10px 20px; border-radius: 8px; font-size: 0.85rem; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 200; }
+  .toast.show { opacity: 1; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-text">
+    <h1>GXC Compatible Devices</h1>
+    <p><span>Compatible Device –</span> This is a partial list of devices that have been successfully operated on GXC's Private 4G/5G Wireless Network.</p>
+  </div>
+  <div class="header-actions" id="adminActions">
+    <span class="admin-badge">Admin Mode</span>
+    <button class="export-btn" onclick="openExport()">⬇ Export</button>
+    <button class="add-btn" onclick="openModal()">＋ Add Device</button>
+  </div>
+</header>
+
+<!-- Add Device Modal -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h2>Add New Device</h2>
+    <div class="form-row">
+      <label>Device Name *</label>
+      <input type="text" id="inputName" placeholder="e.g. Samsung Galaxy S23">
+      <div class="error-msg" id="errName">Please enter a device name.</div>
+    </div>
+    <div class="form-row">
+      <label>Manufacturer *</label>
+      <select id="inputMfr">
+        <option value="">— Select manufacturer —</option>
+      </select>
+      <div class="error-msg" id="errMfr">Please select a manufacturer.</div>
+    </div>
+    <div class="form-row" id="newMfrRow" style="display:none">
+      <label>New Manufacturer Name *</label>
+      <input type="text" id="inputNewMfr" placeholder="e.g. Samsung">
+      <div class="error-msg" id="errNewMfr">Please enter a manufacturer name.</div>
+    </div>
+    <div class="form-row">
+      <label>Tested Bands</label>
+      <div class="bands-grid">
+        <label class="band-check"><input type="checkbox" value="b48"> b48</label>
+        <label class="band-check"><input type="checkbox" value="n48"> n48</label>
+        <label class="band-check"><input type="checkbox" value="n77"> n77</label>
+        <label class="band-check"><input type="checkbox" value="n78"> n78</label>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-save" onclick="saveDevice()">Add Device</button>
+    </div>
+  </div>
+</div>
+
+<!-- Export Modal -->
+<div class="overlay" id="exportOverlay">
+  <div class="modal">
+    <h2>⬇ Export Device List</h2>
+    <p style="font-size:0.85rem;color:#555;margin-bottom:14px;">Copy this and replace the <code style="background:#f3f4f6;padding:2px 5px;border-radius:4px;">devices = [...]</code> array in your HTML file to make changes permanent.</p>
+    <textarea class="export-area" id="exportArea" readonly></textarea>
+    <button class="copy-btn" onclick="copyExport()">📋 Copy to Clipboard</button>
+    <p class="export-hint">💡 Tip: In your HTML file, find <strong>let devices = [</strong> and replace everything up to the closing <strong>];</strong> with the copied text.</p>
+    <div class="modal-actions" style="margin-top:14px;">
+      <button class="btn-cancel" onclick="closeExport()">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="filters">
+  <div class="search-wrap">
+    <label>Search</label>
+    <input type="text" id="searchInput" placeholder="Search device name...">
+  </div>
+  <div class="filter-group">
+    <label>Manufacturer</label>
+    <select id="filterMfr"><option value="">All</option></select>
+  </div>
+  <div class="filter-group">
+    <label>Band</label>
+    <select id="filterBand">
+      <option value="">All</option>
+      <option>b48</option>
+      <option>n48</option>
+      <option>n77</option>
+      <option>n78</option>
+    </select>
+  </div>
+  <button class="clear-btn" onclick="clearFilters()">✕ Clear</button>
+</div>
+
+<div class="results-bar" id="resultsBar"></div>
+<main id="main"></main>
+<div class="toast" id="toast"></div>
+
+<script>
+// ── ADMIN MODE ──────────────────────────────────────────────
+// To enable admin controls, add ?admin=true to the URL.
+// When published publicly, leave the URL as-is — no buttons will appear.
+const isAdmin = new URLSearchParams(window.location.search).get("admin") === "true";
+if (!isAdmin) document.getElementById("adminActions").classList.add("hidden");
+
+// ── DEVICE DATA ─────────────────────────────────────────────
+let devices = [
+  { name: "Apple iPhone 14", manufacturer: "Apple", bands: ["b48"], emoji: "📱" },
+  { name: "Apple iPhone 13", manufacturer: "Apple", bands: ["b48"], emoji: "📱" },
+  { name: "Apple iPhone 13 Pro", manufacturer: "Apple", bands: ["b48"], emoji: "📱" },
+  { name: "Apple iPhone 12", manufacturer: "Apple", bands: ["b48"], emoji: "📱" },
+  { name: "Apple iPhone 11", manufacturer: "Apple", bands: ["b48"], emoji: "📱" },
+  { name: "Apple iPhone SE 2020", manufacturer: "Apple", bands: ["b48"], emoji: "📱" },
+  { name: "Asus Zenfone 8", manufacturer: "Asus", bands: ["n78"], emoji: "📱" },
+  { name: "Asus ROG 5", manufacturer: "Asus", bands: ["n78"], emoji: "📱" },
+  { name: "Google Pixel 7", manufacturer: "Google", bands: ["n78"], emoji: "📱" },
+  { name: "Google Pixel 6", manufacturer: "Google", bands: ["n78"], emoji: "📱" },
+  { name: "Google Pixel 6 Pro", manufacturer: "Google", bands: ["n78"], emoji: "📱" },
+  { name: "Google Pixel 4/4XL", manufacturer: "Google", bands: [], emoji: "📱" },
+  { name: "LG V60 5G", manufacturer: "LG", bands: [], emoji: "📱" },
+  { name: "LG Velvet 5G", manufacturer: "LG", bands: [], emoji: "📱" },
+  { name: "Moto 5G 2024", manufacturer: "Motorola", bands: ["b48","n48","n77","n78"], emoji: "📱" },
+  { name: "Moto 5G 2025", manufacturer: "Motorola", bands: ["b48","n48","n77","n78"], emoji: "📱" },
+  { name: "Moto G Stylus", manufacturer: "Motorola", bands: ["n78"], emoji: "📱" },
+];
+
+// ── MANUFACTURERS ───────────────────────────────────────────
+function getManufacturers() {
+  return [...new Set(devices.map(d => d.manufacturer))].sort();
+}
+
+function refreshMfrDropdown() {
+  const mfrs = getManufacturers();
+  const sel = document.getElementById("filterMfr");
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">All</option>' + mfrs.map(m => `<option${m===cur?' selected':''}>${m}</option>`).join('');
+  const mSel = document.getElementById("inputMfr");
+  mSel.innerHTML = '<option value="">— Select manufacturer —</option>' +
+    mfrs.map(m => `<option>${m}</option>`).join('') +
+    '<option value="__new__">+ Add new manufacturer…</option>';
+}
+
+// ── ADD DEVICE MODAL ────────────────────────────────────────
+function openModal() {
+  document.getElementById("overlay").classList.add("open");
+  document.getElementById("inputName").value = "";
+  document.getElementById("inputMfr").value = "";
+  document.getElementById("inputNewMfr").value = "";
+  document.getElementById("newMfrRow").style.display = "none";
+  document.querySelectorAll('.bands-grid input[type=checkbox]').forEach(c => c.checked = false);
+  ['errName','errMfr','errNewMfr'].forEach(id => document.getElementById(id).style.display = 'none');
+}
+function closeModal() { document.getElementById("overlay").classList.remove("open"); }
+
+document.getElementById("inputMfr").addEventListener("change", function() {
+  document.getElementById("newMfrRow").style.display = this.value === "__new__" ? "block" : "none";
+});
+
+function saveDevice() {
+  let valid = true;
+  const name = document.getElementById("inputName").value.trim();
+  const mfrVal = document.getElementById("inputMfr").value;
+  const newMfrVal = document.getElementById("inputNewMfr").value.trim();
+
+  document.getElementById("errName").style.display = name ? 'none' : 'block';
+  if (!name) valid = false;
+
+  let manufacturer = "";
+  if (!mfrVal) {
+    document.getElementById("errMfr").style.display = 'block'; valid = false;
+  } else if (mfrVal === "__new__") {
+    document.getElementById("errMfr").style.display = 'none';
+    if (!newMfrVal) { document.getElementById("errNewMfr").style.display = 'block'; valid = false; }
+    else { document.getElementById("errNewMfr").style.display = 'none'; manufacturer = newMfrVal; }
+  } else {
+    document.getElementById("errMfr").style.display = 'none';
+    manufacturer = mfrVal;
+  }
+  if (!valid) return;
+
+  const bands = [...document.querySelectorAll('.bands-grid input[type=checkbox]:checked')].map(c => c.value);
+  devices.push({ name, manufacturer, bands, emoji: "📱" });
+  closeModal();
+  refreshMfrDropdown();
+  render();
+  showToast(`✓ "${name}" added — don't forget to Export & save!`);
+}
+
+function deleteDevice(idx) {
+  const name = devices[idx].name;
+  devices.splice(idx, 1);
+  refreshMfrDropdown();
+  render();
+  showToast(`"${name}" removed — don't forget to Export & save!`);
+}
+
+// ── EXPORT ──────────────────────────────────────────────────
+function openExport() {
+  const json = "let devices = " + JSON.stringify(devices, null, 2) + ";";
+  document.getElementById("exportArea").value = json;
+  document.getElementById("exportOverlay").classList.add("open");
+}
+function closeExport() { document.getElementById("exportOverlay").classList.remove("open"); }
+function copyExport() {
+  const area = document.getElementById("exportArea");
+  area.select();
+  document.execCommand("copy");
+  showToast("✓ Copied to clipboard!");
+}
+
+// ── RENDER ──────────────────────────────────────────────────
+function render() {
+  const search = document.getElementById("searchInput").value.toLowerCase();
+  const mfr = document.getElementById("filterMfr").value;
+  const band = document.getElementById("filterBand").value;
+
+  const filtered = devices.map((d, i) => ({...d, _idx: i})).filter(d =>
+    d.name.toLowerCase().includes(search) &&
+    (!mfr || d.manufacturer === mfr) &&
+    (!band || d.bands.includes(band))
+  );
+
+  const byMfr = {};
+  filtered.forEach(d => {
+    if (!byMfr[d.manufacturer]) byMfr[d.manufacturer] = [];
+    byMfr[d.manufacturer].push(d);
+  });
+
+  document.getElementById("resultsBar").textContent = `Showing ${filtered.length} of ${devices.length} devices`;
+
+  const main = document.getElementById("main");
+  if (!filtered.length) {
+    main.innerHTML = `<div class="no-results"><span>🔍</span>No devices match your filters.</div>`;
+    return;
+  }
+
+  main.innerHTML = Object.entries(byMfr).map(([mfr, list]) => `
+    <div class="manufacturer-section">
+      <h2>${mfr}</h2>
+      <div class="grid">
+        ${list.map(d => `
+          <div class="card">
+            ${isAdmin ? `<button class="delete-btn" onclick="deleteDevice(${d._idx})" title="Remove device">✕</button>` : ''}
+            <div class="card-img-placeholder">${d.emoji}</div>
+            <div class="card-name">${d.name}</div>
+            <div class="card-bands">
+              ${d.bands.length
+                ? d.bands.map(b => `<span class="band-tag">${b}</span>`).join("")
+                : `<span class="band-tag empty">Bands TBD</span>`}
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `).join("");
+}
+
+function clearFilters() {
+  document.getElementById("searchInput").value = "";
+  document.getElementById("filterMfr").value = "";
+  document.getElementById("filterBand").value = "";
+  render();
+}
+
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 3000);
+}
+
+document.getElementById("overlay").addEventListener("click", e => { if (e.target === document.getElementById("overlay")) closeModal(); });
+document.getElementById("exportOverlay").addEventListener("click", e => { if (e.target === document.getElementById("exportOverlay")) closeExport(); });
+document.getElementById("searchInput").addEventListener("input", render);
+document.getElementById("filterMfr").addEventListener("change", render);
+document.getElementById("filterBand").addEventListener("change", render);
+
+refreshMfrDropdown();
+render();
+</script>
+</body>
+</html>
