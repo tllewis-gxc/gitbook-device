@@ -1,4 +1,4 @@
-/* ver6 */
+/* ver10 */
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -121,6 +121,7 @@
 <!-- Admin Panel -->
 <div class="admin-panel hidden" id="adminPanel">
   <span class="admin-panel-label">⚙ Manage</span>
+  <button class="btn btn-secondary" onclick="openEdit()">✏️ Edit Device Bands</button>
   <button class="btn btn-secondary" onclick="openManage('manufacturer')">🏢 Manufacturers</button>
   <button class="btn btn-secondary" onclick="openManage('type')">📱 Device Types</button>
   <button class="btn btn-secondary" onclick="openManage('band')">📡 Bands</button>
@@ -157,6 +158,33 @@
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal()">Cancel</button>
       <button class="btn-save" onclick="saveDevice()">Add Device</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Device Bands Modal -->
+<div class="overlay" id="editOverlay">
+  <div class="modal">
+    <h2>✏️ Edit Device Bands</h2>
+    <div class="form-row">
+      <label>Manufacturer</label>
+      <select id="editMfr" onchange="populateEditDevices()">
+        <option value="">— Select manufacturer —</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Device</label>
+      <select id="editDevice" onchange="populateEditBands()">
+        <option value="">— Select device —</option>
+      </select>
+    </div>
+    <div class="form-row" id="editBandsRow" style="display:none">
+      <label>Tested Bands</label>
+      <div class="bands-grid" id="editBandsGrid"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeEdit()">Cancel</button>
+      <button class="btn-save" id="editSaveBtn" onclick="saveEditBands()" style="display:none">Save Bands</button>
     </div>
   </div>
 </div>
@@ -345,6 +373,58 @@ function deleteDevice(idx) {
   showToast(`"${name}" removed — don't forget to Export & save!`);
 }
 
+// ── EDIT DEVICE BANDS ────────────────────────────────────────
+function openEdit() {
+  document.getElementById("editMfr").innerHTML =
+    '<option value="">— Select manufacturer —</option>' +
+    manufacturers.map(m=>`<option>${m}</option>`).join('');
+  document.getElementById("editDevice").innerHTML = '<option value="">— Select device —</option>';
+  document.getElementById("editBandsRow").style.display = "none";
+  document.getElementById("editSaveBtn").style.display = "none";
+  document.getElementById("editOverlay").classList.add("open");
+}
+
+function populateEditDevices() {
+  const mfr = document.getElementById("editMfr").value;
+  const devSel = document.getElementById("editDevice");
+  devSel.innerHTML = '<option value="">— Select device —</option>';
+  document.getElementById("editBandsRow").style.display = "none";
+  document.getElementById("editSaveBtn").style.display = "none";
+  if (!mfr) return;
+  devices.forEach((d,i) => {
+    if (d.manufacturer === mfr) {
+      const opt = document.createElement("option");
+      opt.value = i;
+      opt.textContent = d.name;
+      devSel.appendChild(opt);
+    }
+  });
+}
+
+function populateEditBands() {
+  const idx = document.getElementById("editDevice").value;
+  const row = document.getElementById("editBandsRow");
+  const saveBtn = document.getElementById("editSaveBtn");
+  if (idx === "") { row.style.display="none"; saveBtn.style.display="none"; return; }
+  const d = devices[idx];
+  document.getElementById("editBandsGrid").innerHTML = bands.map(b =>
+    `<label class="band-check"><input type="checkbox" value="${b}" ${d.bands.includes(b)?'checked':''}> ${b}</label>`
+  ).join('');
+  row.style.display = "block";
+  saveBtn.style.display = "block";
+}
+
+function saveEditBands() {
+  const idx = document.getElementById("editDevice").value;
+  if (idx === "") return;
+  const selected = [...document.querySelectorAll('#editBandsGrid input[type=checkbox]:checked')].map(c=>c.value);
+  devices[idx].bands = selected;
+  closeEdit(); render();
+  showToast(`✓ Bands updated for "${devices[idx].name}" — don't forget to Export & save!`);
+}
+
+function closeEdit() { document.getElementById("editOverlay").classList.remove("open"); }
+
 // ── MANAGE MODAL ─────────────────────────────────────────────
 let manageMode = "";
 
@@ -493,7 +573,7 @@ function showToast(msg) {
 }
 
 // Close overlays on background click
-["overlay","manageOverlay","exportOverlay"].forEach(id=>{
+["overlay","editOverlay","manageOverlay","exportOverlay"].forEach(id=>{
   document.getElementById(id).addEventListener("click",e=>{
     if (e.target===document.getElementById(id)) document.getElementById(id).classList.remove("open");
   });
