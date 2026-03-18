@@ -1,3 +1,4 @@
+/* ver6 */
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,13 +13,22 @@
   .header-text h1 { font-size: 1.6rem; font-weight: 700; }
   .header-text p { font-size: 0.85rem; color: #666; margin-top: 4px; }
   .header-text p span { font-weight: 600; color: #1a1a2e; }
-  .header-actions { display: flex; gap: 8px; align-items: center; }
-  .add-btn { background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 9px 18px; font-size: 0.88rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
-  .add-btn:hover { background: #1d4ed8; }
-  .export-btn { background: #f3f4f6; color: #374151; border: 1px solid #d1d5db; border-radius: 8px; padding: 9px 14px; font-size: 0.88rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
-  .export-btn:hover { background: #e5e7eb; }
+  .header-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .btn { border-radius: 8px; padding: 9px 14px; font-size: 0.88rem; font-weight: 600; cursor: pointer; white-space: nowrap; border: none; }
+  .btn-primary { background: #2563eb; color: #fff; }
+  .btn-primary:hover { background: #1d4ed8; }
+  .btn-secondary { background: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
+  .btn-secondary:hover { background: #e5e7eb; }
+  .btn-danger { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; }
+  .btn-danger:hover { background: #fecaca; }
   .admin-badge { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; border-radius: 6px; padding: 4px 10px; font-size: 0.75rem; font-weight: 600; }
 
+  /* Admin panel */
+  .admin-panel { background: #fffbeb; border-bottom: 2px solid #fde68a; padding: 14px 32px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .admin-panel-label { font-size: 0.75rem; font-weight: 700; color: #92400e; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px; }
+  .admin-panel .btn { padding: 7px 12px; font-size: 0.82rem; }
+
+  /* Overlay & Modal */
   .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; align-items: center; justify-content: center; }
   .overlay.open { display: flex; }
   .modal { background: #fff; border-radius: 14px; padding: 28px; width: 100%; max-width: 460px; margin: 16px; box-shadow: 0 8px 40px rgba(0,0,0,0.18); max-height: 90vh; overflow-y: auto; }
@@ -37,11 +47,28 @@
   .btn-cancel:hover { background: #e5e7eb; }
   .error-msg { color: #dc2626; font-size: 0.8rem; margin-top: 5px; display: none; }
 
+  /* Manage lists */
+  .manage-list { list-style: none; margin-top: 4px; display: flex; flex-direction: column; gap: 8px; max-height: 260px; overflow-y: auto; }
+  .manage-list li { display: flex; align-items: center; justify-content: space-between; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; }
+  .manage-list li span { flex: 1; }
+  .manage-list li .count { font-size: 0.75rem; color: #888; margin-right: 10px; }
+  .manage-list li button { background: #fee2e2; border: none; border-radius: 6px; padding: 4px 8px; font-size: 0.75rem; color: #dc2626; cursor: pointer; font-weight: 600; }
+  .manage-list li button:disabled { background: #f3f4f6; color: #bbb; cursor: not-allowed; }
+  .manage-list li button:not(:disabled):hover { background: #fecaca; }
+  .add-inline { display: flex; gap: 8px; margin-top: 10px; }
+  .add-inline input { flex: 1; border: 1px solid #d1d5db; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; background: #f9fafb; }
+  .add-inline input:focus { outline: none; border-color: #2563eb; }
+  .add-inline button { background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 8px 14px; font-size: 0.88rem; font-weight: 600; cursor: pointer; }
+  .add-inline button:hover { background: #1d4ed8; }
+  .section-divider { border: none; border-top: 1px solid #e5e7eb; margin: 18px 0; }
+
+  /* Export */
   .export-area { width: 100%; height: 200px; border: 1px solid #d1d5db; border-radius: 8px; padding: 10px; font-size: 0.78rem; font-family: monospace; background: #f9fafb; resize: none; }
   .copy-btn { width: 100%; background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; margin-top: 10px; }
   .copy-btn:hover { background: #1d4ed8; }
   .export-hint { font-size: 0.78rem; color: #888; margin-top: 8px; line-height: 1.5; }
 
+  /* Filters */
   .filters { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 14px 32px; display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
   .filter-group { display: flex; flex-direction: column; gap: 4px; }
   .filter-group label { font-size: 0.72rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
@@ -67,17 +94,14 @@
   .card-img-placeholder { width: 80px; height: 100px; background: #f3f4f6; border-radius: 8px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
   .card-name { font-size: 0.85rem; font-weight: 600; color: #1a1a2e; margin-bottom: 4px; line-height: 1.3; }
   .type-tag { display: inline-block; border-radius: 4px; padding: 2px 7px; font-size: 0.7rem; font-weight: 600; margin-bottom: 6px; }
-  .type-Smartphone { background: #f0fdf4; color: #16a34a; }
-  .type-Tablet     { background: #fdf4ff; color: #9333ea; }
-  .type-Laptop     { background: #fff7ed; color: #ea580c; }
-  .type-RouterCPE  { background: #f0f9ff; color: #0284c7; }
   .band-tag { display: inline-block; background: #eff6ff; color: #2563eb; border-radius: 4px; padding: 2px 6px; margin: 2px 2px 0; font-size: 0.7rem; font-weight: 500; }
   .band-tag.empty { background: #f3f4f6; color: #aaa; }
   .no-results { text-align: center; padding: 60px 20px; color: #aaa; font-size: 1rem; }
   .no-results span { font-size: 2.5rem; display: block; margin-bottom: 10px; }
-  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #1a1a2e; color: #fff; padding: 10px 20px; border-radius: 8px; font-size: 0.85rem; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 200; }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #1a1a2e; color: #fff; padding: 10px 20px; border-radius: 8px; font-size: 0.85rem; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 200; white-space: nowrap; }
   .toast.show { opacity: 1; }
   .hidden { display: none !important; }
+  .info-msg { font-size: 0.78rem; color: #888; margin-top: 6px; font-style: italic; }
 </style>
 </head>
 <body>
@@ -89,10 +113,18 @@
   </div>
   <div class="header-actions" id="adminActions">
     <span class="admin-badge">Admin Mode</span>
-    <button class="export-btn" onclick="openExport()">⬇ Export</button>
-    <button class="add-btn" onclick="openModal()">＋ Add Device</button>
+    <button class="btn btn-secondary" onclick="openExport()">⬇ Export</button>
+    <button class="btn btn-primary" onclick="openModal()">＋ Add Device</button>
   </div>
 </header>
+
+<!-- Admin Panel -->
+<div class="admin-panel hidden" id="adminPanel">
+  <span class="admin-panel-label">⚙ Manage</span>
+  <button class="btn btn-secondary" onclick="openManage('manufacturer')">🏢 Manufacturers</button>
+  <button class="btn btn-secondary" onclick="openManage('type')">📱 Device Types</button>
+  <button class="btn btn-secondary" onclick="openManage('band')">📡 Bands</button>
+</div>
 
 <!-- Add Device Modal -->
 <div class="overlay" id="overlay">
@@ -115,27 +147,33 @@
     </div>
     <div class="form-row">
       <label>Device Type *</label>
-      <select id="inputType">
-        <option value="">— Select device type —</option>
-        <option>Smartphone</option>
-        <option>Tablet</option>
-        <option>Laptop</option>
-        <option>Router/CPE</option>
-      </select>
+      <select id="inputType"></select>
       <div class="error-msg" id="errType">Please select a device type.</div>
     </div>
     <div class="form-row">
       <label>Tested Bands</label>
-      <div class="bands-grid">
-        <label class="band-check"><input type="checkbox" value="b48"> b48</label>
-        <label class="band-check"><input type="checkbox" value="n48"> n48</label>
-        <label class="band-check"><input type="checkbox" value="n77"> n77</label>
-        <label class="band-check"><input type="checkbox" value="n78"> n78</label>
-      </div>
+      <div class="bands-grid" id="bandsGrid"></div>
     </div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal()">Cancel</button>
       <button class="btn-save" onclick="saveDevice()">Add Device</button>
+    </div>
+  </div>
+</div>
+
+<!-- Manage Modal -->
+<div class="overlay" id="manageOverlay">
+  <div class="modal">
+    <h2 id="manageTitle"></h2>
+    <ul class="manage-list" id="manageList"></ul>
+    <p class="info-msg" id="manageInfo"></p>
+    <hr class="section-divider">
+    <div class="add-inline">
+      <input type="text" id="manageInput" placeholder="">
+      <button onclick="addManageItem()">+ Add</button>
+    </div>
+    <div class="modal-actions" style="margin-top:16px;">
+      <button class="btn-cancel" onclick="closeManage()">Close</button>
     </div>
   </div>
 </div>
@@ -165,23 +203,11 @@
   </div>
   <div class="filter-group">
     <label>Device Type</label>
-    <select id="filterType">
-      <option value="">All</option>
-      <option>Smartphone</option>
-      <option>Tablet</option>
-      <option>Laptop</option>
-      <option>Router/CPE</option>
-    </select>
+    <select id="filterType"><option value="">All</option></select>
   </div>
   <div class="filter-group">
     <label>Band</label>
-    <select id="filterBand">
-      <option value="">All</option>
-      <option>b48</option>
-      <option>n48</option>
-      <option>n77</option>
-      <option>n78</option>
-    </select>
+    <select id="filterBand"><option value="">All</option></select>
   </div>
   <button class="clear-btn" onclick="clearFilters()">✕ Clear</button>
 </div>
@@ -191,60 +217,94 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const typeEmoji = { "Smartphone":"📱", "Tablet":"📟", "Laptop":"💻", "Router/CPE":"📡" };
-const typeClass = { "Smartphone":"type-Smartphone", "Tablet":"type-Tablet", "Laptop":"type-Laptop", "Router/CPE":"type-RouterCPE" };
+const typeEmoji = {};
+const typeClass = { "Smartphone":"type-Smartphone","Tablet":"type-Tablet","Laptop":"type-Laptop","Router/CPE":"type-RouterCPE" };
+const defaultTypeColors = {
+  "Smartphone":"background:#f0fdf4;color:#16a34a",
+  "Tablet":"background:#fdf4ff;color:#9333ea",
+  "Laptop":"background:#fff7ed;color:#ea580c",
+  "Router/CPE":"background:#f0f9ff;color:#0284c7"
+};
+const typeColors = ["background:#f0fdf4;color:#16a34a","background:#fdf4ff;color:#9333ea","background:#fff7ed;color:#ea580c","background:#f0f9ff;color:#0284c7","background:#fafafa;color:#374151","background:#fef9c3;color:#854d0e"];
 
-// ADMIN: add ?admin=true to the URL to show admin controls. Remove for public view.
 const isAdmin = new URLSearchParams(window.location.search).get("admin") === "true";
-if (!isAdmin) document.getElementById("adminActions").classList.add("hidden");
-
-let devices = [
-  { name: "Apple iPhone 14",     manufacturer: "Apple",    type: "Smartphone", bands: [] },
-  { name: "Apple iPhone 13",     manufacturer: "Apple",    type: "Smartphone", bands: [] },
-  { name: "Apple iPhone 13 Pro", manufacturer: "Apple",    type: "Smartphone", bands: [] },
-  { name: "Apple iPhone 12",     manufacturer: "Apple",    type: "Smartphone", bands: [] },
-  { name: "Apple iPhone 11",     manufacturer: "Apple",    type: "Smartphone", bands: [] },
-  { name: "Apple iPhone SE 2020",manufacturer: "Apple",    type: "Smartphone", bands: [] },
-  { name: "Asus Zenfone 8",      manufacturer: "Asus",     type: "Smartphone", bands: ["n78"] },
-  { name: "Asus ROG 5",          manufacturer: "Asus",     type: "Smartphone", bands: ["n78"] },
-  { name: "Google Pixel 7",      manufacturer: "Google",   type: "Smartphone", bands: ["n78"] },
-  { name: "Google Pixel 6",      manufacturer: "Google",   type: "Smartphone", bands: ["n78"] },
-  { name: "Google Pixel 6 Pro",  manufacturer: "Google",   type: "Smartphone", bands: ["n78"] },
-  { name: "Google Pixel 4/4XL",  manufacturer: "Google",   type: "Smartphone", bands: [] },
-  { name: "LG V60 5G",           manufacturer: "LG",       type: "Smartphone", bands: [] },
-  { name: "LG Velvet 5G",        manufacturer: "LG",       type: "Smartphone", bands: [] },
-  { name: "Moto 5G 2024",        manufacturer: "Motorola", type: "Smartphone", bands: ["b48","n48","n77","n78"] },
-  { name: "Moto 5G 2025",        manufacturer: "Motorola", type: "Smartphone", bands: ["b48","n48","n77","n78"] },
-  { name: "Moto G Stylus",       manufacturer: "Motorola", type: "Smartphone", bands: ["n78"] },
-];
-
-function getManufacturers() { return [...new Set(devices.map(d => d.manufacturer))].sort(); }
-
-function refreshMfrDropdown() {
-  const mfrs = getManufacturers();
-  const sel = document.getElementById("filterMfr");
-  const cur = sel.value;
-  sel.innerHTML = '<option value="">All</option>' + mfrs.map(m => `<option${m===cur?' selected':''}>${m}</option>`).join('');
-  document.getElementById("inputMfr").innerHTML =
-    '<option value="">— Select manufacturer —</option>' +
-    mfrs.map(m => `<option>${m}</option>`).join('') +
-    '<option value="__new__">+ Add new manufacturer…</option>';
+if (!isAdmin) {
+  document.getElementById("adminActions").classList.add("hidden");
+} else {
+  document.getElementById("adminPanel").classList.remove("hidden");
 }
 
+// ── DATA ─────────────────────────────────────────────────────
+let manufacturers = ["Apple","Asus","Google","LG","Motorola"];
+let deviceTypes   = ["Smartphone","Tablet","Laptop","Router/CPE"];
+let bands         = ["b48","n48","n77","n78"];
+
+let devices = [
+  { name: "Apple iPhone 14",      manufacturer: "Apple",    type: "Smartphone", bands: [] },
+  { name: "Apple iPhone 13",      manufacturer: "Apple",    type: "Smartphone", bands: [] },
+  { name: "Apple iPhone 13 Pro",  manufacturer: "Apple",    type: "Smartphone", bands: [] },
+  { name: "Apple iPhone 12",      manufacturer: "Apple",    type: "Smartphone", bands: [] },
+  { name: "Apple iPhone 11",      manufacturer: "Apple",    type: "Smartphone", bands: [] },
+  { name: "Apple iPhone SE 2020", manufacturer: "Apple",    type: "Smartphone", bands: [] },
+  { name: "Asus Zenfone 8",       manufacturer: "Asus",     type: "Smartphone", bands: ["n78"] },
+  { name: "Asus ROG 5",           manufacturer: "Asus",     type: "Smartphone", bands: ["n78"] },
+  { name: "Google Pixel 7",       manufacturer: "Google",   type: "Smartphone", bands: ["n78"] },
+  { name: "Google Pixel 6",       manufacturer: "Google",   type: "Smartphone", bands: ["n78"] },
+  { name: "Google Pixel 6 Pro",   manufacturer: "Google",   type: "Smartphone", bands: ["n78"] },
+  { name: "Google Pixel 4/4XL",   manufacturer: "Google",   type: "Smartphone", bands: [] },
+  { name: "LG V60 5G",            manufacturer: "LG",       type: "Smartphone", bands: [] },
+  { name: "LG Velvet 5G",         manufacturer: "LG",       type: "Smartphone", bands: [] },
+  { name: "Moto 5G 2024",         manufacturer: "Motorola", type: "Smartphone", bands: ["b48","n48","n77","n78"] },
+  { name: "Moto 5G 2025",         manufacturer: "Motorola", type: "Smartphone", bands: ["b48","n48","n77","n78"] },
+  { name: "Moto G Stylus",        manufacturer: "Motorola", type: "Smartphone", bands: ["n78"] },
+];
+
+// ── DROPDOWNS ────────────────────────────────────────────────
+function refreshAll() {
+  // Filter bar
+  const fMfr = document.getElementById("filterMfr");
+  const fMfrVal = fMfr.value;
+  fMfr.innerHTML = '<option value="">All</option>' + manufacturers.map(m=>`<option${m===fMfrVal?' selected':''}>${m}</option>`).join('');
+
+  const fType = document.getElementById("filterType");
+  const fTypeVal = fType.value;
+  fType.innerHTML = '<option value="">All</option>' + deviceTypes.map(t=>`<option${t===fTypeVal?' selected':''}>${t}</option>`).join('');
+
+  const fBand = document.getElementById("filterBand");
+  const fBandVal = fBand.value;
+  fBand.innerHTML = '<option value="">All</option>' + bands.map(b=>`<option${b===fBandVal?' selected':''}>${b}</option>`).join('');
+
+  // Add device modal dropdowns
+  document.getElementById("inputMfr").innerHTML =
+    '<option value="">— Select manufacturer —</option>' +
+    manufacturers.map(m=>`<option>${m}</option>`).join('') +
+    '<option value="__new__">+ Add new manufacturer…</option>';
+
+  document.getElementById("inputType").innerHTML =
+    '<option value="">— Select device type —</option>' +
+    deviceTypes.map(t=>`<option>${t}</option>`).join('');
+
+  // Bands checkboxes
+  document.getElementById("bandsGrid").innerHTML = bands.map(b=>
+    `<label class="band-check"><input type="checkbox" value="${b}"> ${b}</label>`
+  ).join('');
+}
+
+// ── ADD DEVICE ───────────────────────────────────────────────
 function openModal() {
+  refreshAll();
   document.getElementById("overlay").classList.add("open");
   document.getElementById("inputName").value = "";
   document.getElementById("inputMfr").value = "";
   document.getElementById("inputNewMfr").value = "";
   document.getElementById("inputType").value = "";
   document.getElementById("newMfrRow").style.display = "none";
-  document.querySelectorAll('.bands-grid input[type=checkbox]').forEach(c => c.checked = false);
-  ['errName','errMfr','errNewMfr','errType'].forEach(id => document.getElementById(id).style.display = 'none');
+  ['errName','errMfr','errNewMfr','errType'].forEach(id=>document.getElementById(id).style.display='none');
 }
 function closeModal() { document.getElementById("overlay").classList.remove("open"); }
 
 document.getElementById("inputMfr").addEventListener("change", function() {
-  document.getElementById("newMfrRow").style.display = this.value === "__new__" ? "block" : "none";
+  document.getElementById("newMfrRow").style.display = this.value==="__new__"?"block":"none";
 });
 
 function saveDevice() {
@@ -254,39 +314,115 @@ function saveDevice() {
   const newMfrVal = document.getElementById("inputNewMfr").value.trim();
   const typeVal = document.getElementById("inputType").value;
 
-  document.getElementById("errName").style.display = name ? 'none' : 'block';
+  document.getElementById("errName").style.display = name?'none':'block';
   if (!name) valid = false;
-  document.getElementById("errType").style.display = typeVal ? 'none' : 'block';
+  document.getElementById("errType").style.display = typeVal?'none':'block';
   if (!typeVal) valid = false;
 
   let manufacturer = "";
   if (!mfrVal) {
-    document.getElementById("errMfr").style.display = 'block'; valid = false;
-  } else if (mfrVal === "__new__") {
-    document.getElementById("errMfr").style.display = 'none';
-    if (!newMfrVal) { document.getElementById("errNewMfr").style.display = 'block'; valid = false; }
-    else { document.getElementById("errNewMfr").style.display = 'none'; manufacturer = newMfrVal; }
+    document.getElementById("errMfr").style.display='block'; valid=false;
+  } else if (mfrVal==="__new__") {
+    document.getElementById("errMfr").style.display='none';
+    if (!newMfrVal) { document.getElementById("errNewMfr").style.display='block'; valid=false; }
+    else { document.getElementById("errNewMfr").style.display='none'; manufacturer=newMfrVal; if (!manufacturers.includes(newMfrVal)) manufacturers.push(newMfrVal); }
   } else {
-    document.getElementById("errMfr").style.display = 'none';
-    manufacturer = mfrVal;
+    document.getElementById("errMfr").style.display='none';
+    manufacturer=mfrVal;
   }
   if (!valid) return;
 
-  const bands = [...document.querySelectorAll('.bands-grid input[type=checkbox]:checked')].map(c => c.value);
-  devices.push({ name, manufacturer, type: typeVal, bands });
-  closeModal(); refreshMfrDropdown(); render();
+  const selectedBands = [...document.querySelectorAll('#bandsGrid input[type=checkbox]:checked')].map(c=>c.value);
+  devices.push({ name, manufacturer, type: typeVal, bands: selectedBands });
+  closeModal(); refreshAll(); render();
   showToast(`✓ "${name}" added — don't forget to Export & save!`);
 }
 
 function deleteDevice(idx) {
   const name = devices[idx].name;
-  devices.splice(idx, 1);
-  refreshMfrDropdown(); render();
+  devices.splice(idx,1);
+  refreshAll(); render();
   showToast(`"${name}" removed — don't forget to Export & save!`);
 }
 
+// ── MANAGE MODAL ─────────────────────────────────────────────
+let manageMode = "";
+
+function openManage(mode) {
+  manageMode = mode;
+  const titles = { manufacturer:"🏢 Manage Manufacturers", type:"📱 Manage Device Types", band:"📡 Manage Bands" };
+  const placeholders = { manufacturer:"New manufacturer name", type:"New device type name", band:"New band (e.g. n41)" };
+  const infos = {
+    manufacturer: "⚠ A manufacturer can only be deleted when all its devices have been removed.",
+    type: "⚠ Deleting a device type removes it from the dropdown only — existing devices keep their type label.",
+    band: "⚠ Deleting a band removes it from the dropdown only — existing devices keep their band tags."
+  };
+  document.getElementById("manageTitle").textContent = titles[mode];
+  document.getElementById("manageInput").placeholder = placeholders[mode];
+  document.getElementById("manageInput").value = "";
+  document.getElementById("manageInfo").textContent = infos[mode];
+  renderManageList();
+  document.getElementById("manageOverlay").classList.add("open");
+}
+
+function renderManageList() {
+  const list = document.getElementById("manageList");
+  let items = manageMode==="manufacturer" ? manufacturers : manageMode==="type" ? deviceTypes : bands;
+
+  list.innerHTML = items.map((item, i) => {
+    let count = 0, canDelete = true, tooltip = "";
+    if (manageMode==="manufacturer") {
+      count = devices.filter(d=>d.manufacturer===item).length;
+      canDelete = count===0;
+      tooltip = canDelete ? "" : `Cannot delete — ${count} device(s) still assigned`;
+    }
+    return `
+      <li>
+        <span>${item}</span>
+        ${manageMode==="manufacturer" ? `<span class="count">${count} device${count!==1?'s':''}</span>` : ''}
+        <button onclick="deleteManageItem(${i})" ${canDelete?'':'disabled'} title="${tooltip}">✕ Delete</button>
+      </li>`;
+  }).join('');
+}
+
+function deleteManageItem(i) {
+  if (manageMode==="manufacturer") {
+    const name = manufacturers[i];
+    if (devices.some(d=>d.manufacturer===name)) { showToast("⚠ Remove all devices first!"); return; }
+    manufacturers.splice(i,1);
+  } else if (manageMode==="type") {
+    deviceTypes.splice(i,1);
+  } else {
+    bands.splice(i,1);
+  }
+  refreshAll(); renderManageList(); render();
+  showToast("✓ Deleted — don't forget to Export & save!");
+}
+
+function addManageItem() {
+  const val = document.getElementById("manageInput").value.trim();
+  if (!val) return;
+  if (manageMode==="manufacturer") {
+    if (manufacturers.includes(val)) { showToast("Already exists!"); return; }
+    manufacturers.push(val);
+  } else if (manageMode==="type") {
+    if (deviceTypes.includes(val)) { showToast("Already exists!"); return; }
+    deviceTypes.push(val);
+  } else {
+    if (bands.includes(val)) { showToast("Already exists!"); return; }
+    bands.push(val);
+  }
+  document.getElementById("manageInput").value = "";
+  refreshAll(); renderManageList();
+  showToast(`✓ "${val}" added!`);
+}
+
+function closeManage() { document.getElementById("manageOverlay").classList.remove("open"); }
+
+// ── EXPORT ───────────────────────────────────────────────────
 function openExport() {
-  document.getElementById("exportArea").value = "let devices = " + JSON.stringify(devices, null, 2) + ";";
+  const out = `let manufacturers = ${JSON.stringify(manufacturers)};\nlet deviceTypes = ${JSON.stringify(deviceTypes)};\nlet bands = ${JSON.stringify(bands)};\n\nlet devices = ${JSON.stringify(devices, null, 2)};`;
+  document.getElementById("exportArea").value = out;
   document.getElementById("exportOverlay").classList.add("open");
 }
 function closeExport() { document.getElementById("exportOverlay").classList.remove("open"); }
@@ -295,70 +431,80 @@ function copyExport() {
   showToast("✓ Copied to clipboard!");
 }
 
+// ── RENDER ───────────────────────────────────────────────────
 function render() {
   const search = document.getElementById("searchInput").value.toLowerCase();
   const mfr  = document.getElementById("filterMfr").value;
   const type = document.getElementById("filterType").value;
   const band = document.getElementById("filterBand").value;
 
-  const filtered = devices.map((d,i) => ({...d,_idx:i})).filter(d =>
+  const filtered = devices.map((d,i)=>({...d,_idx:i})).filter(d=>
     d.name.toLowerCase().includes(search) &&
-    (!mfr  || d.manufacturer === mfr) &&
-    (!type || d.type === type) &&
+    (!mfr  || d.manufacturer===mfr) &&
+    (!type || d.type===type) &&
     (!band || d.bands.includes(band))
   );
 
   const byMfr = {};
-  filtered.forEach(d => { if (!byMfr[d.manufacturer]) byMfr[d.manufacturer]=[]; byMfr[d.manufacturer].push(d); });
+  filtered.forEach(d=>{ if (!byMfr[d.manufacturer]) byMfr[d.manufacturer]=[]; byMfr[d.manufacturer].push(d); });
 
   document.getElementById("resultsBar").textContent = `Showing ${filtered.length} of ${devices.length} devices`;
   const main = document.getElementById("main");
 
   if (!filtered.length) {
-    main.innerHTML = `<div class="no-results"><span>🔍</span>No devices match your filters.</div>`;
+    main.innerHTML=`<div class="no-results"><span>🔍</span>No devices match your filters.</div>`;
     return;
   }
 
-  main.innerHTML = Object.entries(byMfr).map(([mfr, list]) => `
+  main.innerHTML = Object.entries(byMfr).map(([mfr,list])=>`
     <div class="manufacturer-section">
       <h2>${mfr}</h2>
       <div class="grid">
-        ${list.map(d => `
-          <div class="card">
-            ${isAdmin ? `<button class="delete-btn" onclick="deleteDevice(${d._idx})" title="Remove">✕</button>` : ''}
-            <div class="card-img-placeholder">${typeEmoji[d.type] || '📱'}</div>
+        ${list.map(d=>{
+          const tidx = deviceTypes.indexOf(d.type);
+          const style = tidx>=0 ? typeColors[tidx % typeColors.length] : "background:#f3f4f6;color:#555";
+          const emoji = d.type==="Smartphone"?"📱":d.type==="Tablet"?"📟":d.type==="Laptop"?"💻":d.type==="Router/CPE"?"📡":"📦";
+          return `<div class="card">
+            ${isAdmin?`<button class="delete-btn" onclick="deleteDevice(${d._idx})" title="Remove">✕</button>`:''}
+            <div class="card-img-placeholder">${emoji}</div>
             <div class="card-name">${d.name}</div>
-            <span class="type-tag ${typeClass[d.type] || ''}">${d.type || 'Unknown'}</span>
+            <span class="type-tag" style="${style}">${d.type||'Unknown'}</span>
             <div class="card-bands">
-              ${d.bands.length ? d.bands.map(b=>`<span class="band-tag">${b}</span>`).join("") : `<span class="band-tag empty">Bands TBD</span>`}
+              ${d.bands.length?d.bands.map(b=>`<span class="band-tag">${b}</span>`).join(""):`<span class="band-tag empty">Bands TBD</span>`}
             </div>
-          </div>`).join("")}
+          </div>`;
+        }).join("")}
       </div>
     </div>`).join("");
 }
 
 function clearFilters() {
-  document.getElementById("searchInput").value = "";
-  document.getElementById("filterMfr").value = "";
-  document.getElementById("filterType").value = "";
-  document.getElementById("filterBand").value = "";
+  document.getElementById("searchInput").value="";
+  document.getElementById("filterMfr").value="";
+  document.getElementById("filterType").value="";
+  document.getElementById("filterBand").value="";
   render();
 }
 
 function showToast(msg) {
-  const t = document.getElementById("toast");
-  t.textContent = msg; t.classList.add("show");
-  setTimeout(() => t.classList.remove("show"), 3000);
+  const t=document.getElementById("toast");
+  t.textContent=msg; t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),3000);
 }
 
-document.getElementById("overlay").addEventListener("click", e => { if (e.target===document.getElementById("overlay")) closeModal(); });
-document.getElementById("exportOverlay").addEventListener("click", e => { if (e.target===document.getElementById("exportOverlay")) closeExport(); });
-document.getElementById("searchInput").addEventListener("input", render);
-document.getElementById("filterMfr").addEventListener("change", render);
-document.getElementById("filterType").addEventListener("change", render);
-document.getElementById("filterBand").addEventListener("change", render);
+// Close overlays on background click
+["overlay","manageOverlay","exportOverlay"].forEach(id=>{
+  document.getElementById(id).addEventListener("click",e=>{
+    if (e.target===document.getElementById(id)) document.getElementById(id).classList.remove("open");
+  });
+});
 
-refreshMfrDropdown();
+document.getElementById("searchInput").addEventListener("input",render);
+document.getElementById("filterMfr").addEventListener("change",render);
+document.getElementById("filterType").addEventListener("change",render);
+document.getElementById("filterBand").addEventListener("change",render);
+
+refreshAll();
 render();
 </script>
 </body>
