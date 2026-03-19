@@ -30,7 +30,7 @@
 
   .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; align-items: center; justify-content: center; }
   .overlay.open { display: flex; }
-  .modal { background: #fff; border-radius: 14px; padding: 28px; width: 100%; max-width: 460px; margin: 16px; box-shadow: 0 8px 40px rgba(0,0,0,0.18); max-height: 90vh; overflow-y: auto; }
+  .modal { background: #fff; border-radius: 14px; padding: 28px; width: 100%; max-width: 480px; margin: 16px; box-shadow: 0 8px 40px rgba(0,0,0,0.18); max-height: 90vh; overflow-y: auto; }
   .modal h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 20px; }
   .form-row { margin-bottom: 16px; }
   .form-row label { display: block; font-size: 0.78rem; font-weight: 600; color: #555; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.04em; }
@@ -47,6 +47,10 @@
   .error-msg { color: #dc2626; font-size: 0.8rem; margin-top: 5px; display: none; }
   .hint-msg { color: #6b7280; font-size: 0.78rem; margin-top: 5px; line-height: 1.5; }
 
+  /* Image preview in form */
+  .img-preview-wrap { margin-top: 8px; display: none; }
+  .img-preview-wrap img { width: 60px; height: 75px; object-fit: contain; border-radius: 6px; border: 1px solid #e5e7eb; background: #f9fafb; }
+
   .manage-list { list-style: none; margin-top: 4px; display: flex; flex-direction: column; gap: 8px; max-height: 260px; overflow-y: auto; }
   .manage-list li { display: flex; align-items: center; justify-content: space-between; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; }
   .manage-list li span { flex: 1; }
@@ -62,7 +66,6 @@
   .section-divider { border: none; border-top: 1px solid #e5e7eb; margin: 18px 0; }
   .info-msg { font-size: 0.78rem; color: #888; margin-top: 6px; font-style: italic; }
 
-  /* GitHub token modal */
   .token-steps { background: #f9fafb; border-radius: 8px; padding: 14px; margin-bottom: 16px; font-size: 0.82rem; line-height: 1.8; color: #374151; }
   .token-steps a { color: #2563eb; }
   .token-steps code { background: #e5e7eb; padding: 1px 5px; border-radius: 4px; font-size: 0.78rem; }
@@ -89,6 +92,7 @@
   .card:hover .delete-btn { opacity: 1; }
   .delete-btn { position: absolute; top: 8px; right: 8px; background: #fee2e2; border: none; border-radius: 6px; width: 24px; height: 24px; font-size: 0.75rem; cursor: pointer; color: #dc2626; opacity: 0; transition: opacity 0.15s; display: flex; align-items: center; justify-content: center; }
   .delete-btn:hover { background: #fecaca; }
+  .card-img { width: 80px; height: 100px; object-fit: contain; margin-bottom: 10px; }
   .card-img-placeholder { width: 80px; height: 100px; background: #f3f4f6; border-radius: 8px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
   .card-name { font-size: 0.85rem; font-weight: 600; color: #1a1a2e; margin-bottom: 4px; line-height: 1.3; }
   .type-tag { display: inline-block; border-radius: 4px; padding: 2px 7px; font-size: 0.7rem; font-weight: 600; margin-bottom: 6px; }
@@ -118,7 +122,7 @@
 
 <div class="admin-panel hidden" id="adminPanel">
   <span class="admin-panel-label">⚙ Manage</span>
-  <button class="btn btn-secondary" onclick="openEdit()">✏️ Edit Device Bands</button>
+  <button class="btn btn-secondary" onclick="openEdit()">✏️ Edit Device</button>
   <button class="btn btn-secondary" onclick="openManage('manufacturer')">🏢 Manufacturers</button>
   <button class="btn btn-secondary" onclick="openManage('type')">📱 Device Types</button>
   <button class="btn btn-secondary" onclick="openManage('band')">📡 Bands</button>
@@ -141,7 +145,7 @@
       <label>GitHub Personal Access Token *</label>
       <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
       <div class="error-msg" id="errToken">Please enter your token.</div>
-      <p class="hint-msg">Your token is used only to update your file and is never stored or sent anywhere else.</p>
+      <p class="hint-msg">Your token is only used to update your file and is never stored.</p>
     </div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeGitHub()">Cancel</button>
@@ -178,6 +182,14 @@
       <label>Tested Bands</label>
       <div class="bands-grid" id="bandsGrid"></div>
     </div>
+    <div class="form-row">
+      <label>Device Image</label>
+      <input type="text" id="inputImg" placeholder="images/your-filename.png">
+      <p class="hint-msg">Upload your PNG to GitHub in an <code>images/</code> folder, then enter the filename here e.g. <code>images/iphone-14.png</code></p>
+      <div class="img-preview-wrap" id="addImgPreview">
+        <img id="addImgPreviewImg" src="" alt="preview">
+      </div>
+    </div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal()">Cancel</button>
       <button class="btn-save" onclick="saveDevice()">Add Device</button>
@@ -185,10 +197,10 @@
   </div>
 </div>
 
-<!-- Edit Device Bands Modal -->
+<!-- Edit Device Modal -->
 <div class="overlay" id="editOverlay">
   <div class="modal">
-    <h2>✏️ Edit Device Bands</h2>
+    <h2>✏️ Edit Device</h2>
     <div class="form-row">
       <label>Manufacturer</label>
       <select id="editMfr" onchange="populateEditDevices()">
@@ -197,17 +209,27 @@
     </div>
     <div class="form-row">
       <label>Device</label>
-      <select id="editDevice" onchange="populateEditBands()">
+      <select id="editDevice" onchange="populateEditFields()">
         <option value="">— Select device —</option>
       </select>
     </div>
-    <div class="form-row" id="editBandsRow" style="display:none">
-      <label>Tested Bands</label>
-      <div class="bands-grid" id="editBandsGrid"></div>
+    <div id="editFields" style="display:none">
+      <div class="form-row">
+        <label>Tested Bands</label>
+        <div class="bands-grid" id="editBandsGrid"></div>
+      </div>
+      <div class="form-row">
+        <label>Device Image</label>
+        <input type="text" id="editImg" placeholder="images/your-filename.png">
+        <p class="hint-msg">Enter filename from your GitHub <code>images/</code> folder e.g. <code>images/iphone-14.png</code></p>
+        <div class="img-preview-wrap" id="editImgPreview">
+          <img id="editImgPreviewImg" src="" alt="preview">
+        </div>
+      </div>
     </div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeEdit()">Cancel</button>
-      <button class="btn-save" id="editSaveBtn" onclick="saveEditBands()" style="display:none">Save Bands</button>
+      <button class="btn-save" id="editSaveBtn" onclick="saveEditDevice()" style="display:none">Save Changes</button>
     </div>
   </div>
 </div>
@@ -254,26 +276,21 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ── CONFIG — update these to match your repo ─────────────────
-const GITHUB_USER = "tllewis-gxc";
-const GITHUB_REPO = "gitbook-device";
-const GITHUB_FILE = "index.html";
+const GITHUB_USER   = "tllewis-gxc";
+const GITHUB_REPO   = "gitbook-device";
+const GITHUB_FILE   = "index.html";
 const GITHUB_BRANCH = "main";
-// ────────────────────────────────────────────────────────────
+const IMG_BASE      = `https://${GITHUB_USER}.github.io/${GITHUB_REPO}/`;
 
 const typeColors = ["background:#f0fdf4;color:#16a34a","background:#fdf4ff;color:#9333ea","background:#fff7ed;color:#ea580c","background:#f0f9ff;color:#0284c7","background:#fafafa;color:#374151","background:#fef9c3;color:#854d0e"];
 
 const isAdmin = new URLSearchParams(window.location.search).get("admin") === "true";
-if (!isAdmin) {
-  document.getElementById("adminActions").classList.add("hidden");
-} else {
-  document.getElementById("adminPanel").classList.remove("hidden");
-}
+if (!isAdmin) { document.getElementById("adminActions").classList.add("hidden"); }
+else { document.getElementById("adminPanel").classList.remove("hidden"); }
 
-// ── DATA ─────────────────────────────────────────────────────
- let manufacturers = ["Apple","Asus","Google","LG","Motorola","Haivision","Kiloview"];
-let deviceTypes   = ["Smartphone","Tablet","Laptop","Router/CPE","Broadcasting"];
-let bands         = ["b48","n48","n77","n78"];
+let manufacturers = ["Apple","Asus","Google","LG","Motorola","Haivision","Kiloview"];
+let deviceTypes = ["Smartphone","Tablet","Laptop","Router/CPE","Broadcasting"];
+let bands = ["b48","n48","n77","n78"];
 
 let devices = [
   {
@@ -451,22 +468,35 @@ let devices = [
   }
 ];
 
+// ── IMAGE PREVIEW ────────────────────────────────────────────
+function setupImgPreview(inputId, wrapId, imgId) {
+  document.getElementById(inputId).addEventListener("input", function() {
+    const val = this.value.trim();
+    const wrap = document.getElementById(wrapId);
+    const img  = document.getElementById(imgId);
+    if (val) { img.src = IMG_BASE + val; wrap.style.display = "block"; }
+    else { wrap.style.display = "none"; }
+  });
+}
+setupImgPreview("inputImg", "addImgPreview", "addImgPreviewImg");
+setupImgPreview("editImg",  "editImgPreview", "editImgPreviewImg");
+
 // ── DROPDOWNS ────────────────────────────────────────────────
 function refreshAll() {
-  const fMfr = document.getElementById("filterMfr"), fMfrVal = fMfr.value;
-  fMfr.innerHTML = '<option value="">All</option>' + manufacturers.map(m=>`<option${m===fMfrVal?' selected':''}>${m}</option>`).join('');
-  const fType = document.getElementById("filterType"), fTypeVal = fType.value;
-  fType.innerHTML = '<option value="">All</option>' + deviceTypes.map(t=>`<option${t===fTypeVal?' selected':''}>${t}</option>`).join('');
-  const fBand = document.getElementById("filterBand"), fBandVal = fBand.value;
-  fBand.innerHTML = '<option value="">All</option>' + bands.map(b=>`<option${b===fBandVal?' selected':''}>${b}</option>`).join('');
-  document.getElementById("inputMfr").innerHTML =
-    '<option value="">— Select manufacturer —</option>' +
-    manufacturers.map(m=>`<option>${m}</option>`).join('') +
+  const fMfr=document.getElementById("filterMfr"), fMfrVal=fMfr.value;
+  fMfr.innerHTML='<option value="">All</option>'+manufacturers.map(m=>`<option${m===fMfrVal?' selected':''}>${m}</option>`).join('');
+  const fType=document.getElementById("filterType"), fTypeVal=fType.value;
+  fType.innerHTML='<option value="">All</option>'+deviceTypes.map(t=>`<option${t===fTypeVal?' selected':''}>${t}</option>`).join('');
+  const fBand=document.getElementById("filterBand"), fBandVal=fBand.value;
+  fBand.innerHTML='<option value="">All</option>'+bands.map(b=>`<option${b===fBandVal?' selected':''}>${b}</option>`).join('');
+  document.getElementById("inputMfr").innerHTML=
+    '<option value="">— Select manufacturer —</option>'+
+    manufacturers.map(m=>`<option>${m}</option>`).join('')+
     '<option value="__new__">+ Add new manufacturer…</option>';
-  document.getElementById("inputType").innerHTML =
-    '<option value="">— Select device type —</option>' +
+  document.getElementById("inputType").innerHTML=
+    '<option value="">— Select device type —</option>'+
     deviceTypes.map(t=>`<option>${t}</option>`).join('');
-  document.getElementById("bandsGrid").innerHTML = bands.map(b=>
+  document.getElementById("bandsGrid").innerHTML=bands.map(b=>
     `<label class="band-check"><input type="checkbox" value="${b}"> ${b}</label>`
   ).join('');
 }
@@ -475,232 +505,210 @@ function refreshAll() {
 function openModal() {
   refreshAll();
   document.getElementById("overlay").classList.add("open");
-  document.getElementById("inputName").value = "";
-  document.getElementById("inputMfr").value = "";
-  document.getElementById("inputNewMfr").value = "";
-  document.getElementById("inputType").value = "";
-  document.getElementById("newMfrRow").style.display = "none";
+  document.getElementById("inputName").value="";
+  document.getElementById("inputMfr").value="";
+  document.getElementById("inputNewMfr").value="";
+  document.getElementById("inputType").value="";
+  document.getElementById("inputImg").value="";
+  document.getElementById("addImgPreview").style.display="none";
+  document.getElementById("newMfrRow").style.display="none";
   ['errName','errMfr','errNewMfr','errType'].forEach(id=>document.getElementById(id).style.display='none');
 }
 function closeModal() { document.getElementById("overlay").classList.remove("open"); }
 
-document.getElementById("inputMfr").addEventListener("change", function() {
-  document.getElementById("newMfrRow").style.display = this.value==="__new__"?"block":"none";
+document.getElementById("inputMfr").addEventListener("change",function(){
+  document.getElementById("newMfrRow").style.display=this.value==="__new__"?"block":"none";
 });
 
 function saveDevice() {
-  let valid = true;
-  const name = document.getElementById("inputName").value.trim();
-  const mfrVal = document.getElementById("inputMfr").value;
-  const newMfrVal = document.getElementById("inputNewMfr").value.trim();
-  const typeVal = document.getElementById("inputType").value;
-  document.getElementById("errName").style.display = name?'none':'block';
-  if (!name) valid = false;
-  document.getElementById("errType").style.display = typeVal?'none':'block';
-  if (!typeVal) valid = false;
-  let manufacturer = "";
-  if (!mfrVal) { document.getElementById("errMfr").style.display='block'; valid=false; }
-  else if (mfrVal==="__new__") {
+  let valid=true;
+  const name=document.getElementById("inputName").value.trim();
+  const mfrVal=document.getElementById("inputMfr").value;
+  const newMfrVal=document.getElementById("inputNewMfr").value.trim();
+  const typeVal=document.getElementById("inputType").value;
+  const imgVal=document.getElementById("inputImg").value.trim();
+  document.getElementById("errName").style.display=name?'none':'block';
+  if(!name) valid=false;
+  document.getElementById("errType").style.display=typeVal?'none':'block';
+  if(!typeVal) valid=false;
+  let manufacturer="";
+  if(!mfrVal){document.getElementById("errMfr").style.display='block';valid=false;}
+  else if(mfrVal==="__new__"){
     document.getElementById("errMfr").style.display='none';
-    if (!newMfrVal) { document.getElementById("errNewMfr").style.display='block'; valid=false; }
-    else { document.getElementById("errNewMfr").style.display='none'; manufacturer=newMfrVal; if(!manufacturers.includes(newMfrVal)) manufacturers.push(newMfrVal); }
-  } else { document.getElementById("errMfr").style.display='none'; manufacturer=mfrVal; }
-  if (!valid) return;
-  const selBands = [...document.querySelectorAll('#bandsGrid input[type=checkbox]:checked')].map(c=>c.value);
-  devices.push({ name, manufacturer, type: typeVal, bands: selBands });
-  closeModal(); refreshAll(); render();
-  markUnsaved();
+    if(!newMfrVal){document.getElementById("errNewMfr").style.display='block';valid=false;}
+    else{document.getElementById("errNewMfr").style.display='none';manufacturer=newMfrVal;if(!manufacturers.includes(newMfrVal))manufacturers.push(newMfrVal);}
+  } else{document.getElementById("errMfr").style.display='none';manufacturer=mfrVal;}
+  if(!valid) return;
+  const selBands=[...document.querySelectorAll('#bandsGrid input[type=checkbox]:checked')].map(c=>c.value);
+  devices.push({name,manufacturer,type:typeVal,bands:selBands,img:imgVal});
+  closeModal(); refreshAll(); render(); markUnsaved();
   showToast(`✓ "${name}" added`);
 }
 
 function deleteDevice(idx) {
-  const name = devices[idx].name;
+  const name=devices[idx].name;
   devices.splice(idx,1);
-  refreshAll(); render();
-  markUnsaved();
+  refreshAll(); render(); markUnsaved();
   showToast(`"${name}" removed`);
 }
 
-// ── EDIT BANDS ───────────────────────────────────────────────
+// ── EDIT DEVICE ──────────────────────────────────────────────
 function openEdit() {
-  document.getElementById("editMfr").innerHTML =
-    '<option value="">— Select manufacturer —</option>' +
+  document.getElementById("editMfr").innerHTML=
+    '<option value="">— Select manufacturer —</option>'+
     manufacturers.map(m=>`<option>${m}</option>`).join('');
-  document.getElementById("editDevice").innerHTML = '<option value="">— Select device —</option>';
-  document.getElementById("editBandsRow").style.display = "none";
-  document.getElementById("editSaveBtn").style.display = "none";
+  document.getElementById("editDevice").innerHTML='<option value="">— Select device —</option>';
+  document.getElementById("editFields").style.display="none";
+  document.getElementById("editSaveBtn").style.display="none";
   document.getElementById("editOverlay").classList.add("open");
 }
 function populateEditDevices() {
-  const mfr = document.getElementById("editMfr").value;
-  const devSel = document.getElementById("editDevice");
-  devSel.innerHTML = '<option value="">— Select device —</option>';
-  document.getElementById("editBandsRow").style.display = "none";
-  document.getElementById("editSaveBtn").style.display = "none";
-  if (!mfr) return;
-  devices.forEach((d,i) => {
-    if (d.manufacturer===mfr) { const o=document.createElement("option"); o.value=i; o.textContent=d.name; devSel.appendChild(o); }
+  const mfr=document.getElementById("editMfr").value;
+  const devSel=document.getElementById("editDevice");
+  devSel.innerHTML='<option value="">— Select device —</option>';
+  document.getElementById("editFields").style.display="none";
+  document.getElementById("editSaveBtn").style.display="none";
+  if(!mfr) return;
+  devices.forEach((d,i)=>{
+    if(d.manufacturer===mfr){const o=document.createElement("option");o.value=i;o.textContent=d.name;devSel.appendChild(o);}
   });
 }
-function populateEditBands() {
-  const idx = document.getElementById("editDevice").value;
-  if (idx==="") { document.getElementById("editBandsRow").style.display="none"; document.getElementById("editSaveBtn").style.display="none"; return; }
-  const d = devices[idx];
-  document.getElementById("editBandsGrid").innerHTML = bands.map(b=>
+function populateEditFields() {
+  const idx=document.getElementById("editDevice").value;
+  if(idx===""){document.getElementById("editFields").style.display="none";document.getElementById("editSaveBtn").style.display="none";return;}
+  const d=devices[idx];
+  document.getElementById("editBandsGrid").innerHTML=bands.map(b=>
     `<label class="band-check"><input type="checkbox" value="${b}" ${d.bands.includes(b)?'checked':''}> ${b}</label>`
   ).join('');
-  document.getElementById("editBandsRow").style.display = "block";
-  document.getElementById("editSaveBtn").style.display = "block";
+  document.getElementById("editImg").value=d.img||"";
+  const wrap=document.getElementById("editImgPreview");
+  const img=document.getElementById("editImgPreviewImg");
+  if(d.img){img.src=IMG_BASE+d.img;wrap.style.display="block";}
+  else{wrap.style.display="none";}
+  document.getElementById("editFields").style.display="block";
+  document.getElementById("editSaveBtn").style.display="block";
 }
-function saveEditBands() {
-  const idx = document.getElementById("editDevice").value;
-  if (idx==="") return;
-  devices[idx].bands = [...document.querySelectorAll('#editBandsGrid input[type=checkbox]:checked')].map(c=>c.value);
-  closeEdit(); render();
-  markUnsaved();
-  showToast(`✓ Bands updated for "${devices[idx].name}"`);
+function saveEditDevice() {
+  const idx=document.getElementById("editDevice").value;
+  if(idx==="") return;
+  devices[idx].bands=[...document.querySelectorAll('#editBandsGrid input[type=checkbox]:checked')].map(c=>c.value);
+  devices[idx].img=document.getElementById("editImg").value.trim();
+  closeEdit(); render(); markUnsaved();
+  showToast(`✓ "${devices[idx].name}" updated`);
 }
-function closeEdit() { document.getElementById("editOverlay").classList.remove("open"); }
+function closeEdit(){document.getElementById("editOverlay").classList.remove("open");}
 
 // ── MANAGE ───────────────────────────────────────────────────
-let manageMode = "";
-function openManage(mode) {
-  manageMode = mode;
-  const titles = { manufacturer:"🏢 Manage Manufacturers", type:"📱 Manage Device Types", band:"📡 Manage Bands" };
-  const placeholders = { manufacturer:"New manufacturer name", type:"New device type name", band:"New band (e.g. n41)" };
-  const infos = {
+let manageMode="";
+function openManage(mode){
+  manageMode=mode;
+  const titles={manufacturer:"🏢 Manage Manufacturers",type:"📱 Manage Device Types",band:"📡 Manage Bands"};
+  const placeholders={manufacturer:"New manufacturer name",type:"New device type name",band:"New band (e.g. n41)"};
+  const infos={
     manufacturer:"⚠ A manufacturer can only be deleted when all its devices have been removed.",
     type:"⚠ Deleting a device type removes it from the dropdown — existing devices keep their label.",
     band:"⚠ Deleting a band removes it from the dropdown — existing devices keep their band tags."
   };
-  document.getElementById("manageTitle").textContent = titles[mode];
-  document.getElementById("manageInput").placeholder = placeholders[mode];
-  document.getElementById("manageInput").value = "";
-  document.getElementById("manageInfo").textContent = infos[mode];
+  document.getElementById("manageTitle").textContent=titles[mode];
+  document.getElementById("manageInput").placeholder=placeholders[mode];
+  document.getElementById("manageInput").value="";
+  document.getElementById("manageInfo").textContent=infos[mode];
   renderManageList();
   document.getElementById("manageOverlay").classList.add("open");
 }
-function renderManageList() {
-  const items = manageMode==="manufacturer"?manufacturers:manageMode==="type"?deviceTypes:bands;
-  document.getElementById("manageList").innerHTML = items.map((item,i) => {
-    let count=0, canDelete=true, tooltip="";
-    if (manageMode==="manufacturer") {
-      count = devices.filter(d=>d.manufacturer===item).length;
-      canDelete = count===0;
-      tooltip = canDelete?"":`Cannot delete — ${count} device(s) still assigned`;
-    }
-    return `<li>
-      <span>${item}</span>
-      ${manageMode==="manufacturer"?`<span class="count">${count} device${count!==1?'s':''}</span>`:''}
-      <button onclick="deleteManageItem(${i})" ${canDelete?'':'disabled'} title="${tooltip}">✕ Delete</button>
-    </li>`;
+function renderManageList(){
+  const items=manageMode==="manufacturer"?manufacturers:manageMode==="type"?deviceTypes:bands;
+  document.getElementById("manageList").innerHTML=items.map((item,i)=>{
+    let count=0,canDelete=true,tooltip="";
+    if(manageMode==="manufacturer"){count=devices.filter(d=>d.manufacturer===item).length;canDelete=count===0;tooltip=canDelete?"":`Cannot delete — ${count} device(s) still assigned`;}
+    return `<li><span>${item}</span>${manageMode==="manufacturer"?`<span class="count">${count} device${count!==1?'s':''}</span>`:''}<button onclick="deleteManageItem(${i})" ${canDelete?'':'disabled'} title="${tooltip}">✕ Delete</button></li>`;
   }).join('');
 }
-function deleteManageItem(i) {
-  if (manageMode==="manufacturer") {
-    if (devices.some(d=>d.manufacturer===manufacturers[i])) { showToast("⚠ Remove all devices first!"); return; }
-    manufacturers.splice(i,1);
-  } else if (manageMode==="type") { deviceTypes.splice(i,1); }
-  else { bands.splice(i,1); }
-  refreshAll(); renderManageList(); render(); markUnsaved();
+function deleteManageItem(i){
+  if(manageMode==="manufacturer"){if(devices.some(d=>d.manufacturer===manufacturers[i])){showToast("⚠ Remove all devices first!");return;}manufacturers.splice(i,1);}
+  else if(manageMode==="type"){deviceTypes.splice(i,1);}
+  else{bands.splice(i,1);}
+  refreshAll();renderManageList();render();markUnsaved();
   showToast("✓ Deleted");
 }
-function addManageItem() {
-  const val = document.getElementById("manageInput").value.trim();
-  if (!val) return;
-  const list = manageMode==="manufacturer"?manufacturers:manageMode==="type"?deviceTypes:bands;
-  if (list.includes(val)) { showToast("Already exists!"); return; }
+function addManageItem(){
+  const val=document.getElementById("manageInput").value.trim();
+  if(!val) return;
+  const list=manageMode==="manufacturer"?manufacturers:manageMode==="type"?deviceTypes:bands;
+  if(list.includes(val)){showToast("Already exists!");return;}
   list.push(val);
-  document.getElementById("manageInput").value = "";
-  refreshAll(); renderManageList(); markUnsaved();
+  document.getElementById("manageInput").value="";
+  refreshAll();renderManageList();markUnsaved();
   showToast(`✓ "${val}" added`);
 }
-function closeManage() { document.getElementById("manageOverlay").classList.remove("open"); }
+function closeManage(){document.getElementById("manageOverlay").classList.remove("open");}
 
-// ── UNSAVED INDICATOR ────────────────────────────────────────
-function markUnsaved() {
-  document.getElementById("saveStatus").textContent = "● Unsaved changes";
-  document.getElementById("saveStatus").style.color = "#dc2626";
+// ── UNSAVED ──────────────────────────────────────────────────
+function markUnsaved(){
+  document.getElementById("saveStatus").textContent="● Unsaved changes";
+  document.getElementById("saveStatus").style.color="#dc2626";
 }
-function markSaved() {
-  document.getElementById("saveStatus").textContent = "✓ Saved to GitHub";
-  document.getElementById("saveStatus").style.color = "#16a34a";
+function markSaved(){
+  document.getElementById("saveStatus").textContent="✓ Saved to GitHub";
+  document.getElementById("saveStatus").style.color="#16a34a";
 }
 
 // ── SAVE TO GITHUB ───────────────────────────────────────────
-function openSaveToGitHub() {
-  document.getElementById("ghToken").value = "";
-  document.getElementById("errToken").style.display = "none";
+function openSaveToGitHub(){
+  document.getElementById("ghToken").value="";
+  document.getElementById("errToken").style.display="none";
   document.getElementById("githubOverlay").classList.add("open");
 }
-function closeGitHub() { document.getElementById("githubOverlay").classList.remove("open"); }
+function closeGitHub(){document.getElementById("githubOverlay").classList.remove("open");}
 
-async function saveToGitHub() {
-  const token = document.getElementById("ghToken").value.trim();
-  if (!token) { document.getElementById("errToken").style.display="block"; return; }
+async function saveToGitHub(){
+  const token=document.getElementById("ghToken").value.trim();
+  if(!token){document.getElementById("errToken").style.display="block";return;}
   document.getElementById("errToken").style.display="none";
-
-  const btn = document.getElementById("ghSaveBtn");
-  btn.textContent = "⏳ Saving..."; btn.disabled = true;
-
-  try {
-    // 1. Get current file SHA
-    const metaRes = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${GITHUB_FILE}?ref=${GITHUB_BRANCH}`, {
-      headers: { Authorization: `token ${token}`, Accept: "application/vnd.github.v3+json" }
+  const btn=document.getElementById("ghSaveBtn");
+  btn.textContent="⏳ Saving...";btn.disabled=true;
+  try{
+    const metaRes=await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${GITHUB_FILE}?ref=${GITHUB_BRANCH}`,{
+      headers:{Authorization:`token ${token}`,Accept:"application/vnd.github.v3+json"}
     });
-    if (!metaRes.ok) throw new Error(`Could not fetch file (${metaRes.status}). Check your token and repo settings.`);
-    const meta = await metaRes.json();
-    const sha = meta.sha;
-
-    // 2. Build updated file content
-    const currentHTML = await fetch(window.location.href.split('?')[0]).then(r=>r.text());
-    const dataBlock =
-      `let manufacturers = ${JSON.stringify(manufacturers)};\n` +
-      `let deviceTypes   = ${JSON.stringify(deviceTypes)};\n` +
-      `let bands         = ${JSON.stringify(bands)};\n\n` +
-      `let devices = ${JSON.stringify(devices, null, 2)};`;
-
-    const updated = currentHTML
-      .replace(/let manufacturers\s*=[\s\S]*?let devices\s*=[\s\S]*?];/m, dataBlock);
-
-    // 3. Push to GitHub
-    const encoded = btoa(unescape(encodeURIComponent(updated)));
-    const pushRes = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${GITHUB_FILE}`, {
-      method: "PUT",
-      headers: { Authorization: `token ${token}`, Accept: "application/vnd.github.v3+json", "Content-Type": "application/json" },
-      body: JSON.stringify({ message: "Update device list via admin UI", content: encoded, sha, branch: GITHUB_BRANCH })
+    if(!metaRes.ok) throw new Error(`Could not fetch file (${metaRes.status}). Check your token and repo settings.`);
+    const meta=await metaRes.json();
+    const sha=meta.sha;
+    const currentHTML=await fetch(window.location.href.split('?')[0]).then(r=>r.text());
+    const dataBlock=
+      `let manufacturers = ${JSON.stringify(manufacturers)};\n`+
+      `let deviceTypes   = ${JSON.stringify(deviceTypes)};\n`+
+      `let bands         = ${JSON.stringify(bands)};\n\n`+
+      `let devices = ${JSON.stringify(devices,null,2)};`;
+    const updated=currentHTML.replace(/let manufacturers\s*=[\s\S]*?let devices\s*=[\s\S]*?];/m,dataBlock);
+    const encoded=btoa(unescape(encodeURIComponent(updated)));
+    const pushRes=await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${GITHUB_FILE}`,{
+      method:"PUT",
+      headers:{Authorization:`token ${token}`,Accept:"application/vnd.github.v3+json","Content-Type":"application/json"},
+      body:JSON.stringify({message:"Update device list via admin UI",content:encoded,sha,branch:GITHUB_BRANCH})
     });
-    if (!pushRes.ok) {
-      const err = await pushRes.json();
-      throw new Error(err.message || `Push failed (${pushRes.status})`);
-    }
-
-    closeGitHub();
-    markSaved();
-    showToast("✓ Saved to GitHub! Page will update in ~30 seconds.");
-  } catch(e) {
-    showToast(`✗ ${e.message}`, true);
-  } finally {
-    btn.textContent = "☁ Save to GitHub"; btn.disabled = false;
-  }
+    if(!pushRes.ok){const err=await pushRes.json();throw new Error(err.message||`Push failed (${pushRes.status})`);}
+    closeGitHub();markSaved();
+    showToast("✓ Saved to GitHub! Page updates in ~30 seconds.");
+  }catch(e){showToast(`✗ ${e.message}`,true);}
+  finally{btn.textContent="☁ Save to GitHub";btn.disabled=false;}
 }
 
 // ── RENDER ───────────────────────────────────────────────────
-function render() {
-  const search = document.getElementById("searchInput").value.toLowerCase();
-  const mfr  = document.getElementById("filterMfr").value;
-  const type = document.getElementById("filterType").value;
-  const band = document.getElementById("filterBand").value;
-  const filtered = devices.map((d,i)=>({...d,_idx:i})).filter(d=>
-    d.name.toLowerCase().includes(search) &&
-    (!mfr||d.manufacturer===mfr) && (!type||d.type===type) && (!band||d.bands.includes(band))
+function render(){
+  const search=document.getElementById("searchInput").value.toLowerCase();
+  const mfr=document.getElementById("filterMfr").value;
+  const type=document.getElementById("filterType").value;
+  const band=document.getElementById("filterBand").value;
+  const filtered=devices.map((d,i)=>({...d,_idx:i})).filter(d=>
+    d.name.toLowerCase().includes(search)&&(!mfr||d.manufacturer===mfr)&&(!type||d.type===type)&&(!band||d.bands.includes(band))
   );
-  const byMfr = {};
-  filtered.forEach(d=>{ if(!byMfr[d.manufacturer]) byMfr[d.manufacturer]=[]; byMfr[d.manufacturer].push(d); });
-  document.getElementById("resultsBar").textContent = `Showing ${filtered.length} of ${devices.length} devices`;
-  const main = document.getElementById("main");
-  if (!filtered.length) { main.innerHTML=`<div class="no-results"><span>🔍</span>No devices match your filters.</div>`; return; }
-  main.innerHTML = Object.entries(byMfr).map(([mfr,list])=>`
+  const byMfr={};
+  filtered.forEach(d=>{if(!byMfr[d.manufacturer])byMfr[d.manufacturer]=[];byMfr[d.manufacturer].push(d);});
+  document.getElementById("resultsBar").textContent=`Showing ${filtered.length} of ${devices.length} devices`;
+  const main=document.getElementById("main");
+  if(!filtered.length){main.innerHTML=`<div class="no-results"><span>🔍</span>No devices match your filters.</div>`;return;}
+  main.innerHTML=Object.entries(byMfr).map(([mfr,list])=>`
     <div class="manufacturer-section">
       <h2>${mfr}</h2>
       <div class="grid">
@@ -708,9 +716,14 @@ function render() {
           const tidx=deviceTypes.indexOf(d.type);
           const style=tidx>=0?typeColors[tidx%typeColors.length]:"background:#f3f4f6;color:#555";
           const emoji=d.type==="Smartphone"?"📱":d.type==="Tablet"?"📟":d.type==="Laptop"?"💻":d.type==="Router/CPE"?"📡":"📦";
+          const imgHtml=d.img
+            ?`<img class="card-img" src="${IMG_BASE}${d.img}" alt="${d.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+            :'';
+          const placeholderStyle=d.img?'display:none':'';
           return `<div class="card">
             ${isAdmin?`<button class="delete-btn" onclick="deleteDevice(${d._idx})" title="Remove">✕</button>`:''}
-            <div class="card-img-placeholder">${emoji}</div>
+            ${imgHtml}
+            <div class="card-img-placeholder" style="${placeholderStyle}">${emoji}</div>
             <div class="card-name">${d.name}</div>
             <span class="type-tag" style="${style}">${d.type||'Unknown'}</span>
             <div class="card-bands">${d.bands.length?d.bands.map(b=>`<span class="band-tag">${b}</span>`).join(""):`<span class="band-tag empty">Bands TBD</span>`}</div>
@@ -720,22 +733,19 @@ function render() {
     </div>`).join("");
 }
 
-function clearFilters() {
+function clearFilters(){
   ["searchInput","filterMfr","filterType","filterBand"].forEach(id=>document.getElementById(id).value="");
   render();
 }
-
-function showToast(msg, isError=false) {
+function showToast(msg,isError=false){
   const t=document.getElementById("toast");
-  t.textContent=msg;
-  t.className = "toast" + (isError?" error":"");
-  t.classList.add("show");
+  t.textContent=msg;t.className="toast"+(isError?" error":"");t.classList.add("show");
   setTimeout(()=>t.classList.remove("show"),3500);
 }
 
-["overlay","editOverlay","manageOverlay","exportOverlay","githubOverlay"].forEach(id=>{
+["overlay","editOverlay","manageOverlay","githubOverlay"].forEach(id=>{
   const el=document.getElementById(id);
-  if(el) el.addEventListener("click",e=>{ if(e.target===el) el.classList.remove("open"); });
+  if(el) el.addEventListener("click",e=>{if(e.target===el)el.classList.remove("open");});
 });
 
 document.getElementById("searchInput").addEventListener("input",render);
@@ -743,7 +753,7 @@ document.getElementById("filterMfr").addEventListener("change",render);
 document.getElementById("filterType").addEventListener("change",render);
 document.getElementById("filterBand").addEventListener("change",render);
 
-refreshAll(); render();
+refreshAll();render();
 </script>
 </body>
 </html>
