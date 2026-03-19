@@ -47,7 +47,6 @@
   .error-msg { color: #dc2626; font-size: 0.8rem; margin-top: 5px; display: none; }
   .hint-msg { color: #6b7280; font-size: 0.78rem; margin-top: 5px; line-height: 1.5; }
 
-  /* Image preview in form */
   .img-preview-wrap { margin-top: 8px; display: none; }
   .img-preview-wrap img { width: 60px; height: 75px; object-fit: contain; border-radius: 6px; border: 1px solid #e5e7eb; background: #f9fafb; }
 
@@ -183,6 +182,11 @@
       <div class="bands-grid" id="bandsGrid"></div>
     </div>
     <div class="form-row">
+      <label>Device URL</label>
+      <input type="text" id="inputUrl" placeholder="https://manufacturer.com/device-page">
+      <p class="hint-msg">Optional — device name on the card will link to this URL.</p>
+    </div>
+    <div class="form-row">
       <label>Device Image</label>
       <input type="text" id="inputImg" placeholder="images/your-filename.png">
       <p class="hint-msg">Upload your PNG to GitHub in an <code>images/</code> folder, then enter the filename here e.g. <code>images/iphone-14.png</code></p>
@@ -217,6 +221,11 @@
       <div class="form-row">
         <label>Tested Bands</label>
         <div class="bands-grid" id="editBandsGrid"></div>
+      </div>
+      <div class="form-row">
+        <label>Device URL</label>
+        <input type="text" id="editUrl" placeholder="https://manufacturer.com/device-page">
+        <p class="hint-msg">Optional — device name on the card will link to this URL.</p>
       </div>
       <div class="form-row">
         <label>Device Image</label>
@@ -293,152 +302,30 @@ let deviceTypes   = ["Smartphone","Tablet","Laptop","Router/CPE","Broadcasting"]
 let bands         = ["b48","n48","n77","n78"];
 
 let devices = [
-  {
-    "name": "Apple iPhone 14",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48"
-    ]
-  },
-  {
-    "name": "Apple iPhone 13",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48"
-    ]
-  },
-  {
-    "name": "Apple iPhone 13 Pro",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48"
-    ]
-  },
-  {
-    "name": "Apple iPhone 12",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48"
-    ]
-  },
-  {
-    "name": "Apple iPhone 11",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48"
-    ]
-  },
-  {
-    "name": "Apple iPhone SE 2020",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48"
-    ]
-  },
-  {
-    "name": "Asus Zenfone 8",
-    "manufacturer": "Asus",
-    "type": "Smartphone",
-    "bands": [
-      "n78"
-    ]
-  },
-  {
-    "name": "Asus ROG 5",
-    "manufacturer": "Asus",
-    "type": "Smartphone",
-    "bands": [
-      "n78"
-    ]
-  },
-  {
-    "name": "LG V60 5G",
-    "manufacturer": "LG",
-    "type": "Smartphone",
-    "bands": []
-  },
-  {
-    "name": "LG Velvet 5G",
-    "manufacturer": "LG",
-    "type": "Smartphone",
-    "bands": []
-  },
-  {
-    "name": "Moto 5G 2024",
-    "manufacturer": "Motorola",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ]
-  },
-  {
-    "name": "Moto 5G 2025",
-    "manufacturer": "Motorola",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ]
-  },
-  {
-    "name": "Moto G Stylus",
-    "manufacturer": "Motorola",
-    "type": "Smartphone",
-    "bands": [
-      "n78"
-    ]
-  },
-  {
-    "name": "Pro360-5G Transmitter",
-    "manufacturer": "Haivision",
-    "type": "Broadcasting",
-    "bands": [
-      "n77",
-      "n78"
-    ]
-  },
-  {
-    "name": "Falkon X2 Transmitter",
-    "manufacturer": "Haivision",
-    "type": "Broadcasting",
-    "bands": [
-      "n77",
-      "n78"
-    ]
-  },
-  {
-    "name": "Pro460 Transmitter",
-    "manufacturer": "Haivision",
-    "type": "Broadcasting",
-    "bands": [
-      "n48",
-      "n77",
-      "n78"
-    ]
-  },
-  {
-    "name": "P3 5G Bonding Encoder",
-    "manufacturer": "Kiloview",
-    "type": "Broadcasting",
-    "bands": [
-      "n77",
-      "n78"
-    ]
-  }
+  { "name": "Apple iPhone 14",      "manufacturer": "Apple",     "type": "Smartphone",  "bands": ["b48"], "img": "" },
+  { "name": "Apple iPhone 13",      "manufacturer": "Apple",     "type": "Smartphone",  "bands": ["b48"], "img": "" },
+  { "name": "Apple iPhone 13 Pro",  "manufacturer": "Apple",     "type": "Smartphone",  "bands": ["b48"], "img": "" },
+  { "name": "Apple iPhone 12",      "manufacturer": "Apple",     "type": "Smartphone",  "bands": ["b48"], "img": "" },
+  { "name": "Apple iPhone 11",      "manufacturer": "Apple",     "type": "Smartphone",  "bands": ["b48"], "img": "" },
+  { "name": "Apple iPhone SE 2020", "manufacturer": "Apple",     "type": "Smartphone",  "bands": ["b48"], "img": "" },
+  { "name": "Asus Zenfone 8",       "manufacturer": "Asus",      "type": "Smartphone",  "bands": ["n78"], "img": "" },
+  { "name": "Asus ROG 5",           "manufacturer": "Asus",      "type": "Smartphone",  "bands": ["n78"], "img": "" },
+  { "name": "Google Pixel 7",       "manufacturer": "Google",    "type": "Smartphone",  "bands": ["n78"], "img": "" },
+  { "name": "Google Pixel 6",       "manufacturer": "Google",    "type": "Smartphone",  "bands": ["n78"], "img": "" },
+  { "name": "Google Pixel 6 Pro",   "manufacturer": "Google",    "type": "Smartphone",  "bands": ["n78"], "img": "" },
+  { "name": "Google Pixel 4/4XL",   "manufacturer": "Google",    "type": "Smartphone",  "bands": [],      "img": "" },
+  { "name": "LG V60 5G",            "manufacturer": "LG",        "type": "Smartphone",  "bands": [],      "img": "" },
+  { "name": "LG Velvet 5G",         "manufacturer": "LG",        "type": "Smartphone",  "bands": [],      "img": "" },
+  { "name": "Moto 5G 2024",         "manufacturer": "Motorola",  "type": "Smartphone",  "bands": ["b48","n48","n77","n78"], "img": "" },
+  { "name": "Moto 5G 2025",         "manufacturer": "Motorola",  "type": "Smartphone",  "bands": ["b48","n48","n77","n78"], "img": "" },
+  { "name": "Moto G Stylus",        "manufacturer": "Motorola",  "type": "Smartphone",  "bands": ["n78"], "img": "" },
+  { "name": "Pro360-5G Transmitter","manufacturer": "Haivision", "type": "Broadcasting","bands": ["n77","n78"], "img": "" },
+  { "name": "Falkon X2 Transmitter","manufacturer": "Haivision", "type": "Broadcasting","bands": ["n77","n78"], "img": "" },
+  { "name": "Pro460 Transmitter",   "manufacturer": "Haivision", "type": "Broadcasting","bands": ["n48","n77","n78"], "img": "" },
+  { "name": "P3 5G Bonding Encoder","manufacturer": "Kiloview",  "type": "Broadcasting","bands": ["n77","n78"], "img": "" },
 ];
 
-// ── IMAGE PREVIEW ────────────────────────────────────────────
+// ── IMAGE PREVIEW ─────────────────────────────────────────────
 function setupImgPreview(inputId, wrapId, imgId) {
   document.getElementById(inputId).addEventListener("input", function() {
     const val = this.value.trim();
@@ -451,7 +338,7 @@ function setupImgPreview(inputId, wrapId, imgId) {
 setupImgPreview("inputImg", "addImgPreview", "addImgPreviewImg");
 setupImgPreview("editImg",  "editImgPreview", "editImgPreviewImg");
 
-// ── DROPDOWNS ────────────────────────────────────────────────
+// ── DROPDOWNS ─────────────────────────────────────────────────
 function refreshAll() {
   const fMfr=document.getElementById("filterMfr"), fMfrVal=fMfr.value;
   fMfr.innerHTML='<option value="">All</option>'+manufacturers.map(m=>`<option${m===fMfrVal?' selected':''}>${m}</option>`).join('');
@@ -471,7 +358,7 @@ function refreshAll() {
   ).join('');
 }
 
-// ── ADD DEVICE ───────────────────────────────────────────────
+// ── ADD DEVICE ────────────────────────────────────────────────
 function openModal() {
   refreshAll();
   document.getElementById("overlay").classList.add("open");
@@ -480,6 +367,7 @@ function openModal() {
   document.getElementById("inputNewMfr").value="";
   document.getElementById("inputType").value="";
   document.getElementById("inputImg").value="";
+  document.getElementById("inputUrl").value="";
   document.getElementById("addImgPreview").style.display="none";
   document.getElementById("newMfrRow").style.display="none";
   ['errName','errMfr','errNewMfr','errType'].forEach(id=>document.getElementById(id).style.display='none');
@@ -497,6 +385,7 @@ function saveDevice() {
   const newMfrVal=document.getElementById("inputNewMfr").value.trim();
   const typeVal=document.getElementById("inputType").value;
   const imgVal=document.getElementById("inputImg").value.trim();
+  const urlVal=document.getElementById("inputUrl").value.trim();
   document.getElementById("errName").style.display=name?'none':'block';
   if(!name) valid=false;
   document.getElementById("errType").style.display=typeVal?'none':'block';
@@ -510,7 +399,7 @@ function saveDevice() {
   } else{document.getElementById("errMfr").style.display='none';manufacturer=mfrVal;}
   if(!valid) return;
   const selBands=[...document.querySelectorAll('#bandsGrid input[type=checkbox]:checked')].map(c=>c.value);
-  devices.push({name,manufacturer,type:typeVal,bands:selBands,img:imgVal});
+  devices.push({name,manufacturer,type:typeVal,bands:selBands,img:imgVal,url:urlVal});
   closeModal(); refreshAll(); render(); markUnsaved();
   showToast(`✓ "${name}" added`);
 }
@@ -522,7 +411,7 @@ function deleteDevice(idx) {
   showToast(`"${name}" removed`);
 }
 
-// ── EDIT DEVICE ──────────────────────────────────────────────
+// ── EDIT DEVICE ───────────────────────────────────────────────
 function openEdit() {
   document.getElementById("editMfr").innerHTML=
     '<option value="">— Select manufacturer —</option>'+
@@ -551,6 +440,7 @@ function populateEditFields() {
     `<label class="band-check"><input type="checkbox" value="${b}" ${d.bands.includes(b)?'checked':''}> ${b}</label>`
   ).join('');
   document.getElementById("editImg").value=d.img||"";
+  document.getElementById("editUrl").value=d.url||"";
   const wrap=document.getElementById("editImgPreview");
   const img=document.getElementById("editImgPreviewImg");
   if(d.img){img.src=IMG_BASE+d.img;wrap.style.display="block";}
@@ -563,12 +453,13 @@ function saveEditDevice() {
   if(idx==="") return;
   devices[idx].bands=[...document.querySelectorAll('#editBandsGrid input[type=checkbox]:checked')].map(c=>c.value);
   devices[idx].img=document.getElementById("editImg").value.trim();
+  devices[idx].url=document.getElementById("editUrl").value.trim();
   closeEdit(); render(); markUnsaved();
   showToast(`✓ "${devices[idx].name}" updated`);
 }
 function closeEdit(){document.getElementById("editOverlay").classList.remove("open");}
 
-// ── MANAGE ───────────────────────────────────────────────────
+// ── MANAGE ────────────────────────────────────────────────────
 let manageMode="";
 function openManage(mode){
   manageMode=mode;
@@ -613,7 +504,7 @@ function addManageItem(){
 }
 function closeManage(){document.getElementById("manageOverlay").classList.remove("open");}
 
-// ── UNSAVED ──────────────────────────────────────────────────
+// ── UNSAVED ───────────────────────────────────────────────────
 function markUnsaved(){
   document.getElementById("saveStatus").textContent="● Unsaved changes";
   document.getElementById("saveStatus").style.color="#dc2626";
@@ -623,7 +514,7 @@ function markSaved(){
   document.getElementById("saveStatus").style.color="#16a34a";
 }
 
-// ── SAVE TO GITHUB ───────────────────────────────────────────
+// ── SAVE TO GITHUB ────────────────────────────────────────────
 function openSaveToGitHub(){
   document.getElementById("ghToken").value="";
   document.getElementById("errToken").style.display="none";
@@ -664,7 +555,7 @@ async function saveToGitHub(){
   finally{btn.textContent="☁ Save to GitHub";btn.disabled=false;}
 }
 
-// ── RENDER ───────────────────────────────────────────────────
+// ── RENDER ────────────────────────────────────────────────────
 function render(){
   const search=document.getElementById("searchInput").value.toLowerCase();
   const mfr=document.getElementById("filterMfr").value;
@@ -685,10 +576,10 @@ function render(){
         ${list.map(d=>{
           const tidx=deviceTypes.indexOf(d.type);
           const style=tidx>=0?typeColors[tidx%typeColors.length]:"background:#f3f4f6;color:#555";
-          const emoji=d.type==="Smartphone"?"📱":d.type==="Tablet"?"📟":d.type==="Laptop"?"💻":d.type==="Router/CPE"?"📡":"📦";
-          const imgHtml=d.img
-            ?`<img class="card-img" src="${IMG_BASE}${d.img}" alt="${d.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
-            :'';
+          const emoji=d.type==="Smartphone"?"📱":d.type==="Tablet"?"📟":d.type==="Laptop"?"💻":d.type==="Router/CPE"?"📡":d.type==="Broadcasting"?"📹":"📦";
+          const nameHtml=d.url
+            ?`<a class="card-name" href="${d.url}" target="_blank" rel="noopener" style="color:#2563eb;text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">${d.name}</a>`
+            :`<div class="card-name">${d.name}</div>`;
           const placeholderStyle=d.img?'display:none':'';
           return `<div class="card">
             ${isAdmin?`<button class="delete-btn" onclick="deleteDevice(${d._idx})" title="Remove">✕</button>`:''}
