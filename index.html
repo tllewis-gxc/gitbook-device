@@ -292,7 +292,7 @@ const isAdmin = new URLSearchParams(window.location.search).get("admin") === "tr
 if (!isAdmin) { document.getElementById("adminActions").classList.add("hidden"); }
 else { document.getElementById("adminPanel").classList.remove("hidden"); }
 
-let manufacturers = ["Apple","Asus","LG","Motorola","Haivision","Kiloview"];
+let manufacturers = ["Apple","Asus","LG","Motorola","Haivision","Kiloview","OnePlus","SamSung"];
 let deviceTypes   = ["Smartphone","Tablet","Laptop","Router/CPE","Broadcasting"];
 let bands         = ["b48","n48","n77","n78"];
 
@@ -421,8 +421,8 @@ let devices = [
       "n77",
       "n78"
     ],
-    "url": "",
-    "img": ""
+    "url": "https://www.gsmarena.com/motorola_moto_g_(2024)-12866.php",
+    "img": "images/Moto5G-2024.png"
   },
   {
     "name": "Moto 5G 2025",
@@ -434,8 +434,8 @@ let devices = [
       "n77",
       "n78"
     ],
-    "url": "",
-    "img": ""
+    "url": "https://www.gsmarena.com/motorola_moto_g_(2025)-13624.php",
+    "img": "images/Moto5G-2025.png"
   },
   {
     "name": "Moto G Stylus",
@@ -444,8 +444,8 @@ let devices = [
     "bands": [
       "n78"
     ],
-    "url": "",
-    "img": ""
+    "url": "https://www.gsmarena.com/motorola_moto_g_stylus-10057.php",
+    "img": "images/MotoG-Stylus.png"
   },
   {
     "name": "Pro360-5G Transmitter",
@@ -491,6 +491,36 @@ let devices = [
     ],
     "url": "",
     "img": ""
+  },
+  {
+    "name": "OnePlus 9 Pro",
+    "manufacturer": "OnePlus",
+    "type": "Smartphone",
+    "bands": [
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/oneplus_9_pro-10806.php",
+    "img": "images/OnePlus9-Pro.png"
+  },
+  {
+    "name": "Samsung S21",
+    "manufacturer": "SamSung",
+    "type": "Smartphone",
+    "bands": [
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/samsung_galaxy_s21_5g-10626.php",
+    "img": "images/SamsungS21-5G.png"
+  },
+  {
+    "name": "Samsung S20",
+    "manufacturer": "SamSung",
+    "type": "Smartphone",
+    "bands": [
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/samsung_galaxy_s20_5g-10044.php",
+    "img": "images/SamsungS20-5G.png"
   }
 ];
 
