@@ -7,7 +7,6 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f7f8fa; color: #1a1a2e; }
-
   header { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
   .header-text h1 { font-size: 1.6rem; font-weight: 700; }
   .header-text p { font-size: 0.85rem; color: #666; margin-top: 4px; }
@@ -22,12 +21,10 @@
   .btn-success:hover { background: #15803d; }
   .btn-success:disabled { background: #86efac; cursor: not-allowed; }
   .admin-badge { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; border-radius: 6px; padding: 4px 10px; font-size: 0.75rem; font-weight: 600; }
-
   .admin-panel { background: #fffbeb; border-bottom: 2px solid #fde68a; padding: 14px 32px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
   .admin-panel-label { font-size: 0.75rem; font-weight: 700; color: #92400e; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px; }
   .admin-panel .btn { padding: 7px 12px; font-size: 0.82rem; }
   .save-status { font-size: 0.78rem; color: #666; font-style: italic; margin-left: 4px; }
-
   .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; align-items: center; justify-content: center; }
   .overlay.open { display: flex; }
   .modal { background: #fff; border-radius: 14px; padding: 28px; width: 100%; max-width: 480px; margin: 16px; box-shadow: 0 8px 40px rgba(0,0,0,0.18); max-height: 90vh; overflow-y: auto; }
@@ -46,10 +43,8 @@
   .btn-cancel:hover { background: #e5e7eb; }
   .error-msg { color: #dc2626; font-size: 0.8rem; margin-top: 5px; display: none; }
   .hint-msg { color: #6b7280; font-size: 0.78rem; margin-top: 5px; line-height: 1.5; }
-
   .img-preview-wrap { margin-top: 8px; display: none; }
   .img-preview-wrap img { width: 60px; height: 75px; object-fit: contain; border-radius: 6px; border: 1px solid #e5e7eb; background: #f9fafb; }
-
   .manage-list { list-style: none; margin-top: 4px; display: flex; flex-direction: column; gap: 8px; max-height: 260px; overflow-y: auto; }
   .manage-list li { display: flex; align-items: center; justify-content: space-between; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; }
   .manage-list li span { flex: 1; }
@@ -64,11 +59,9 @@
   .add-inline button:hover { background: #1d4ed8; }
   .section-divider { border: none; border-top: 1px solid #e5e7eb; margin: 18px 0; }
   .info-msg { font-size: 0.78rem; color: #888; margin-top: 6px; font-style: italic; }
-
   .token-steps { background: #f9fafb; border-radius: 8px; padding: 14px; margin-bottom: 16px; font-size: 0.82rem; line-height: 1.8; color: #374151; }
   .token-steps a { color: #2563eb; }
   .token-steps code { background: #e5e7eb; padding: 1px 5px; border-radius: 4px; font-size: 0.78rem; }
-
   .filters { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 14px 32px; display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
   .filter-group { display: flex; flex-direction: column; gap: 4px; }
   .filter-group label { font-size: 0.72rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
@@ -80,7 +73,6 @@
   .search-wrap input:focus { outline: none; border-color: #2563eb; }
   .clear-btn { margin-top: 18px; padding: 7px 14px; border: 1px solid #d1d5db; border-radius: 8px; background: #fff; font-size: 0.82rem; cursor: pointer; color: #555; }
   .clear-btn:hover { background: #f3f4f6; }
-
   .results-bar { padding: 12px 32px; font-size: 0.82rem; color: #888; }
   main { padding: 16px 32px 40px; }
   .manufacturer-section { margin-bottom: 32px; }
@@ -94,6 +86,8 @@
   .card-img { width: 80px; height: 100px; object-fit: contain; margin-bottom: 10px; }
   .card-img-placeholder { width: 80px; height: 100px; background: #f3f4f6; border-radius: 8px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
   .card-name { font-size: 0.85rem; font-weight: 600; color: #1a1a2e; margin-bottom: 4px; line-height: 1.3; }
+  .card-name-link { font-size: 0.85rem; font-weight: 600; color: #2563eb; margin-bottom: 4px; line-height: 1.3; text-decoration: none; }
+  .card-name-link:hover { text-decoration: underline; }
   .type-tag { display: inline-block; border-radius: 4px; padding: 2px 7px; font-size: 0.7rem; font-weight: 600; margin-bottom: 6px; }
   .band-tag { display: inline-block; background: #eff6ff; color: #2563eb; border-radius: 4px; padding: 2px 6px; margin: 2px 2px 0; font-size: 0.7rem; font-weight: 500; }
   .band-tag.empty { background: #f3f4f6; color: #aaa; }
@@ -128,7 +122,7 @@
   <span class="save-status" id="saveStatus"></span>
 </div>
 
-<!-- GitHub Token Modal -->
+<!-- GitHub Modal -->
 <div class="overlay" id="githubOverlay">
   <div class="modal">
     <h2>☁ Save to GitHub</h2>
@@ -137,7 +131,7 @@
       1. Go to <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens/new</a><br>
       2. Give it a name like <code>gxc-devices</code><br>
       3. Set expiration as needed<br>
-      4. Check <code>repo</code> scope (full control)<br>
+      4. Check <code>repo</code> scope<br>
       5. Click <strong>Generate token</strong> and copy it
     </div>
     <div class="form-row">
@@ -184,12 +178,12 @@
     <div class="form-row">
       <label>Device URL</label>
       <input type="text" id="inputUrl" placeholder="https://manufacturer.com/device-page">
-      <p class="hint-msg">Optional — device name on the card will link to this URL.</p>
+      <p class="hint-msg">Optional — device name on the card will become a clickable link.</p>
     </div>
     <div class="form-row">
       <label>Device Image</label>
       <input type="text" id="inputImg" placeholder="images/your-filename.png">
-      <p class="hint-msg">Upload your PNG to GitHub in an <code>images/</code> folder, then enter the filename here e.g. <code>images/iphone-14.png</code></p>
+      <p class="hint-msg">Upload PNG to GitHub <code>images/</code> folder first, then enter filename e.g. <code>images/iphone-14.png</code></p>
       <div class="img-preview-wrap" id="addImgPreview">
         <img id="addImgPreviewImg" src="" alt="preview">
       </div>
@@ -225,12 +219,12 @@
       <div class="form-row">
         <label>Device URL</label>
         <input type="text" id="editUrl" placeholder="https://manufacturer.com/device-page">
-        <p class="hint-msg">Optional — device name on the card will link to this URL.</p>
+        <p class="hint-msg">Optional — device name on the card will become a clickable link.</p>
       </div>
       <div class="form-row">
         <label>Device Image</label>
         <input type="text" id="editImg" placeholder="images/your-filename.png">
-        <p class="hint-msg">Enter filename from your GitHub <code>images/</code> folder e.g. <code>images/iphone-14.png</code></p>
+        <p class="hint-msg">Enter filename from GitHub <code>images/</code> folder e.g. <code>images/iphone-14.png</code></p>
         <div class="img-preview-wrap" id="editImgPreview">
           <img id="editImgPreviewImg" src="" alt="preview">
         </div>
@@ -289,9 +283,16 @@ const GITHUB_USER   = "tllewis-gxc";
 const GITHUB_REPO   = "gitbook-device";
 const GITHUB_FILE   = "index.html";
 const GITHUB_BRANCH = "main";
-const IMG_BASE      = `https://${GITHUB_USER}.github.io/${GITHUB_REPO}/`;
+const IMG_BASE      = "https://" + GITHUB_USER + ".github.io/" + GITHUB_REPO + "/";
 
-const typeColors = ["background:#f0fdf4;color:#16a34a","background:#fdf4ff;color:#9333ea","background:#fff7ed;color:#ea580c","background:#f0f9ff;color:#0284c7","background:#fafafa;color:#374151","background:#fef9c3;color:#854d0e"];
+const typeColors = [
+  "background:#f0fdf4;color:#16a34a",
+  "background:#fdf4ff;color:#9333ea",
+  "background:#fff7ed;color:#ea580c",
+  "background:#f0f9ff;color:#0284c7",
+  "background:#fafafa;color:#374151",
+  "background:#fef9c3;color:#854d0e"
+];
 
 const isAdmin = new URLSearchParams(window.location.search).get("admin") === "true";
 if (!isAdmin) { document.getElementById("adminActions").classList.add("hidden"); }
@@ -302,319 +303,392 @@ let deviceTypes   = ["Smartphone","Tablet","Laptop","Router/CPE","Broadcasting"]
 let bands         = ["b48","n48","n77","n78"];
 
 let devices = [
-  { "name": "Apple iPhone 14",      "manufacturer": "Apple",     "type": "Smartphone",  "bands": ["b48"], "img": "" },
-  { "name": "Apple iPhone 13",      "manufacturer": "Apple",     "type": "Smartphone",  "bands": ["b48"], "img": "" },
-  { "name": "Apple iPhone 13 Pro",  "manufacturer": "Apple",     "type": "Smartphone",  "bands": ["b48"], "img": "" },
-  { "name": "Apple iPhone 12",      "manufacturer": "Apple",     "type": "Smartphone",  "bands": ["b48"], "img": "" },
-  { "name": "Apple iPhone 11",      "manufacturer": "Apple",     "type": "Smartphone",  "bands": ["b48"], "img": "" },
-  { "name": "Apple iPhone SE 2020", "manufacturer": "Apple",     "type": "Smartphone",  "bands": ["b48"], "img": "" },
-  { "name": "Asus Zenfone 8",       "manufacturer": "Asus",      "type": "Smartphone",  "bands": ["n78"], "img": "" },
-  { "name": "Asus ROG 5",           "manufacturer": "Asus",      "type": "Smartphone",  "bands": ["n78"], "img": "" },
-  { "name": "Google Pixel 7",       "manufacturer": "Google",    "type": "Smartphone",  "bands": ["n78"], "img": "" },
-  { "name": "Google Pixel 6",       "manufacturer": "Google",    "type": "Smartphone",  "bands": ["n78"], "img": "" },
-  { "name": "Google Pixel 6 Pro",   "manufacturer": "Google",    "type": "Smartphone",  "bands": ["n78"], "img": "" },
-  { "name": "Google Pixel 4/4XL",   "manufacturer": "Google",    "type": "Smartphone",  "bands": [],      "img": "" },
-  { "name": "LG V60 5G",            "manufacturer": "LG",        "type": "Smartphone",  "bands": [],      "img": "" },
-  { "name": "LG Velvet 5G",         "manufacturer": "LG",        "type": "Smartphone",  "bands": [],      "img": "" },
-  { "name": "Moto 5G 2024",         "manufacturer": "Motorola",  "type": "Smartphone",  "bands": ["b48","n48","n77","n78"], "img": "" },
-  { "name": "Moto 5G 2025",         "manufacturer": "Motorola",  "type": "Smartphone",  "bands": ["b48","n48","n77","n78"], "img": "" },
-  { "name": "Moto G Stylus",        "manufacturer": "Motorola",  "type": "Smartphone",  "bands": ["n78"], "img": "" },
-  { "name": "Pro360-5G Transmitter","manufacturer": "Haivision", "type": "Broadcasting","bands": ["n77","n78"], "img": "" },
-  { "name": "Falkon X2 Transmitter","manufacturer": "Haivision", "type": "Broadcasting","bands": ["n77","n78"], "img": "" },
-  { "name": "Pro460 Transmitter",   "manufacturer": "Haivision", "type": "Broadcasting","bands": ["n48","n77","n78"], "img": "" },
-  { "name": "P3 5G Bonding Encoder","manufacturer": "Kiloview",  "type": "Broadcasting","bands": ["n77","n78"], "img": "" },
+  { "name": "Apple iPhone 14",       "manufacturer": "Apple",     "type": "Smartphone",   "bands": ["b48"],                    "url": "", "img": "" },
+  { "name": "Apple iPhone 13",       "manufacturer": "Apple",     "type": "Smartphone",   "bands": ["b48"],                    "url": "", "img": "" },
+  { "name": "Apple iPhone 13 Pro",   "manufacturer": "Apple",     "type": "Smartphone",   "bands": ["b48"],                    "url": "", "img": "" },
+  { "name": "Apple iPhone 12",       "manufacturer": "Apple",     "type": "Smartphone",   "bands": ["b48"],                    "url": "", "img": "" },
+  { "name": "Apple iPhone 11",       "manufacturer": "Apple",     "type": "Smartphone",   "bands": ["b48"],                    "url": "", "img": "" },
+  { "name": "Apple iPhone SE 2020",  "manufacturer": "Apple",     "type": "Smartphone",   "bands": ["b48"],                    "url": "", "img": "" },
+  { "name": "Asus Zenfone 8",        "manufacturer": "Asus",      "type": "Smartphone",   "bands": ["n78"],                    "url": "", "img": "" },
+  { "name": "Asus ROG 5",            "manufacturer": "Asus",      "type": "Smartphone",   "bands": ["n78"],                    "url": "", "img": "" },
+  { "name": "Google Pixel 7",        "manufacturer": "Google",    "type": "Smartphone",   "bands": ["n78"],                    "url": "", "img": "" },
+  { "name": "Google Pixel 6",        "manufacturer": "Google",    "type": "Smartphone",   "bands": ["n78"],                    "url": "", "img": "" },
+  { "name": "Google Pixel 6 Pro",    "manufacturer": "Google",    "type": "Smartphone",   "bands": ["n78"],                    "url": "", "img": "" },
+  { "name": "Google Pixel 4/4XL",    "manufacturer": "Google",    "type": "Smartphone",   "bands": [],                         "url": "", "img": "" },
+  { "name": "LG V60 5G",             "manufacturer": "LG",        "type": "Smartphone",   "bands": [],                         "url": "", "img": "" },
+  { "name": "LG Velvet 5G",          "manufacturer": "LG",        "type": "Smartphone",   "bands": [],                         "url": "", "img": "" },
+  { "name": "Moto 5G 2024",          "manufacturer": "Motorola",  "type": "Smartphone",   "bands": ["b48","n48","n77","n78"],   "url": "", "img": "" },
+  { "name": "Moto 5G 2025",          "manufacturer": "Motorola",  "type": "Smartphone",   "bands": ["b48","n48","n77","n78"],   "url": "", "img": "" },
+  { "name": "Moto G Stylus",         "manufacturer": "Motorola",  "type": "Smartphone",   "bands": ["n78"],                    "url": "", "img": "" },
+  { "name": "Pro360-5G Transmitter", "manufacturer": "Haivision", "type": "Broadcasting", "bands": ["n77","n78"],              "url": "", "img": "" },
+  { "name": "Falkon X2 Transmitter", "manufacturer": "Haivision", "type": "Broadcasting", "bands": ["n77","n78"],              "url": "", "img": "" },
+  { "name": "Pro460 Transmitter",    "manufacturer": "Haivision", "type": "Broadcasting", "bands": ["n48","n77","n78"],        "url": "", "img": "" },
+  { "name": "P3 5G Bonding Encoder", "manufacturer": "Kiloview",  "type": "Broadcasting", "bands": ["n77","n78"],              "url": "", "img": "" }
 ];
 
 // ── IMAGE PREVIEW ─────────────────────────────────────────────
 function setupImgPreview(inputId, wrapId, imgId) {
   document.getElementById(inputId).addEventListener("input", function() {
-    const val = this.value.trim();
-    const wrap = document.getElementById(wrapId);
-    const img  = document.getElementById(imgId);
+    var val = this.value.trim();
+    var wrap = document.getElementById(wrapId);
+    var img = document.getElementById(imgId);
     if (val) { img.src = IMG_BASE + val; wrap.style.display = "block"; }
     else { wrap.style.display = "none"; }
   });
 }
 setupImgPreview("inputImg", "addImgPreview", "addImgPreviewImg");
-setupImgPreview("editImg",  "editImgPreview", "editImgPreviewImg");
+setupImgPreview("editImg", "editImgPreview", "editImgPreviewImg");
 
 // ── DROPDOWNS ─────────────────────────────────────────────────
 function refreshAll() {
-  const fMfr=document.getElementById("filterMfr"), fMfrVal=fMfr.value;
-  fMfr.innerHTML='<option value="">All</option>'+manufacturers.map(m=>`<option${m===fMfrVal?' selected':''}>${m}</option>`).join('');
-  const fType=document.getElementById("filterType"), fTypeVal=fType.value;
-  fType.innerHTML='<option value="">All</option>'+deviceTypes.map(t=>`<option${t===fTypeVal?' selected':''}>${t}</option>`).join('');
-  const fBand=document.getElementById("filterBand"), fBandVal=fBand.value;
-  fBand.innerHTML='<option value="">All</option>'+bands.map(b=>`<option${b===fBandVal?' selected':''}>${b}</option>`).join('');
-  document.getElementById("inputMfr").innerHTML=
-    '<option value="">— Select manufacturer —</option>'+
-    manufacturers.map(m=>`<option>${m}</option>`).join('')+
+  var fMfr = document.getElementById("filterMfr");
+  var fMfrVal = fMfr.value;
+  fMfr.innerHTML = '<option value="">All</option>' + manufacturers.map(function(m) { return '<option' + (m === fMfrVal ? ' selected' : '') + '>' + m + '</option>'; }).join('');
+
+  var fType = document.getElementById("filterType");
+  var fTypeVal = fType.value;
+  fType.innerHTML = '<option value="">All</option>' + deviceTypes.map(function(t) { return '<option' + (t === fTypeVal ? ' selected' : '') + '>' + t + '</option>'; }).join('');
+
+  var fBand = document.getElementById("filterBand");
+  var fBandVal = fBand.value;
+  fBand.innerHTML = '<option value="">All</option>' + bands.map(function(b) { return '<option' + (b === fBandVal ? ' selected' : '') + '>' + b + '</option>'; }).join('');
+
+  document.getElementById("inputMfr").innerHTML =
+    '<option value="">— Select manufacturer —</option>' +
+    manufacturers.map(function(m) { return '<option>' + m + '</option>'; }).join('') +
     '<option value="__new__">+ Add new manufacturer…</option>';
-  document.getElementById("inputType").innerHTML=
-    '<option value="">— Select device type —</option>'+
-    deviceTypes.map(t=>`<option>${t}</option>`).join('');
-  document.getElementById("bandsGrid").innerHTML=bands.map(b=>
-    `<label class="band-check"><input type="checkbox" value="${b}"> ${b}</label>`
-  ).join('');
+
+  document.getElementById("inputType").innerHTML =
+    '<option value="">— Select device type —</option>' +
+    deviceTypes.map(function(t) { return '<option>' + t + '</option>'; }).join('');
+
+  document.getElementById("bandsGrid").innerHTML = bands.map(function(b) {
+    return '<label class="band-check"><input type="checkbox" value="' + b + '"> ' + b + '</label>';
+  }).join('');
 }
 
 // ── ADD DEVICE ────────────────────────────────────────────────
 function openModal() {
   refreshAll();
   document.getElementById("overlay").classList.add("open");
-  document.getElementById("inputName").value="";
-  document.getElementById("inputMfr").value="";
-  document.getElementById("inputNewMfr").value="";
-  document.getElementById("inputType").value="";
-  document.getElementById("inputImg").value="";
-  document.getElementById("inputUrl").value="";
-  document.getElementById("addImgPreview").style.display="none";
-  document.getElementById("newMfrRow").style.display="none";
-  ['errName','errMfr','errNewMfr','errType'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById("inputName").value = "";
+  document.getElementById("inputMfr").value = "";
+  document.getElementById("inputNewMfr").value = "";
+  document.getElementById("inputType").value = "";
+  document.getElementById("inputUrl").value = "";
+  document.getElementById("inputImg").value = "";
+  document.getElementById("addImgPreview").style.display = "none";
+  document.getElementById("newMfrRow").style.display = "none";
+  ["errName","errMfr","errNewMfr","errType"].forEach(function(id) { document.getElementById(id).style.display = 'none'; });
 }
 function closeModal() { document.getElementById("overlay").classList.remove("open"); }
 
-document.getElementById("inputMfr").addEventListener("change",function(){
-  document.getElementById("newMfrRow").style.display=this.value==="__new__"?"block":"none";
+document.getElementById("inputMfr").addEventListener("change", function() {
+  document.getElementById("newMfrRow").style.display = this.value === "__new__" ? "block" : "none";
 });
 
 function saveDevice() {
-  let valid=true;
-  const name=document.getElementById("inputName").value.trim();
-  const mfrVal=document.getElementById("inputMfr").value;
-  const newMfrVal=document.getElementById("inputNewMfr").value.trim();
-  const typeVal=document.getElementById("inputType").value;
-  const imgVal=document.getElementById("inputImg").value.trim();
-  const urlVal=document.getElementById("inputUrl").value.trim();
-  document.getElementById("errName").style.display=name?'none':'block';
-  if(!name) valid=false;
-  document.getElementById("errType").style.display=typeVal?'none':'block';
-  if(!typeVal) valid=false;
-  let manufacturer="";
-  if(!mfrVal){document.getElementById("errMfr").style.display='block';valid=false;}
-  else if(mfrVal==="__new__"){
-    document.getElementById("errMfr").style.display='none';
-    if(!newMfrVal){document.getElementById("errNewMfr").style.display='block';valid=false;}
-    else{document.getElementById("errNewMfr").style.display='none';manufacturer=newMfrVal;if(!manufacturers.includes(newMfrVal))manufacturers.push(newMfrVal);}
-  } else{document.getElementById("errMfr").style.display='none';manufacturer=mfrVal;}
-  if(!valid) return;
-  const selBands=[...document.querySelectorAll('#bandsGrid input[type=checkbox]:checked')].map(c=>c.value);
-  devices.push({name,manufacturer,type:typeVal,bands:selBands,img:imgVal,url:urlVal});
+  var valid = true;
+  var name = document.getElementById("inputName").value.trim();
+  var mfrVal = document.getElementById("inputMfr").value;
+  var newMfrVal = document.getElementById("inputNewMfr").value.trim();
+  var typeVal = document.getElementById("inputType").value;
+  var urlVal = document.getElementById("inputUrl").value.trim();
+  var imgVal = document.getElementById("inputImg").value.trim();
+
+  document.getElementById("errName").style.display = name ? 'none' : 'block';
+  if (!name) valid = false;
+  document.getElementById("errType").style.display = typeVal ? 'none' : 'block';
+  if (!typeVal) valid = false;
+
+  var manufacturer = "";
+  if (!mfrVal) {
+    document.getElementById("errMfr").style.display = 'block'; valid = false;
+  } else if (mfrVal === "__new__") {
+    document.getElementById("errMfr").style.display = 'none';
+    if (!newMfrVal) { document.getElementById("errNewMfr").style.display = 'block'; valid = false; }
+    else { document.getElementById("errNewMfr").style.display = 'none'; manufacturer = newMfrVal; if (!manufacturers.includes(newMfrVal)) manufacturers.push(newMfrVal); }
+  } else {
+    document.getElementById("errMfr").style.display = 'none'; manufacturer = mfrVal;
+  }
+  if (!valid) return;
+
+  var selBands = Array.from(document.querySelectorAll('#bandsGrid input[type=checkbox]:checked')).map(function(c) { return c.value; });
+  devices.push({ name: name, manufacturer: manufacturer, type: typeVal, bands: selBands, url: urlVal, img: imgVal });
   closeModal(); refreshAll(); render(); markUnsaved();
-  showToast(`✓ "${name}" added`);
+  showToast('✓ "' + name + '" added');
 }
 
 function deleteDevice(idx) {
-  const name=devices[idx].name;
-  devices.splice(idx,1);
+  var name = devices[idx].name;
+  devices.splice(idx, 1);
   refreshAll(); render(); markUnsaved();
-  showToast(`"${name}" removed`);
+  showToast('"' + name + '" removed');
 }
 
 // ── EDIT DEVICE ───────────────────────────────────────────────
 function openEdit() {
-  document.getElementById("editMfr").innerHTML=
-    '<option value="">— Select manufacturer —</option>'+
-    manufacturers.map(m=>`<option>${m}</option>`).join('');
-  document.getElementById("editDevice").innerHTML='<option value="">— Select device —</option>';
-  document.getElementById("editFields").style.display="none";
-  document.getElementById("editSaveBtn").style.display="none";
+  document.getElementById("editMfr").innerHTML =
+    '<option value="">— Select manufacturer —</option>' +
+    manufacturers.map(function(m) { return '<option>' + m + '</option>'; }).join('');
+  document.getElementById("editDevice").innerHTML = '<option value="">— Select device —</option>';
+  document.getElementById("editFields").style.display = "none";
+  document.getElementById("editSaveBtn").style.display = "none";
   document.getElementById("editOverlay").classList.add("open");
 }
 function populateEditDevices() {
-  const mfr=document.getElementById("editMfr").value;
-  const devSel=document.getElementById("editDevice");
-  devSel.innerHTML='<option value="">— Select device —</option>';
-  document.getElementById("editFields").style.display="none";
-  document.getElementById("editSaveBtn").style.display="none";
-  if(!mfr) return;
-  devices.forEach((d,i)=>{
-    if(d.manufacturer===mfr){const o=document.createElement("option");o.value=i;o.textContent=d.name;devSel.appendChild(o);}
+  var mfr = document.getElementById("editMfr").value;
+  var devSel = document.getElementById("editDevice");
+  devSel.innerHTML = '<option value="">— Select device —</option>';
+  document.getElementById("editFields").style.display = "none";
+  document.getElementById("editSaveBtn").style.display = "none";
+  if (!mfr) return;
+  devices.forEach(function(d, i) {
+    if (d.manufacturer === mfr) {
+      var o = document.createElement("option");
+      o.value = i; o.textContent = d.name; devSel.appendChild(o);
+    }
   });
 }
 function populateEditFields() {
-  const idx=document.getElementById("editDevice").value;
-  if(idx===""){document.getElementById("editFields").style.display="none";document.getElementById("editSaveBtn").style.display="none";return;}
-  const d=devices[idx];
-  document.getElementById("editBandsGrid").innerHTML=bands.map(b=>
-    `<label class="band-check"><input type="checkbox" value="${b}" ${d.bands.includes(b)?'checked':''}> ${b}</label>`
-  ).join('');
-  document.getElementById("editImg").value=d.img||"";
-  document.getElementById("editUrl").value=d.url||"";
-  const wrap=document.getElementById("editImgPreview");
-  const img=document.getElementById("editImgPreviewImg");
-  if(d.img){img.src=IMG_BASE+d.img;wrap.style.display="block";}
-  else{wrap.style.display="none";}
-  document.getElementById("editFields").style.display="block";
-  document.getElementById("editSaveBtn").style.display="block";
+  var idx = document.getElementById("editDevice").value;
+  if (idx === "") {
+    document.getElementById("editFields").style.display = "none";
+    document.getElementById("editSaveBtn").style.display = "none";
+    return;
+  }
+  var d = devices[idx];
+  document.getElementById("editBandsGrid").innerHTML = bands.map(function(b) {
+    return '<label class="band-check"><input type="checkbox" value="' + b + '"' + (d.bands.includes(b) ? ' checked' : '') + '> ' + b + '</label>';
+  }).join('');
+  document.getElementById("editUrl").value = d.url || "";
+  document.getElementById("editImg").value = d.img || "";
+  var wrap = document.getElementById("editImgPreview");
+  var img = document.getElementById("editImgPreviewImg");
+  if (d.img) { img.src = IMG_BASE + d.img; wrap.style.display = "block"; }
+  else { wrap.style.display = "none"; }
+  document.getElementById("editFields").style.display = "block";
+  document.getElementById("editSaveBtn").style.display = "block";
 }
 function saveEditDevice() {
-  const idx=document.getElementById("editDevice").value;
-  if(idx==="") return;
-  devices[idx].bands=[...document.querySelectorAll('#editBandsGrid input[type=checkbox]:checked')].map(c=>c.value);
-  devices[idx].img=document.getElementById("editImg").value.trim();
-  devices[idx].url=document.getElementById("editUrl").value.trim();
+  var idx = document.getElementById("editDevice").value;
+  if (idx === "") return;
+  devices[idx].bands = Array.from(document.querySelectorAll('#editBandsGrid input[type=checkbox]:checked')).map(function(c) { return c.value; });
+  devices[idx].url = document.getElementById("editUrl").value.trim();
+  devices[idx].img = document.getElementById("editImg").value.trim();
   closeEdit(); render(); markUnsaved();
-  showToast(`✓ "${devices[idx].name}" updated`);
+  showToast('✓ "' + devices[idx].name + '" updated');
 }
-function closeEdit(){document.getElementById("editOverlay").classList.remove("open");}
+function closeEdit() { document.getElementById("editOverlay").classList.remove("open"); }
 
 // ── MANAGE ────────────────────────────────────────────────────
-let manageMode="";
-function openManage(mode){
-  manageMode=mode;
-  const titles={manufacturer:"🏢 Manage Manufacturers",type:"📱 Manage Device Types",band:"📡 Manage Bands"};
-  const placeholders={manufacturer:"New manufacturer name",type:"New device type name",band:"New band (e.g. n41)"};
-  const infos={
-    manufacturer:"⚠ A manufacturer can only be deleted when all its devices have been removed.",
-    type:"⚠ Deleting a device type removes it from the dropdown — existing devices keep their label.",
-    band:"⚠ Deleting a band removes it from the dropdown — existing devices keep their band tags."
+var manageMode = "";
+function openManage(mode) {
+  manageMode = mode;
+  var titles = { manufacturer: "🏢 Manage Manufacturers", type: "📱 Manage Device Types", band: "📡 Manage Bands" };
+  var placeholders = { manufacturer: "New manufacturer name", type: "New device type name", band: "New band (e.g. n41)" };
+  var infos = {
+    manufacturer: "⚠ A manufacturer can only be deleted when all its devices have been removed.",
+    type: "⚠ Deleting a device type removes it from the dropdown — existing devices keep their label.",
+    band: "⚠ Deleting a band removes it from the dropdown — existing devices keep their band tags."
   };
-  document.getElementById("manageTitle").textContent=titles[mode];
-  document.getElementById("manageInput").placeholder=placeholders[mode];
-  document.getElementById("manageInput").value="";
-  document.getElementById("manageInfo").textContent=infos[mode];
+  document.getElementById("manageTitle").textContent = titles[mode];
+  document.getElementById("manageInput").placeholder = placeholders[mode];
+  document.getElementById("manageInput").value = "";
+  document.getElementById("manageInfo").textContent = infos[mode];
   renderManageList();
   document.getElementById("manageOverlay").classList.add("open");
 }
-function renderManageList(){
-  const items=manageMode==="manufacturer"?manufacturers:manageMode==="type"?deviceTypes:bands;
-  document.getElementById("manageList").innerHTML=items.map((item,i)=>{
-    let count=0,canDelete=true,tooltip="";
-    if(manageMode==="manufacturer"){count=devices.filter(d=>d.manufacturer===item).length;canDelete=count===0;tooltip=canDelete?"":`Cannot delete — ${count} device(s) still assigned`;}
-    return `<li><span>${item}</span>${manageMode==="manufacturer"?`<span class="count">${count} device${count!==1?'s':''}</span>`:''}<button onclick="deleteManageItem(${i})" ${canDelete?'':'disabled'} title="${tooltip}">✕ Delete</button></li>`;
+function renderManageList() {
+  var items = manageMode === "manufacturer" ? manufacturers : manageMode === "type" ? deviceTypes : bands;
+  document.getElementById("manageList").innerHTML = items.map(function(item, i) {
+    var count = 0, canDelete = true, tooltip = "";
+    if (manageMode === "manufacturer") {
+      count = devices.filter(function(d) { return d.manufacturer === item; }).length;
+      canDelete = count === 0;
+      tooltip = canDelete ? "" : "Cannot delete — " + count + " device(s) still assigned";
+    }
+    return '<li><span>' + item + '</span>' +
+      (manageMode === "manufacturer" ? '<span class="count">' + count + ' device' + (count !== 1 ? 's' : '') + '</span>' : '') +
+      '<button onclick="deleteManageItem(' + i + ')" ' + (canDelete ? '' : 'disabled') + ' title="' + tooltip + '">✕ Delete</button></li>';
   }).join('');
 }
-function deleteManageItem(i){
-  if(manageMode==="manufacturer"){if(devices.some(d=>d.manufacturer===manufacturers[i])){showToast("⚠ Remove all devices first!");return;}manufacturers.splice(i,1);}
-  else if(manageMode==="type"){deviceTypes.splice(i,1);}
-  else{bands.splice(i,1);}
-  refreshAll();renderManageList();render();markUnsaved();
+function deleteManageItem(i) {
+  if (manageMode === "manufacturer") {
+    if (devices.some(function(d) { return d.manufacturer === manufacturers[i]; })) { showToast("⚠ Remove all devices first!"); return; }
+    manufacturers.splice(i, 1);
+  } else if (manageMode === "type") { deviceTypes.splice(i, 1); }
+  else { bands.splice(i, 1); }
+  refreshAll(); renderManageList(); render(); markUnsaved();
   showToast("✓ Deleted");
 }
-function addManageItem(){
-  const val=document.getElementById("manageInput").value.trim();
-  if(!val) return;
-  const list=manageMode==="manufacturer"?manufacturers:manageMode==="type"?deviceTypes:bands;
-  if(list.includes(val)){showToast("Already exists!");return;}
+function addManageItem() {
+  var val = document.getElementById("manageInput").value.trim();
+  if (!val) return;
+  var list = manageMode === "manufacturer" ? manufacturers : manageMode === "type" ? deviceTypes : bands;
+  if (list.includes(val)) { showToast("Already exists!"); return; }
   list.push(val);
-  document.getElementById("manageInput").value="";
-  refreshAll();renderManageList();markUnsaved();
-  showToast(`✓ "${val}" added`);
+  document.getElementById("manageInput").value = "";
+  refreshAll(); renderManageList(); markUnsaved();
+  showToast('✓ "' + val + '" added');
 }
-function closeManage(){document.getElementById("manageOverlay").classList.remove("open");}
+function closeManage() { document.getElementById("manageOverlay").classList.remove("open"); }
 
 // ── UNSAVED ───────────────────────────────────────────────────
-function markUnsaved(){
-  document.getElementById("saveStatus").textContent="● Unsaved changes";
-  document.getElementById("saveStatus").style.color="#dc2626";
+function markUnsaved() {
+  document.getElementById("saveStatus").textContent = "● Unsaved changes";
+  document.getElementById("saveStatus").style.color = "#dc2626";
 }
-function markSaved(){
-  document.getElementById("saveStatus").textContent="✓ Saved to GitHub";
-  document.getElementById("saveStatus").style.color="#16a34a";
+function markSaved() {
+  document.getElementById("saveStatus").textContent = "✓ Saved to GitHub";
+  document.getElementById("saveStatus").style.color = "#16a34a";
 }
 
 // ── SAVE TO GITHUB ────────────────────────────────────────────
-function openSaveToGitHub(){
-  document.getElementById("ghToken").value="";
-  document.getElementById("errToken").style.display="none";
+function openSaveToGitHub() {
+  document.getElementById("ghToken").value = "";
+  document.getElementById("errToken").style.display = "none";
   document.getElementById("githubOverlay").classList.add("open");
 }
-function closeGitHub(){document.getElementById("githubOverlay").classList.remove("open");}
+function closeGitHub() { document.getElementById("githubOverlay").classList.remove("open"); }
 
-async function saveToGitHub(){
-  const token=document.getElementById("ghToken").value.trim();
-  if(!token){document.getElementById("errToken").style.display="block";return;}
-  document.getElementById("errToken").style.display="none";
-  const btn=document.getElementById("ghSaveBtn");
-  btn.textContent="⏳ Saving...";btn.disabled=true;
-  try{
-    const metaRes=await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${GITHUB_FILE}?ref=${GITHUB_BRANCH}`,{
-      headers:{Authorization:`token ${token}`,Accept:"application/vnd.github.v3+json"}
+async function saveToGitHub() {
+  var token = document.getElementById("ghToken").value.trim();
+  if (!token) { document.getElementById("errToken").style.display = "block"; return; }
+  document.getElementById("errToken").style.display = "none";
+  var btn = document.getElementById("ghSaveBtn");
+  btn.textContent = "⏳ Saving..."; btn.disabled = true;
+  try {
+    var metaRes = await fetch("https://api.github.com/repos/" + GITHUB_USER + "/" + GITHUB_REPO + "/contents/" + GITHUB_FILE + "?ref=" + GITHUB_BRANCH, {
+      headers: { Authorization: "token " + token, Accept: "application/vnd.github.v3+json" }
     });
-    if(!metaRes.ok) throw new Error(`Could not fetch file (${metaRes.status}). Check your token and repo settings.`);
-    const meta=await metaRes.json();
-    const sha=meta.sha;
-    const currentHTML=await fetch(window.location.href.split('?')[0]).then(r=>r.text());
-    const dataBlock=
-      `let manufacturers = ${JSON.stringify(manufacturers)};\n`+
-      `let deviceTypes   = ${JSON.stringify(deviceTypes)};\n`+
-      `let bands         = ${JSON.stringify(bands)};\n\n`+
-      `let devices = ${JSON.stringify(devices,null,2)};`;
-    const updated=currentHTML.replace(/let manufacturers\s*=[\s\S]*?let devices\s*=[\s\S]*?];/m,dataBlock);
-    const encoded=btoa(unescape(encodeURIComponent(updated)));
-    const pushRes=await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${GITHUB_FILE}`,{
-      method:"PUT",
-      headers:{Authorization:`token ${token}`,Accept:"application/vnd.github.v3+json","Content-Type":"application/json"},
-      body:JSON.stringify({message:"Update device list via admin UI",content:encoded,sha,branch:GITHUB_BRANCH})
+    if (!metaRes.ok) throw new Error("Could not fetch file (" + metaRes.status + "). Check your token and repo settings.");
+    var meta = await metaRes.json();
+    var sha = meta.sha;
+    var currentHTML = await fetch(window.location.href.split('?')[0]).then(function(r) { return r.text(); });
+    var dataBlock =
+      "let manufacturers = " + JSON.stringify(manufacturers) + ";\n" +
+      "let deviceTypes   = " + JSON.stringify(deviceTypes) + ";\n" +
+      "let bands         = " + JSON.stringify(bands) + ";\n\n" +
+      "let devices = " + JSON.stringify(devices, null, 2) + ";";
+    var updated = currentHTML.replace(/let manufacturers\s*=[\s\S]*?let devices\s*=[\s\S]*?];/m, dataBlock);
+    var encoded = btoa(unescape(encodeURIComponent(updated)));
+    var pushRes = await fetch("https://api.github.com/repos/" + GITHUB_USER + "/" + GITHUB_REPO + "/contents/" + GITHUB_FILE, {
+      method: "PUT",
+      headers: { Authorization: "token " + token, Accept: "application/vnd.github.v3+json", "Content-Type": "application/json" },
+      body: JSON.stringify({ message: "Update device list via admin UI", content: encoded, sha: sha, branch: GITHUB_BRANCH })
     });
-    if(!pushRes.ok){const err=await pushRes.json();throw new Error(err.message||`Push failed (${pushRes.status})`);}
-    closeGitHub();markSaved();
+    if (!pushRes.ok) { var err = await pushRes.json(); throw new Error(err.message || "Push failed (" + pushRes.status + ")"); }
+    closeGitHub(); markSaved();
     showToast("✓ Saved to GitHub! Page updates in ~30 seconds.");
-  }catch(e){showToast(`✗ ${e.message}`,true);}
-  finally{btn.textContent="☁ Save to GitHub";btn.disabled=false;}
+  } catch(e) { showToast("✗ " + e.message, true); }
+  finally { btn.textContent = "☁ Save to GitHub"; btn.disabled = false; }
 }
 
 // ── RENDER ────────────────────────────────────────────────────
-function render(){
-  const search=document.getElementById("searchInput").value.toLowerCase();
-  const mfr=document.getElementById("filterMfr").value;
-  const type=document.getElementById("filterType").value;
-  const band=document.getElementById("filterBand").value;
-  const filtered=devices.map((d,i)=>({...d,_idx:i})).filter(d=>
-    d.name.toLowerCase().includes(search)&&(!mfr||d.manufacturer===mfr)&&(!type||d.type===type)&&(!band||d.bands.includes(band))
-  );
-  const byMfr={};
-  filtered.forEach(d=>{if(!byMfr[d.manufacturer])byMfr[d.manufacturer]=[];byMfr[d.manufacturer].push(d);});
-  document.getElementById("resultsBar").textContent=`Showing ${filtered.length} of ${devices.length} devices`;
-  const main=document.getElementById("main");
-  if(!filtered.length){main.innerHTML=`<div class="no-results"><span>🔍</span>No devices match your filters.</div>`;return;}
-  main.innerHTML=Object.entries(byMfr).map(([mfr,list])=>`
-    <div class="manufacturer-section">
-      <h2>${mfr}</h2>
-      <div class="grid">
-        ${list.map(d=>{
-          const tidx=deviceTypes.indexOf(d.type);
-          const style=tidx>=0?typeColors[tidx%typeColors.length]:"background:#f3f4f6;color:#555";
-          const emoji=d.type==="Smartphone"?"📱":d.type==="Tablet"?"📟":d.type==="Laptop"?"💻":d.type==="Router/CPE"?"📡":d.type==="Broadcasting"?"📹":"📦";
-          const nameHtml=d.url
-            ?`<a class="card-name" href="${d.url}" target="_blank" rel="noopener" style="color:#2563eb;text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">${d.name}</a>`
-            :`<div class="card-name">${d.name}</div>`;
-          const placeholderStyle=d.img?'display:none':'';
-          return `<div class="card">
-            ${isAdmin?`<button class="delete-btn" onclick="deleteDevice(${d._idx})" title="Remove">✕</button>`:''}
-            ${imgHtml}
-            <div class="card-img-placeholder" style="${placeholderStyle}">${emoji}</div>
-            <div class="card-name">${d.name}</div>
-            <span class="type-tag" style="${style}">${d.type||'Unknown'}</span>
-            <div class="card-bands">${d.bands.length?d.bands.map(b=>`<span class="band-tag">${b}</span>`).join(""):`<span class="band-tag empty">Bands TBD</span>`}</div>
-          </div>`;
-        }).join("")}
-      </div>
-    </div>`).join("");
+function getEmoji(type) {
+  if (type === "Smartphone") return "📱";
+  if (type === "Tablet") return "📟";
+  if (type === "Laptop") return "💻";
+  if (type === "Router/CPE") return "📡";
+  if (type === "Broadcasting") return "📹";
+  return "📦";
 }
 
-function clearFilters(){
-  ["searchInput","filterMfr","filterType","filterBand"].forEach(id=>document.getElementById(id).value="");
+function render() {
+  var search = document.getElementById("searchInput").value.toLowerCase();
+  var mfr = document.getElementById("filterMfr").value;
+  var type = document.getElementById("filterType").value;
+  var band = document.getElementById("filterBand").value;
+
+  var filtered = devices.map(function(d, i) {
+    return Object.assign({}, d, { _idx: i });
+  }).filter(function(d) {
+    return d.name.toLowerCase().includes(search) &&
+      (!mfr || d.manufacturer === mfr) &&
+      (!type || d.type === type) &&
+      (!band || d.bands.includes(band));
+  });
+
+  var byMfr = {};
+  filtered.forEach(function(d) {
+    if (!byMfr[d.manufacturer]) byMfr[d.manufacturer] = [];
+    byMfr[d.manufacturer].push(d);
+  });
+
+  document.getElementById("resultsBar").textContent = "Showing " + filtered.length + " of " + devices.length + " devices";
+  var main = document.getElementById("main");
+
+  if (!filtered.length) {
+    main.innerHTML = '<div class="no-results"><span>🔍</span>No devices match your filters.</div>';
+    return;
+  }
+
+  var html = "";
+  Object.keys(byMfr).forEach(function(mfrKey) {
+    var list = byMfr[mfrKey];
+    html += '<div class="manufacturer-section"><h2>' + mfrKey + '</h2><div class="grid">';
+    list.forEach(function(d) {
+      var tidx = deviceTypes.indexOf(d.type);
+      var style = tidx >= 0 ? typeColors[tidx % typeColors.length] : "background:#f3f4f6;color:#555";
+      var emoji = getEmoji(d.type);
+
+      var imgHtml = "";
+      var placeholderStyle = "";
+      if (d.img) {
+        imgHtml = '<img class="card-img" src="' + IMG_BASE + d.img + '" alt="' + d.name + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">';
+        placeholderStyle = 'style="display:none"';
+      }
+
+      var nameHtml = d.url
+        ? '<a class="card-name-link" href="' + d.url + '" target="_blank" rel="noopener">' + d.name + '</a>'
+        : '<div class="card-name">' + d.name + '</div>';
+
+      var bandsHtml = d.bands.length
+        ? d.bands.map(function(b) { return '<span class="band-tag">' + b + '</span>'; }).join("")
+        : '<span class="band-tag empty">Bands TBD</span>';
+
+      var deleteBtn = isAdmin ? '<button class="delete-btn" onclick="deleteDevice(' + d._idx + ')" title="Remove">✕</button>' : '';
+
+      html += '<div class="card">' +
+        deleteBtn +
+        imgHtml +
+        '<div class="card-img-placeholder" ' + placeholderStyle + '>' + emoji + '</div>' +
+        nameHtml +
+        '<span class="type-tag" style="' + style + '">' + (d.type || 'Unknown') + '</span>' +
+        '<div class="card-bands">' + bandsHtml + '</div>' +
+        '</div>';
+    });
+    html += '</div></div>';
+  });
+  main.innerHTML = html;
+}
+
+function clearFilters() {
+  ["searchInput","filterMfr","filterType","filterBand"].forEach(function(id) { document.getElementById(id).value = ""; });
   render();
 }
-function showToast(msg,isError=false){
-  const t=document.getElementById("toast");
-  t.textContent=msg;t.className="toast"+(isError?" error":"");t.classList.add("show");
-  setTimeout(()=>t.classList.remove("show"),3500);
+
+function showToast(msg, isError) {
+  var t = document.getElementById("toast");
+  t.textContent = msg;
+  t.className = "toast" + (isError ? " error" : "");
+  t.classList.add("show");
+  setTimeout(function() { t.classList.remove("show"); }, 3500);
 }
 
-["overlay","editOverlay","manageOverlay","githubOverlay"].forEach(id=>{
-  const el=document.getElementById(id);
-  if(el) el.addEventListener("click",e=>{if(e.target===el)el.classList.remove("open");});
+["overlay","editOverlay","manageOverlay","githubOverlay"].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener("click", function(e) { if (e.target === el) el.classList.remove("open"); });
 });
 
-document.getElementById("searchInput").addEventListener("input",render);
-document.getElementById("filterMfr").addEventListener("change",render);
-document.getElementById("filterType").addEventListener("change",render);
-document.getElementById("filterBand").addEventListener("change",render);
+document.getElementById("searchInput").addEventListener("input", render);
+document.getElementById("filterMfr").addEventListener("change", render);
+document.getElementById("filterType").addEventListener("change", render);
+document.getElementById("filterBand").addEventListener("change", render);
 
-refreshAll();render();
+refreshAll();
+render();
 </script>
 </body>
 </html>
