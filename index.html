@@ -172,6 +172,11 @@
       <select id="inputType"></select>
       <div class="error-msg" id="errType">Please select a device type.</div>
     </div>
+    <div class="form-row" id="newTypeRow" style="display:none">
+      <label>New Device Type Name *</label>
+      <input type="text" id="inputNewType" placeholder="e.g. Wearable">
+      <div class="error-msg" id="errNewType">Please enter a device type name.</div>
+    </div>
     <div class="form-row">
       <label>Tested Bands</label>
       <div class="bands-grid" id="bandsGrid"></div>
@@ -286,8 +291,6 @@ const GITHUB_FILE   = "index.html";
 const GITHUB_BRANCH = "main";
 const IMG_BASE      = "https://" + GITHUB_USER + ".github.io/" + GITHUB_REPO + "/";
 
-const typeColors = [];
-
 const isAdmin = new URLSearchParams(window.location.search).get("admin") === "true";
 if (!isAdmin) { document.getElementById("adminActions").classList.add("hidden"); }
 else { document.getElementById("adminPanel").classList.remove("hidden"); }
@@ -297,231 +300,26 @@ let deviceTypes   = ["Smartphone","Tablet","Laptop","Router/CPE","Broadcasting"]
 let bands         = ["b48","n48","n77","n78"];
 
 let devices = [
-  {
-    "name": "Apple iPhone 14",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/apple_iphone_14-11861.php",
-    "img": "images/apple14.png"
-  },
-  {
-    "name": "Apple iPhone 13",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/apple_iphone_13-11103.php",
-    "img": "images/apple13.png"
-  },
-  {
-    "name": "Apple iPhone 13 Pro",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/apple_iphone_13_pro-11102.php",
-    "img": "images/apple13pro.png"
-  },
-  {
-    "name": "Apple iPhone 12",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/apple_iphone_12-10509.php",
-    "img": "images/apple12.png"
-  },
-  {
-    "name": "Apple iPhone 11",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/apple_iphone_11-9848.php",
-    "img": "images/apple11.png"
-  },
-  {
-    "name": "Apple iPhone SE 2020",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/apple_iphone_se_(2020)-10170.php",
-    "img": "images/appleSE2020.png"
-  },
-  {
-    "name": "Asus Zenfone 8",
-    "manufacturer": "Asus",
-    "type": "Smartphone",
-    "bands": [
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/asus_zenfone_8-10893.php",
-    "img": "images/AsusZenfone8.png"
-  },
-  {
-    "name": "Asus ROG 5",
-    "manufacturer": "Asus",
-    "type": "Smartphone",
-    "bands": [
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/asus_rog_phone_5-10715.php",
-    "img": "images/AsusROG5.png"
-  },
-  {
-    "name": "LG V60 5G",
-    "manufacturer": "LG",
-    "type": "Smartphone",
-    "bands": [],
-    "url": "https://www.gsmarena.com/lg_v60_thinq_5g-10103.php",
-    "img": "images/LG-V60-5G.png"
-  },
-  {
-    "name": "LG Velvet 5G",
-    "manufacturer": "LG",
-    "type": "Smartphone",
-    "bands": [],
-    "url": "https://www.gsmarena.com/lg_velvet_5g-10209.php",
-    "img": "images/LG-Velvet-5G.png"
-  },
-  {
-    "name": "Moto 5G 2024",
-    "manufacturer": "Motorola",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/motorola_moto_g_(2024)-12866.php",
-    "img": "images/Moto5G-2024.png"
-  },
-  {
-    "name": "Moto 5G 2025",
-    "manufacturer": "Motorola",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/motorola_moto_g_(2025)-13624.php",
-    "img": "images/Moto5G-2025.png"
-  },
-  {
-    "name": "Moto G Stylus",
-    "manufacturer": "Motorola",
-    "type": "Smartphone",
-    "bands": [
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/motorola_moto_g_stylus-10057.php",
-    "img": "images/MotoG-Stylus.png"
-  },
-  {
-    "name": "Pro360-5G Transmitter",
-    "manufacturer": "Haivision",
-    "type": "Broadcasting",
-    "bands": [
-      "n77",
-      "n78"
-    ],
-    "url": "",
-    "img": ""
-  },
-  {
-    "name": "Falkon X2 Transmitter",
-    "manufacturer": "Haivision",
-    "type": "Broadcasting",
-    "bands": [
-      "n77",
-      "n78"
-    ],
-    "url": "",
-    "img": ""
-  },
-  {
-    "name": "Pro460 Transmitter",
-    "manufacturer": "Haivision",
-    "type": "Broadcasting",
-    "bands": [
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "",
-    "img": ""
-  },
-  {
-    "name": "P3 5G Bonding Encoder",
-    "manufacturer": "Kiloview",
-    "type": "Broadcasting",
-    "bands": [
-      "n77",
-      "n78"
-    ],
-    "url": "",
-    "img": ""
-  },
-  {
-    "name": "OnePlus 9 Pro",
-    "manufacturer": "OnePlus",
-    "type": "Smartphone",
-    "bands": [
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/oneplus_9_pro-10806.php",
-    "img": "images/OnePlus9-Pro.png"
-  },
-  {
-    "name": "Samsung S21",
-    "manufacturer": "SamSung",
-    "type": "Smartphone",
-    "bands": [
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/samsung_galaxy_s21_5g-10626.php",
-    "img": "images/SamsungS21-5G.png"
-  },
-  {
-    "name": "Samsung S20",
-    "manufacturer": "SamSung",
-    "type": "Smartphone",
-    "bands": [
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/samsung_galaxy_s20_5g-10044.php",
-    "img": "images/SamsungS20-5G.png"
-  }
+  { "name": "Apple iPhone 14",       "manufacturer": "Apple",    "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_14-11861.php",           "img": "images/apple14.png" },
+  { "name": "Apple iPhone 13",       "manufacturer": "Apple",    "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_13-11103.php",           "img": "images/apple13.png" },
+  { "name": "Apple iPhone 13 Pro",   "manufacturer": "Apple",    "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_13_pro-11102.php",       "img": "images/apple13pro.png" },
+  { "name": "Apple iPhone 12",       "manufacturer": "Apple",    "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_12-10509.php",           "img": "images/apple12.png" },
+  { "name": "Apple iPhone 11",       "manufacturer": "Apple",    "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_11-9848.php",            "img": "images/apple11.png" },
+  { "name": "Apple iPhone SE 2020",  "manufacturer": "Apple",    "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_se_(2020)-10170.php",   "img": "images/appleSE2020.png" },
+  { "name": "Asus Zenfone 8",        "manufacturer": "Asus",     "type": "Smartphone",   "bands": ["n78"],                  "url": "https://www.gsmarena.com/asus_zenfone_8-10893.php",            "img": "images/AsusZenfone8.png" },
+  { "name": "Asus ROG 5",            "manufacturer": "Asus",     "type": "Smartphone",   "bands": ["n78"],                  "url": "https://www.gsmarena.com/asus_rog_phone_5-10715.php",          "img": "images/AsusROG5.png" },
+  { "name": "LG V60 5G",             "manufacturer": "LG",       "type": "Smartphone",   "bands": [],                       "url": "https://www.gsmarena.com/lg_v60_thinq_5g-10103.php",           "img": "images/LG-V60-5G.png" },
+  { "name": "LG Velvet 5G",          "manufacturer": "LG",       "type": "Smartphone",   "bands": [],                       "url": "https://www.gsmarena.com/lg_velvet_5g-10209.php",              "img": "images/LG-Velvet-5G.png" },
+  { "name": "Moto 5G 2024",          "manufacturer": "Motorola", "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/motorola_moto_g_(2024)-12866.php",   "img": "images/Moto5G-2024.png" },
+  { "name": "Moto 5G 2025",          "manufacturer": "Motorola", "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/motorola_moto_g_(2025)-13624.php",   "img": "images/Moto5G-2025.png" },
+  { "name": "Moto G Stylus",         "manufacturer": "Motorola", "type": "Smartphone",   "bands": ["n78"],                  "url": "https://www.gsmarena.com/motorola_moto_g_stylus-10057.php",   "img": "images/MotoG-Stylus.png" },
+  { "name": "Pro360-5G Transmitter", "manufacturer": "Haivision","type": "Broadcasting", "bands": ["n77","n78"],            "url": "", "img": "" },
+  { "name": "Falkon X2 Transmitter", "manufacturer": "Haivision","type": "Broadcasting", "bands": ["n77","n78"],            "url": "", "img": "" },
+  { "name": "Pro460 Transmitter",    "manufacturer": "Haivision","type": "Broadcasting", "bands": ["n48","n77","n78"],      "url": "", "img": "" },
+  { "name": "P3 5G Bonding Encoder", "manufacturer": "Kiloview", "type": "Broadcasting", "bands": ["n77","n78"],            "url": "", "img": "" },
+  { "name": "OnePlus 9 Pro",         "manufacturer": "OnePlus",  "type": "Smartphone",   "bands": ["n78"],                  "url": "https://www.gsmarena.com/oneplus_9_pro-10806.php",             "img": "images/OnePlus9-Pro.png" },
+  { "name": "Samsung S21",           "manufacturer": "SamSung",  "type": "Smartphone",   "bands": ["n78"],                  "url": "https://www.gsmarena.com/samsung_galaxy_s21_5g-10626.php",    "img": "images/SamsungS21-5G.png" },
+  { "name": "Samsung S20",           "manufacturer": "SamSung",  "type": "Smartphone",   "bands": ["n78"],                  "url": "https://www.gsmarena.com/samsung_galaxy_s20_5g-10044.php",    "img": "images/SamsungS20-5G.png" }
 ];
 
 // ── IMAGE PREVIEW ─────────────────────────────────────────────
@@ -539,15 +337,18 @@ setupImgPreview("editImg", "editImgPreview", "editImgPreviewImg");
 
 // ── DROPDOWNS ─────────────────────────────────────────────────
 function refreshAll() {
+  var sortedMfr = manufacturers.slice().sort(function(a,b){return a.localeCompare(b);});
+  var sortedTypes = deviceTypes.slice().sort(function(a,b){return a.localeCompare(b);});
+  var sortedBands = bands.slice().sort(function(a,b){return a.localeCompare(b);});
   var fMfr = document.getElementById("filterMfr"), fMfrVal = fMfr.value;
-  fMfr.innerHTML = '<option value="">All</option>' + manufacturers.map(function(m) { return '<option' + (m===fMfrVal?' selected':'') + '>' + m + '</option>'; }).join('');
+  fMfr.innerHTML = '<option value="">All</option>' + sortedMfr.map(function(m) { return '<option' + (m===fMfrVal?' selected':'') + '>' + m + '</option>'; }).join('');
   var fType = document.getElementById("filterType"), fTypeVal = fType.value;
-  fType.innerHTML = '<option value="">All</option>' + deviceTypes.map(function(t) { return '<option' + (t===fTypeVal?' selected':'') + '>' + t + '</option>'; }).join('');
+  fType.innerHTML = '<option value="">All</option>' + sortedTypes.map(function(t) { return '<option' + (t===fTypeVal?' selected':'') + '>' + t + '</option>'; }).join('');
   var fBand = document.getElementById("filterBand"), fBandVal = fBand.value;
-  fBand.innerHTML = '<option value="">All</option>' + bands.map(function(b) { return '<option' + (b===fBandVal?' selected':'') + '>' + b + '</option>'; }).join('');
-  document.getElementById("inputMfr").innerHTML = '<option value="">— Select manufacturer —</option>' + manufacturers.map(function(m) { return '<option>' + m + '</option>'; }).join('') + '<option value="__new__">+ Add new manufacturer…</option>';
-  document.getElementById("inputType").innerHTML = '<option value="">— Select device type —</option>' + deviceTypes.map(function(t) { return '<option>' + t + '</option>'; }).join('');
-  document.getElementById("bandsGrid").innerHTML = bands.map(function(b) { return '<label class="band-check"><input type="checkbox" value="' + b + '"> ' + b + '</label>'; }).join('');
+  fBand.innerHTML = '<option value="">All</option>' + sortedBands.map(function(b) { return '<option' + (b===fBandVal?' selected':'') + '>' + b + '</option>'; }).join('');
+  document.getElementById("inputMfr").innerHTML = '<option value="">— Select manufacturer —</option>' + sortedMfr.map(function(m) { return '<option>' + m + '</option>'; }).join('') + '<option value="__new__">+ Add new manufacturer…</option>';
+  document.getElementById("inputType").innerHTML = '<option value="">— Select device type —</option>' + sortedTypes.map(function(t) { return '<option>' + t + '</option>'; }).join('') + '<option value="__new__">+ Add new device type…</option>';
+  document.getElementById("bandsGrid").innerHTML = sortedBands.map(function(b) { return '<label class="band-check"><input type="checkbox" value="' + b + '"> ' + b + '</label>'; }).join('');
 }
 
 // ── ADD DEVICE ────────────────────────────────────────────────
@@ -558,16 +359,21 @@ function openModal() {
   document.getElementById("inputMfr").value = "";
   document.getElementById("inputNewMfr").value = "";
   document.getElementById("inputType").value = "";
+  document.getElementById("inputNewType").value = "";
   document.getElementById("inputUrl").value = "";
   document.getElementById("inputImg").value = "";
   document.getElementById("addImgPreview").style.display = "none";
   document.getElementById("newMfrRow").style.display = "none";
-  ["errName","errMfr","errNewMfr","errType"].forEach(function(id) { document.getElementById(id).style.display = 'none'; });
+  document.getElementById("newTypeRow").style.display = "none";
+  ["errName","errMfr","errNewMfr","errType","errNewType"].forEach(function(id) { document.getElementById(id).style.display = 'none'; });
 }
 function closeModal() { document.getElementById("overlay").classList.remove("open"); }
 
 document.getElementById("inputMfr").addEventListener("change", function() {
   document.getElementById("newMfrRow").style.display = this.value === "__new__" ? "block" : "none";
+});
+document.getElementById("inputType").addEventListener("change", function() {
+  document.getElementById("newTypeRow").style.display = this.value === "__new__" ? "block" : "none";
 });
 
 function saveDevice() {
@@ -576,12 +382,13 @@ function saveDevice() {
   var mfrVal = document.getElementById("inputMfr").value;
   var newMfrVal = document.getElementById("inputNewMfr").value.trim();
   var typeVal = document.getElementById("inputType").value;
+  var newTypeVal = document.getElementById("inputNewType").value.trim();
   var urlVal = document.getElementById("inputUrl").value.trim();
   var imgVal = document.getElementById("inputImg").value.trim();
+
   document.getElementById("errName").style.display = name ? 'none' : 'block';
   if (!name) valid = false;
-  document.getElementById("errType").style.display = typeVal ? 'none' : 'block';
-  if (!typeVal) valid = false;
+
   var manufacturer = "";
   if (!mfrVal) { document.getElementById("errMfr").style.display = 'block'; valid = false; }
   else if (mfrVal === "__new__") {
@@ -589,9 +396,18 @@ function saveDevice() {
     if (!newMfrVal) { document.getElementById("errNewMfr").style.display = 'block'; valid = false; }
     else { document.getElementById("errNewMfr").style.display = 'none'; manufacturer = newMfrVal; if (!manufacturers.includes(newMfrVal)) manufacturers.push(newMfrVal); }
   } else { document.getElementById("errMfr").style.display = 'none'; manufacturer = mfrVal; }
+
+  var deviceType = "";
+  if (!typeVal) { document.getElementById("errType").style.display = 'block'; valid = false; }
+  else if (typeVal === "__new__") {
+    document.getElementById("errType").style.display = 'none';
+    if (!newTypeVal) { document.getElementById("errNewType").style.display = 'block'; valid = false; }
+    else { document.getElementById("errNewType").style.display = 'none'; deviceType = newTypeVal; if (!deviceTypes.includes(newTypeVal)) deviceTypes.push(newTypeVal); }
+  } else { document.getElementById("errType").style.display = 'none'; deviceType = typeVal; }
+
   if (!valid) return;
   var selBands = Array.from(document.querySelectorAll('#bandsGrid input[type=checkbox]:checked')).map(function(c) { return c.value; });
-  devices.push({ name: name, manufacturer: manufacturer, type: typeVal, bands: selBands, url: urlVal, img: imgVal });
+  devices.push({ name: name, manufacturer: manufacturer, type: deviceType, bands: selBands, url: urlVal, img: imgVal });
   closeModal(); refreshAll(); render(); markUnsaved();
   showToast('✓ "' + name + '" added');
 }
@@ -741,19 +557,17 @@ function render() {
   var main = document.getElementById("main");
   if (!filtered.length) { main.innerHTML = '<div class="no-results"><span>🔍</span>No devices match your filters.</div>'; return; }
   var html = "";
-  Object.keys(byMfr).forEach(function(mfrKey) {
+  Object.keys(byMfr).sort(function(a, b) { return a.localeCompare(b); }).forEach(function(mfrKey) {
     var list = byMfr[mfrKey];
     html += '<div class="manufacturer-section"><h2>' + mfrKey + '</h2><div class="grid">';
     list.forEach(function(d) {
-      var tidx = deviceTypes.indexOf(d.type);
-      var style = "";
       var emoji = getEmoji(d.type);
       var imgHtml = "", placeholderStyle = "";
       if (d.img) { imgHtml = '<img class="card-img" src="' + IMG_BASE + d.img + '" alt="' + d.name + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'; placeholderStyle = 'style="display:none"'; }
       var nameHtml = d.url ? '<a class="card-name-link" href="' + d.url + '" target="_blank" rel="noopener">' + d.name + '</a>' : '<div class="card-name">' + d.name + '</div>';
       var bandsHtml = d.bands.length ? d.bands.map(function(b) { return '<span class="band-tag">' + b + '</span>'; }).join("") : '<span class="band-tag empty">Bands TBD</span>';
       var deleteBtn = isAdmin ? '<button class="delete-btn" onclick="deleteDevice(' + d._idx + ')" title="Remove">✕</button>' : '';
-      html += '<div class="card">' + deleteBtn + imgHtml + '<div class="card-img-placeholder" ' + placeholderStyle + '>' + emoji + '</div>' + nameHtml + '<span class="type-tag" style="' + style + '">' + (d.type || 'Unknown') + '</span><div class="card-bands">' + bandsHtml + '</div></div>';
+      html += '<div class="card">' + deleteBtn + imgHtml + '<div class="card-img-placeholder" ' + placeholderStyle + '>' + emoji + '</div>' + nameHtml + '<span class="type-tag">' + (d.type || 'Unknown') + '</span><div class="card-bands">' + bandsHtml + '</div></div>';
     });
     html += '</div></div>';
   });
