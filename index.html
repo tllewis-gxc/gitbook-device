@@ -292,32 +292,206 @@ const isAdmin = new URLSearchParams(window.location.search).get("admin") === "tr
 if (!isAdmin) { document.getElementById("adminActions").classList.add("hidden"); }
 else { document.getElementById("adminPanel").classList.remove("hidden"); }
 
-let manufacturers = ["Apple","Asus","Google","LG","Motorola","Haivision","Kiloview"];
+let manufacturers = ["Apple","Asus","LG","Motorola","Haivision","Kiloview"];
 let deviceTypes   = ["Smartphone","Tablet","Laptop","Router/CPE","Broadcasting"];
 let bands         = ["b48","n48","n77","n78"];
 
 let devices = [
-  { "name": "Apple iPhone 14",      "manufacturer": "Apple",     "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_14-11861.php",        "img": "images/apple14.png" },
-  { "name": "Apple iPhone 13",      "manufacturer": "Apple",     "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_13-11103.php",        "img": "images/apple13.png" },
-  { "name": "Apple iPhone 13 Pro",  "manufacturer": "Apple",     "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_13_pro-11102.php",    "img": "images/apple13pro.png" },
-  { "name": "Apple iPhone 12",      "manufacturer": "Apple",     "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_12-10509.php",        "img": "images/apple12.png" },
-  { "name": "Apple iPhone 11",      "manufacturer": "Apple",     "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_11-9848.php",         "img": "images/apple11.png" },
-  { "name": "Apple iPhone SE 2020", "manufacturer": "Apple",     "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_se_(2020)-10170.php", "img": "images/appleSE2020.png" },
-  { "name": "Asus Zenfone 8",       "manufacturer": "Asus",      "type": "Smartphone",   "bands": ["n78"],                  "url": "", "img": "" },
-  { "name": "Asus ROG 5",           "manufacturer": "Asus",      "type": "Smartphone",   "bands": ["n78"],                  "url": "", "img": "" },
-  { "name": "Google Pixel 7",       "manufacturer": "Google",    "type": "Smartphone",   "bands": ["n78"],                  "url": "", "img": "" },
-  { "name": "Google Pixel 6",       "manufacturer": "Google",    "type": "Smartphone",   "bands": ["n78"],                  "url": "", "img": "" },
-  { "name": "Google Pixel 6 Pro",   "manufacturer": "Google",    "type": "Smartphone",   "bands": ["n78"],                  "url": "", "img": "" },
-  { "name": "Google Pixel 4/4XL",   "manufacturer": "Google",    "type": "Smartphone",   "bands": [],                       "url": "", "img": "" },
-  { "name": "LG V60 5G",            "manufacturer": "LG",        "type": "Smartphone",   "bands": [],                       "url": "", "img": "" },
-  { "name": "LG Velvet 5G",         "manufacturer": "LG",        "type": "Smartphone",   "bands": [],                       "url": "", "img": "" },
-  { "name": "Moto 5G 2024",         "manufacturer": "Motorola",  "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "", "img": "" },
-  { "name": "Moto 5G 2025",         "manufacturer": "Motorola",  "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "", "img": "" },
-  { "name": "Moto G Stylus",        "manufacturer": "Motorola",  "type": "Smartphone",   "bands": ["n78"],                  "url": "", "img": "" },
-  { "name": "Pro360-5G Transmitter","manufacturer": "Haivision", "type": "Broadcasting", "bands": ["n77","n78"],            "url": "", "img": "" },
-  { "name": "Falkon X2 Transmitter","manufacturer": "Haivision", "type": "Broadcasting", "bands": ["n77","n78"],            "url": "", "img": "" },
-  { "name": "Pro460 Transmitter",   "manufacturer": "Haivision", "type": "Broadcasting", "bands": ["n48","n77","n78"],      "url": "", "img": "" },
-  { "name": "P3 5G Bonding Encoder","manufacturer": "Kiloview",  "type": "Broadcasting", "bands": ["n77","n78"],            "url": "", "img": "" }
+  {
+    "name": "Apple iPhone 14",
+    "manufacturer": "Apple",
+    "type": "Smartphone",
+    "bands": [
+      "b48",
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/apple_iphone_14-11861.php",
+    "img": "images/apple14.png"
+  },
+  {
+    "name": "Apple iPhone 13",
+    "manufacturer": "Apple",
+    "type": "Smartphone",
+    "bands": [
+      "b48",
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/apple_iphone_13-11103.php",
+    "img": "images/apple13.png"
+  },
+  {
+    "name": "Apple iPhone 13 Pro",
+    "manufacturer": "Apple",
+    "type": "Smartphone",
+    "bands": [
+      "b48",
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/apple_iphone_13_pro-11102.php",
+    "img": "images/apple13pro.png"
+  },
+  {
+    "name": "Apple iPhone 12",
+    "manufacturer": "Apple",
+    "type": "Smartphone",
+    "bands": [
+      "b48",
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/apple_iphone_12-10509.php",
+    "img": "images/apple12.png"
+  },
+  {
+    "name": "Apple iPhone 11",
+    "manufacturer": "Apple",
+    "type": "Smartphone",
+    "bands": [
+      "b48",
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/apple_iphone_11-9848.php",
+    "img": "images/apple11.png"
+  },
+  {
+    "name": "Apple iPhone SE 2020",
+    "manufacturer": "Apple",
+    "type": "Smartphone",
+    "bands": [
+      "b48",
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/apple_iphone_se_(2020)-10170.php",
+    "img": "images/appleSE2020.png"
+  },
+  {
+    "name": "Asus Zenfone 8",
+    "manufacturer": "Asus",
+    "type": "Smartphone",
+    "bands": [
+      "n78"
+    ],
+    "url": "",
+    "img": ""
+  },
+  {
+    "name": "Asus ROG 5",
+    "manufacturer": "Asus",
+    "type": "Smartphone",
+    "bands": [
+      "n78"
+    ],
+    "url": "",
+    "img": ""
+  },
+  {
+    "name": "LG V60 5G",
+    "manufacturer": "LG",
+    "type": "Smartphone",
+    "bands": [],
+    "url": "",
+    "img": ""
+  },
+  {
+    "name": "LG Velvet 5G",
+    "manufacturer": "LG",
+    "type": "Smartphone",
+    "bands": [],
+    "url": "",
+    "img": ""
+  },
+  {
+    "name": "Moto 5G 2024",
+    "manufacturer": "Motorola",
+    "type": "Smartphone",
+    "bands": [
+      "b48",
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "",
+    "img": ""
+  },
+  {
+    "name": "Moto 5G 2025",
+    "manufacturer": "Motorola",
+    "type": "Smartphone",
+    "bands": [
+      "b48",
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "",
+    "img": ""
+  },
+  {
+    "name": "Moto G Stylus",
+    "manufacturer": "Motorola",
+    "type": "Smartphone",
+    "bands": [
+      "n78"
+    ],
+    "url": "",
+    "img": ""
+  },
+  {
+    "name": "Pro360-5G Transmitter",
+    "manufacturer": "Haivision",
+    "type": "Broadcasting",
+    "bands": [
+      "n77",
+      "n78"
+    ],
+    "url": "",
+    "img": ""
+  },
+  {
+    "name": "Falkon X2 Transmitter",
+    "manufacturer": "Haivision",
+    "type": "Broadcasting",
+    "bands": [
+      "n77",
+      "n78"
+    ],
+    "url": "",
+    "img": ""
+  },
+  {
+    "name": "Pro460 Transmitter",
+    "manufacturer": "Haivision",
+    "type": "Broadcasting",
+    "bands": [
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "",
+    "img": ""
+  },
+  {
+    "name": "P3 5G Bonding Encoder",
+    "manufacturer": "Kiloview",
+    "type": "Broadcasting",
+    "bands": [
+      "n77",
+      "n78"
+    ],
+    "url": "",
+    "img": ""
+  }
 ];
 
 // ── IMAGE PREVIEW ─────────────────────────────────────────────
