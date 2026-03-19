@@ -6,94 +6,95 @@
 <title>Search GXC Compatible Devices</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f7f8fa; color: #1a1a2e; }
-  header { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-  .header-text h1 { font-size: 1.6rem; font-weight: 700; }
-  .header-text p { font-size: 0.85rem; color: #666; margin-top: 4px; }
-  .header-text p span { font-weight: 600; color: #1a1a2e; }
+  :root { --orange: #f97316; --orange-dark: #ea6c0a; --orange-light: #fff7ed; --text: #374151; --text-dark: #111827; --border: #e5e7eb; --bg: #ffffff; --bg-subtle: #f9fafb; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
+  header { background: var(--bg); border-bottom: 1px solid var(--border); padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+  .header-text h1 { font-size: 1.4rem; font-weight: 700; color: var(--text-dark); }
+  .header-text p { font-size: 0.82rem; color: #6b7280; margin-top: 3px; }
+  .header-text p span { font-weight: 600; color: var(--text-dark); }
   .header-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-  .btn { border-radius: 8px; padding: 9px 14px; font-size: 0.88rem; font-weight: 600; cursor: pointer; white-space: nowrap; border: none; }
-  .btn-primary { background: #2563eb; color: #fff; }
-  .btn-primary:hover { background: #1d4ed8; }
-  .btn-secondary { background: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
-  .btn-secondary:hover { background: #e5e7eb; }
+  .btn { border-radius: 6px; padding: 8px 14px; font-size: 0.82rem; font-weight: 600; cursor: pointer; white-space: nowrap; border: none; transition: background 0.15s; }
+  .btn-primary { background: var(--orange); color: #fff; }
+  .btn-primary:hover { background: var(--orange-dark); }
+  .btn-secondary { background: var(--bg-subtle); color: var(--text); border: 1px solid var(--border); }
+  .btn-secondary:hover { background: #f3f4f6; }
   .btn-success { background: #16a34a; color: #fff; }
   .btn-success:hover { background: #15803d; }
   .btn-success:disabled { background: #86efac; cursor: not-allowed; }
-  .admin-badge { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; border-radius: 6px; padding: 4px 10px; font-size: 0.75rem; font-weight: 600; }
-  .admin-panel { background: #fffbeb; border-bottom: 2px solid #fde68a; padding: 14px 32px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-  .admin-panel-label { font-size: 0.75rem; font-weight: 700; color: #92400e; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px; }
-  .admin-panel .btn { padding: 7px 12px; font-size: 0.82rem; }
-  .save-status { font-size: 0.78rem; color: #666; font-style: italic; margin-left: 4px; }
-  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; align-items: center; justify-content: center; }
+  .admin-badge { background: var(--orange-light); color: #9a3412; border: 1px solid #fed7aa; border-radius: 5px; padding: 3px 9px; font-size: 0.72rem; font-weight: 600; }
+  .admin-panel { background: var(--orange-light); border-bottom: 1px solid #fed7aa; padding: 10px 24px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .admin-panel-label { font-size: 0.72rem; font-weight: 700; color: #9a3412; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px; }
+  .admin-panel .btn { padding: 6px 11px; font-size: 0.78rem; }
+  .save-status { font-size: 0.75rem; color: #6b7280; font-style: italic; margin-left: 4px; }
+  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 100; align-items: center; justify-content: center; }
   .overlay.open { display: flex; }
-  .modal { background: #fff; border-radius: 14px; padding: 28px; width: 100%; max-width: 480px; margin: 16px; box-shadow: 0 8px 40px rgba(0,0,0,0.18); max-height: 90vh; overflow-y: auto; }
-  .modal h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 20px; }
-  .form-row { margin-bottom: 16px; }
-  .form-row label { display: block; font-size: 0.78rem; font-weight: 600; color: #555; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.04em; }
-  .form-row input, .form-row select { width: 100%; border: 1px solid #d1d5db; border-radius: 8px; padding: 9px 12px; font-size: 0.9rem; background: #f9fafb; }
-  .form-row input:focus, .form-row select:focus { outline: none; border-color: #2563eb; background: #fff; }
+  .modal { background: var(--bg); border-radius: 10px; padding: 24px; width: 100%; max-width: 460px; margin: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.14); max-height: 90vh; overflow-y: auto; }
+  .modal h2 { font-size: 1.05rem; font-weight: 700; color: var(--text-dark); margin-bottom: 18px; }
+  .form-row { margin-bottom: 14px; }
+  .form-row label { display: block; font-size: 0.72rem; font-weight: 600; color: #6b7280; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .form-row input, .form-row select { width: 100%; border: 1px solid var(--border); border-radius: 6px; padding: 8px 11px; font-size: 0.88rem; background: var(--bg-subtle); color: var(--text-dark); }
+  .form-row input:focus, .form-row select:focus { outline: none; border-color: var(--orange); background: #fff; }
   .bands-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
   .band-check { display: flex; align-items: center; gap: 5px; font-size: 0.85rem; cursor: pointer; }
-  .band-check input[type=checkbox] { width: 15px; height: 15px; accent-color: #2563eb; cursor: pointer; }
-  .modal-actions { display: flex; gap: 10px; margin-top: 22px; }
-  .btn-save { flex: 1; background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
-  .btn-save:hover { background: #1d4ed8; }
-  .btn-cancel { flex: 1; background: #f3f4f6; color: #555; border: none; border-radius: 8px; padding: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
-  .btn-cancel:hover { background: #e5e7eb; }
-  .error-msg { color: #dc2626; font-size: 0.8rem; margin-top: 5px; display: none; }
-  .hint-msg { color: #6b7280; font-size: 0.78rem; margin-top: 5px; line-height: 1.5; }
+  .band-check input[type=checkbox] { width: 14px; height: 14px; accent-color: var(--orange); cursor: pointer; }
+  .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+  .btn-save { flex: 1; background: var(--orange); color: #fff; border: none; border-radius: 6px; padding: 9px; font-size: 0.88rem; font-weight: 600; cursor: pointer; }
+  .btn-save:hover { background: var(--orange-dark); }
+  .btn-cancel { flex: 1; background: var(--bg-subtle); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 9px; font-size: 0.88rem; font-weight: 600; cursor: pointer; }
+  .btn-cancel:hover { background: #f3f4f6; }
+  .error-msg { color: #dc2626; font-size: 0.78rem; margin-top: 4px; display: none; }
+  .hint-msg { color: #9ca3af; font-size: 0.75rem; margin-top: 4px; line-height: 1.5; }
   .img-preview-wrap { margin-top: 8px; display: none; }
-  .img-preview-wrap img { width: 60px; height: 75px; object-fit: contain; border-radius: 6px; border: 1px solid #e5e7eb; background: #f9fafb; }
-  .manage-list { list-style: none; margin-top: 4px; display: flex; flex-direction: column; gap: 8px; max-height: 260px; overflow-y: auto; }
-  .manage-list li { display: flex; align-items: center; justify-content: space-between; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; }
+  .img-preview-wrap img { width: 56px; height: 70px; object-fit: contain; border-radius: 5px; border: 1px solid var(--border); background: var(--bg-subtle); }
+  .manage-list { list-style: none; margin-top: 4px; display: flex; flex-direction: column; gap: 6px; max-height: 260px; overflow-y: auto; }
+  .manage-list li { display: flex; align-items: center; justify-content: space-between; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 6px; padding: 7px 11px; font-size: 0.85rem; }
   .manage-list li span { flex: 1; }
-  .manage-list li .count { font-size: 0.75rem; color: #888; margin-right: 10px; }
-  .manage-list li button { background: #fee2e2; border: none; border-radius: 6px; padding: 4px 8px; font-size: 0.75rem; color: #dc2626; cursor: pointer; font-weight: 600; }
-  .manage-list li button:disabled { background: #f3f4f6; color: #bbb; cursor: not-allowed; }
+  .manage-list li .count { font-size: 0.72rem; color: #9ca3af; margin-right: 10px; }
+  .manage-list li button { background: #fee2e2; border: none; border-radius: 5px; padding: 3px 8px; font-size: 0.72rem; color: #dc2626; cursor: pointer; font-weight: 600; }
+  .manage-list li button:disabled { background: #f3f4f6; color: #d1d5db; cursor: not-allowed; }
   .manage-list li button:not(:disabled):hover { background: #fecaca; }
   .add-inline { display: flex; gap: 8px; margin-top: 10px; }
-  .add-inline input { flex: 1; border: 1px solid #d1d5db; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; background: #f9fafb; }
-  .add-inline input:focus { outline: none; border-color: #2563eb; }
-  .add-inline button { background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 8px 14px; font-size: 0.88rem; font-weight: 600; cursor: pointer; }
-  .add-inline button:hover { background: #1d4ed8; }
-  .section-divider { border: none; border-top: 1px solid #e5e7eb; margin: 18px 0; }
-  .info-msg { font-size: 0.78rem; color: #888; margin-top: 6px; font-style: italic; }
-  .token-steps { background: #f9fafb; border-radius: 8px; padding: 14px; margin-bottom: 16px; font-size: 0.82rem; line-height: 1.8; color: #374151; }
-  .token-steps a { color: #2563eb; }
-  .token-steps code { background: #e5e7eb; padding: 1px 5px; border-radius: 4px; font-size: 0.78rem; }
-  .filters { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 14px 32px; display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
-  .filter-group { display: flex; flex-direction: column; gap: 4px; }
-  .filter-group label { font-size: 0.72rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
-  .filter-group select { border: 1px solid #d1d5db; border-radius: 8px; padding: 7px 32px 7px 10px; font-size: 0.88rem; background: #f9fafb; color: #1a1a2e; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; min-width: 140px; }
-  .filter-group select:focus { outline: none; border-color: #2563eb; }
-  .search-wrap { flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 4px; }
-  .search-wrap label { font-size: 0.72rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
-  .search-wrap input { border: 1px solid #d1d5db; border-radius: 8px; padding: 7px 12px; font-size: 0.88rem; background: #f9fafb; width: 100%; }
-  .search-wrap input:focus { outline: none; border-color: #2563eb; }
-  .clear-btn { margin-top: 18px; padding: 7px 14px; border: 1px solid #d1d5db; border-radius: 8px; background: #fff; font-size: 0.82rem; cursor: pointer; color: #555; }
-  .clear-btn:hover { background: #f3f4f6; }
-  .results-bar { padding: 12px 32px; font-size: 0.82rem; color: #888; }
-  main { padding: 16px 32px 40px; }
-  .manufacturer-section { margin-bottom: 32px; }
-  .manufacturer-section h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #e5e7eb; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
-  .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: box-shadow 0.2s, transform 0.2s; position: relative; }
-  .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.09); transform: translateY(-2px); }
+  .add-inline input { flex: 1; border: 1px solid var(--border); border-radius: 6px; padding: 7px 11px; font-size: 0.85rem; background: var(--bg-subtle); }
+  .add-inline input:focus { outline: none; border-color: var(--orange); }
+  .add-inline button { background: var(--orange); color: #fff; border: none; border-radius: 6px; padding: 7px 13px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+  .add-inline button:hover { background: var(--orange-dark); }
+  .section-divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+  .info-msg { font-size: 0.75rem; color: #9ca3af; margin-top: 6px; font-style: italic; }
+  .token-steps { background: var(--bg-subtle); border-radius: 6px; padding: 12px; margin-bottom: 14px; font-size: 0.8rem; line-height: 1.8; color: var(--text); border: 1px solid var(--border); }
+  .token-steps a { color: var(--orange); }
+  .token-steps code { background: #e5e7eb; padding: 1px 5px; border-radius: 3px; font-size: 0.75rem; }
+  .filters { background: var(--bg); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+  .filter-group { display: flex; flex-direction: column; gap: 3px; }
+  .filter-group label { font-size: 0.68rem; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; }
+  .filter-group select { border: 1px solid var(--border); border-radius: 6px; padding: 6px 28px 6px 9px; font-size: 0.85rem; background: var(--bg-subtle); color: var(--text-dark); cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; min-width: 130px; }
+  .filter-group select:focus { outline: none; border-color: var(--orange); }
+  .search-wrap { flex: 1; min-width: 180px; display: flex; flex-direction: column; gap: 3px; }
+  .search-wrap label { font-size: 0.68rem; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; }
+  .search-wrap input { border: 1px solid var(--border); border-radius: 6px; padding: 6px 11px; font-size: 0.85rem; background: var(--bg-subtle); width: 100%; color: var(--text-dark); }
+  .search-wrap input:focus { outline: none; border-color: var(--orange); }
+  .clear-btn { padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); font-size: 0.78rem; cursor: pointer; color: #6b7280; }
+  .clear-btn:hover { background: var(--bg-subtle); }
+  .results-bar { padding: 10px 24px; font-size: 0.78rem; color: #9ca3af; border-bottom: 1px solid var(--border); }
+  main { padding: 16px 24px 40px; }
+  .manufacturer-section { margin-bottom: 28px; }
+  .manufacturer-section h2 { font-size: 1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid var(--orange); display: inline-block; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-top: 12px; }
+  .card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px 12px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: box-shadow 0.15s, border-color 0.15s; position: relative; }
+  .card:hover { box-shadow: 0 2px 12px rgba(249,115,22,0.1); border-color: #fed7aa; }
   .card:hover .delete-btn { opacity: 1; }
-  .delete-btn { position: absolute; top: 8px; right: 8px; background: #fee2e2; border: none; border-radius: 6px; width: 24px; height: 24px; font-size: 0.75rem; cursor: pointer; color: #dc2626; opacity: 0; transition: opacity 0.15s; display: flex; align-items: center; justify-content: center; }
+  .delete-btn { position: absolute; top: 7px; right: 7px; background: #fee2e2; border: none; border-radius: 5px; width: 22px; height: 22px; font-size: 0.7rem; cursor: pointer; color: #dc2626; opacity: 0; transition: opacity 0.15s; display: flex; align-items: center; justify-content: center; }
   .delete-btn:hover { background: #fecaca; }
-  .card-img { width: 80px; height: 100px; object-fit: contain; margin-bottom: 10px; }
-  .card-img-placeholder { width: 80px; height: 100px; background: #f3f4f6; border-radius: 8px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
-  .card-name { font-size: 0.85rem; font-weight: 600; color: #1a1a2e; margin-bottom: 4px; line-height: 1.3; }
-  .card-name-link { font-size: 0.85rem; font-weight: 600; color: #2563eb; margin-bottom: 4px; line-height: 1.3; text-decoration: none; }
+  .card-img { width: 72px; height: 90px; object-fit: contain; margin-bottom: 8px; }
+  .card-img-placeholder { width: 72px; height: 90px; background: var(--bg-subtle); border-radius: 6px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; border: 1px solid var(--border); }
+  .card-name { font-size: 0.8rem; font-weight: 600; color: var(--text-dark); margin-bottom: 4px; line-height: 1.3; }
+  .card-name-link { font-size: 0.8rem; font-weight: 600; color: var(--orange); margin-bottom: 4px; line-height: 1.3; text-decoration: none; }
   .card-name-link:hover { text-decoration: underline; }
-  .type-tag { display: inline-block; border-radius: 4px; padding: 2px 7px; font-size: 0.7rem; font-weight: 600; margin-bottom: 6px; }
-  .band-tag { display: inline-block; background: #eff6ff; color: #2563eb; border-radius: 4px; padding: 2px 6px; margin: 2px 2px 0; font-size: 0.7rem; font-weight: 500; }
-  .band-tag.empty { background: #f3f4f6; color: #aaa; }
-  .no-results { text-align: center; padding: 60px 20px; color: #aaa; font-size: 1rem; }
-  .no-results span { font-size: 2.5rem; display: block; margin-bottom: 10px; }
-  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #1a1a2e; color: #fff; padding: 10px 20px; border-radius: 8px; font-size: 0.85rem; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 200; white-space: nowrap; }
+  .type-tag { display: inline-block; border-radius: 4px; padding: 2px 6px; font-size: 0.66rem; font-weight: 600; margin-bottom: 5px; }
+  .band-tag { display: inline-block; background: var(--orange-light); color: var(--orange-dark); border-radius: 3px; padding: 2px 5px; margin: 2px 1px 0; font-size: 0.66rem; font-weight: 600; }
+  .band-tag.empty { background: var(--bg-subtle); color: #9ca3af; }
+  .no-results { text-align: center; padding: 60px 20px; color: #9ca3af; font-size: 0.95rem; }
+  .no-results span { font-size: 2.2rem; display: block; margin-bottom: 10px; }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--text-dark); color: #fff; padding: 9px 18px; border-radius: 6px; font-size: 0.82rem; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 200; white-space: nowrap; }
   .toast.show { opacity: 1; }
   .toast.error { background: #dc2626; }
   .hidden { display: none !important; }
@@ -303,239 +304,27 @@ let deviceTypes   = ["Smartphone","Tablet","Laptop","Router/CPE","Broadcasting"]
 let bands         = ["b48","n48","n77","n78"];
 
 let devices = [
-  {
-    "name": "Apple iPhone 14",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/apple_iphone_14-11861.php",
-    "img": "images/apple14.png"
-  },
-  {
-    "name": "Apple iPhone 13",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/apple_iphone_13-11103.php",
-    "img": "images/apple13.png"
-  },
-  {
-    "name": "Apple iPhone 13 Pro",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/apple_iphone_13_pro-11102.php",
-    "img": "images/apple13pro.png"
-  },
-  {
-    "name": "Apple iPhone 12",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/apple_iphone_12-10509.php",
-    "img": "images/apple12.png"
-  },
-  {
-    "name": "Apple iPhone 11",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/apple_iphone_11-9848.php",
-    "img": "images/apple11.png"
-  },
-  {
-    "name": "Apple iPhone SE 2020",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/apple_iphone_se_(2020)-10170.php",
-    "img": "images/appleSE2020.png"
-  },
-  {
-    "name": "Asus Zenfone 8",
-    "manufacturer": "Asus",
-    "type": "Smartphone",
-    "bands": [
-      "n78"
-    ],
-    "url": "",
-    "img": ""
-  },
-  {
-    "name": "Asus ROG 5",
-    "manufacturer": "Asus",
-    "type": "Smartphone",
-    "bands": [
-      "n78"
-    ],
-    "url": "",
-    "img": ""
-  },
-  {
-    "name": "Google Pixel 7",
-    "manufacturer": "Google",
-    "type": "Smartphone",
-    "bands": [
-      "n78"
-    ],
-    "url": "",
-    "img": ""
-  },
-  {
-    "name": "Google Pixel 6",
-    "manufacturer": "Google",
-    "type": "Smartphone",
-    "bands": [
-      "n78"
-    ],
-    "url": "",
-    "img": ""
-  },
-  {
-    "name": "Google Pixel 6 Pro",
-    "manufacturer": "Google",
-    "type": "Smartphone",
-    "bands": [
-      "n78"
-    ],
-    "url": "",
-    "img": ""
-  },
-  {
-    "name": "Google Pixel 4/4XL",
-    "manufacturer": "Google",
-    "type": "Smartphone",
-    "bands": [],
-    "url": "",
-    "img": ""
-  },
-  {
-    "name": "LG V60 5G",
-    "manufacturer": "LG",
-    "type": "Smartphone",
-    "bands": [],
-    "url": "",
-    "img": ""
-  },
-  {
-    "name": "LG Velvet 5G",
-    "manufacturer": "LG",
-    "type": "Smartphone",
-    "bands": [],
-    "url": "",
-    "img": ""
-  },
-  {
-    "name": "Moto 5G 2024",
-    "manufacturer": "Motorola",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "",
-    "img": ""
-  },
-  {
-    "name": "Moto 5G 2025",
-    "manufacturer": "Motorola",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "",
-    "img": ""
-  },
-  {
-    "name": "Moto G Stylus",
-    "manufacturer": "Motorola",
-    "type": "Smartphone",
-    "bands": [
-      "n78"
-    ],
-    "url": "",
-    "img": ""
-  },
-  {
-    "name": "Pro360-5G Transmitter",
-    "manufacturer": "Haivision",
-    "type": "Broadcasting",
-    "bands": [
-      "n77",
-      "n78"
-    ],
-    "url": "",
-    "img": ""
-  },
-  {
-    "name": "Falkon X2 Transmitter",
-    "manufacturer": "Haivision",
-    "type": "Broadcasting",
-    "bands": [
-      "n77",
-      "n78"
-    ],
-    "url": "",
-    "img": ""
-  },
-  {
-    "name": "Pro460 Transmitter",
-    "manufacturer": "Haivision",
-    "type": "Broadcasting",
-    "bands": [
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "",
-    "img": ""
-  },
-  {
-    "name": "P3 5G Bonding Encoder",
-    "manufacturer": "Kiloview",
-    "type": "Broadcasting",
-    "bands": [
-      "n77",
-      "n78"
-    ],
-    "url": "",
-    "img": ""
-  }
+  { "name": "Apple iPhone 14",      "manufacturer": "Apple",     "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_14-11861.php",        "img": "images/apple14.png" },
+  { "name": "Apple iPhone 13",      "manufacturer": "Apple",     "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_13-11103.php",        "img": "images/apple13.png" },
+  { "name": "Apple iPhone 13 Pro",  "manufacturer": "Apple",     "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_13_pro-11102.php",    "img": "images/apple13pro.png" },
+  { "name": "Apple iPhone 12",      "manufacturer": "Apple",     "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_12-10509.php",        "img": "images/apple12.png" },
+  { "name": "Apple iPhone 11",      "manufacturer": "Apple",     "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_11-9848.php",         "img": "images/apple11.png" },
+  { "name": "Apple iPhone SE 2020", "manufacturer": "Apple",     "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_se_(2020)-10170.php", "img": "images/appleSE2020.png" },
+  { "name": "Asus Zenfone 8",       "manufacturer": "Asus",      "type": "Smartphone",   "bands": ["n78"],                  "url": "", "img": "" },
+  { "name": "Asus ROG 5",           "manufacturer": "Asus",      "type": "Smartphone",   "bands": ["n78"],                  "url": "", "img": "" },
+  { "name": "Google Pixel 7",       "manufacturer": "Google",    "type": "Smartphone",   "bands": ["n78"],                  "url": "", "img": "" },
+  { "name": "Google Pixel 6",       "manufacturer": "Google",    "type": "Smartphone",   "bands": ["n78"],                  "url": "", "img": "" },
+  { "name": "Google Pixel 6 Pro",   "manufacturer": "Google",    "type": "Smartphone",   "bands": ["n78"],                  "url": "", "img": "" },
+  { "name": "Google Pixel 4/4XL",   "manufacturer": "Google",    "type": "Smartphone",   "bands": [],                       "url": "", "img": "" },
+  { "name": "LG V60 5G",            "manufacturer": "LG",        "type": "Smartphone",   "bands": [],                       "url": "", "img": "" },
+  { "name": "LG Velvet 5G",         "manufacturer": "LG",        "type": "Smartphone",   "bands": [],                       "url": "", "img": "" },
+  { "name": "Moto 5G 2024",         "manufacturer": "Motorola",  "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "", "img": "" },
+  { "name": "Moto 5G 2025",         "manufacturer": "Motorola",  "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "", "img": "" },
+  { "name": "Moto G Stylus",        "manufacturer": "Motorola",  "type": "Smartphone",   "bands": ["n78"],                  "url": "", "img": "" },
+  { "name": "Pro360-5G Transmitter","manufacturer": "Haivision", "type": "Broadcasting", "bands": ["n77","n78"],            "url": "", "img": "" },
+  { "name": "Falkon X2 Transmitter","manufacturer": "Haivision", "type": "Broadcasting", "bands": ["n77","n78"],            "url": "", "img": "" },
+  { "name": "Pro460 Transmitter",   "manufacturer": "Haivision", "type": "Broadcasting", "bands": ["n48","n77","n78"],      "url": "", "img": "" },
+  { "name": "P3 5G Bonding Encoder","manufacturer": "Kiloview",  "type": "Broadcasting", "bands": ["n77","n78"],            "url": "", "img": "" }
 ];
 
 // ── IMAGE PREVIEW ─────────────────────────────────────────────
@@ -553,30 +342,15 @@ setupImgPreview("editImg", "editImgPreview", "editImgPreviewImg");
 
 // ── DROPDOWNS ─────────────────────────────────────────────────
 function refreshAll() {
-  var fMfr = document.getElementById("filterMfr");
-  var fMfrVal = fMfr.value;
-  fMfr.innerHTML = '<option value="">All</option>' + manufacturers.map(function(m) { return '<option' + (m === fMfrVal ? ' selected' : '') + '>' + m + '</option>'; }).join('');
-
-  var fType = document.getElementById("filterType");
-  var fTypeVal = fType.value;
-  fType.innerHTML = '<option value="">All</option>' + deviceTypes.map(function(t) { return '<option' + (t === fTypeVal ? ' selected' : '') + '>' + t + '</option>'; }).join('');
-
-  var fBand = document.getElementById("filterBand");
-  var fBandVal = fBand.value;
-  fBand.innerHTML = '<option value="">All</option>' + bands.map(function(b) { return '<option' + (b === fBandVal ? ' selected' : '') + '>' + b + '</option>'; }).join('');
-
-  document.getElementById("inputMfr").innerHTML =
-    '<option value="">— Select manufacturer —</option>' +
-    manufacturers.map(function(m) { return '<option>' + m + '</option>'; }).join('') +
-    '<option value="__new__">+ Add new manufacturer…</option>';
-
-  document.getElementById("inputType").innerHTML =
-    '<option value="">— Select device type —</option>' +
-    deviceTypes.map(function(t) { return '<option>' + t + '</option>'; }).join('');
-
-  document.getElementById("bandsGrid").innerHTML = bands.map(function(b) {
-    return '<label class="band-check"><input type="checkbox" value="' + b + '"> ' + b + '</label>';
-  }).join('');
+  var fMfr = document.getElementById("filterMfr"), fMfrVal = fMfr.value;
+  fMfr.innerHTML = '<option value="">All</option>' + manufacturers.map(function(m) { return '<option' + (m===fMfrVal?' selected':'') + '>' + m + '</option>'; }).join('');
+  var fType = document.getElementById("filterType"), fTypeVal = fType.value;
+  fType.innerHTML = '<option value="">All</option>' + deviceTypes.map(function(t) { return '<option' + (t===fTypeVal?' selected':'') + '>' + t + '</option>'; }).join('');
+  var fBand = document.getElementById("filterBand"), fBandVal = fBand.value;
+  fBand.innerHTML = '<option value="">All</option>' + bands.map(function(b) { return '<option' + (b===fBandVal?' selected':'') + '>' + b + '</option>'; }).join('');
+  document.getElementById("inputMfr").innerHTML = '<option value="">— Select manufacturer —</option>' + manufacturers.map(function(m) { return '<option>' + m + '</option>'; }).join('') + '<option value="__new__">+ Add new manufacturer…</option>';
+  document.getElementById("inputType").innerHTML = '<option value="">— Select device type —</option>' + deviceTypes.map(function(t) { return '<option>' + t + '</option>'; }).join('');
+  document.getElementById("bandsGrid").innerHTML = bands.map(function(b) { return '<label class="band-check"><input type="checkbox" value="' + b + '"> ' + b + '</label>'; }).join('');
 }
 
 // ── ADD DEVICE ────────────────────────────────────────────────
@@ -607,24 +381,18 @@ function saveDevice() {
   var typeVal = document.getElementById("inputType").value;
   var urlVal = document.getElementById("inputUrl").value.trim();
   var imgVal = document.getElementById("inputImg").value.trim();
-
   document.getElementById("errName").style.display = name ? 'none' : 'block';
   if (!name) valid = false;
   document.getElementById("errType").style.display = typeVal ? 'none' : 'block';
   if (!typeVal) valid = false;
-
   var manufacturer = "";
-  if (!mfrVal) {
-    document.getElementById("errMfr").style.display = 'block'; valid = false;
-  } else if (mfrVal === "__new__") {
+  if (!mfrVal) { document.getElementById("errMfr").style.display = 'block'; valid = false; }
+  else if (mfrVal === "__new__") {
     document.getElementById("errMfr").style.display = 'none';
     if (!newMfrVal) { document.getElementById("errNewMfr").style.display = 'block'; valid = false; }
     else { document.getElementById("errNewMfr").style.display = 'none'; manufacturer = newMfrVal; if (!manufacturers.includes(newMfrVal)) manufacturers.push(newMfrVal); }
-  } else {
-    document.getElementById("errMfr").style.display = 'none'; manufacturer = mfrVal;
-  }
+  } else { document.getElementById("errMfr").style.display = 'none'; manufacturer = mfrVal; }
   if (!valid) return;
-
   var selBands = Array.from(document.querySelectorAll('#bandsGrid input[type=checkbox]:checked')).map(function(c) { return c.value; });
   devices.push({ name: name, manufacturer: manufacturer, type: typeVal, bands: selBands, url: urlVal, img: imgVal });
   closeModal(); refreshAll(); render(); markUnsaved();
@@ -640,9 +408,7 @@ function deleteDevice(idx) {
 
 // ── EDIT DEVICE ───────────────────────────────────────────────
 function openEdit() {
-  document.getElementById("editMfr").innerHTML =
-    '<option value="">— Select manufacturer —</option>' +
-    manufacturers.map(function(m) { return '<option>' + m + '</option>'; }).join('');
+  document.getElementById("editMfr").innerHTML = '<option value="">— Select manufacturer —</option>' + manufacturers.map(function(m) { return '<option>' + m + '</option>'; }).join('');
   document.getElementById("editDevice").innerHTML = '<option value="">— Select device —</option>';
   document.getElementById("editFields").style.display = "none";
   document.getElementById("editSaveBtn").style.display = "none";
@@ -656,29 +422,18 @@ function populateEditDevices() {
   document.getElementById("editSaveBtn").style.display = "none";
   if (!mfr) return;
   devices.forEach(function(d, i) {
-    if (d.manufacturer === mfr) {
-      var o = document.createElement("option");
-      o.value = i; o.textContent = d.name; devSel.appendChild(o);
-    }
+    if (d.manufacturer === mfr) { var o = document.createElement("option"); o.value = i; o.textContent = d.name; devSel.appendChild(o); }
   });
 }
 function populateEditFields() {
   var idx = document.getElementById("editDevice").value;
-  if (idx === "") {
-    document.getElementById("editFields").style.display = "none";
-    document.getElementById("editSaveBtn").style.display = "none";
-    return;
-  }
+  if (idx === "") { document.getElementById("editFields").style.display = "none"; document.getElementById("editSaveBtn").style.display = "none"; return; }
   var d = devices[idx];
-  document.getElementById("editBandsGrid").innerHTML = bands.map(function(b) {
-    return '<label class="band-check"><input type="checkbox" value="' + b + '"' + (d.bands.includes(b) ? ' checked' : '') + '> ' + b + '</label>';
-  }).join('');
+  document.getElementById("editBandsGrid").innerHTML = bands.map(function(b) { return '<label class="band-check"><input type="checkbox" value="' + b + '"' + (d.bands.includes(b) ? ' checked' : '') + '> ' + b + '</label>'; }).join('');
   document.getElementById("editUrl").value = d.url || "";
   document.getElementById("editImg").value = d.img || "";
-  var wrap = document.getElementById("editImgPreview");
-  var img = document.getElementById("editImgPreviewImg");
-  if (d.img) { img.src = IMG_BASE + d.img; wrap.style.display = "block"; }
-  else { wrap.style.display = "none"; }
+  var wrap = document.getElementById("editImgPreview"), img = document.getElementById("editImgPreviewImg");
+  if (d.img) { img.src = IMG_BASE + d.img; wrap.style.display = "block"; } else { wrap.style.display = "none"; }
   document.getElementById("editFields").style.display = "block";
   document.getElementById("editSaveBtn").style.display = "block";
 }
@@ -699,11 +454,7 @@ function openManage(mode) {
   manageMode = mode;
   var titles = { manufacturer: "🏢 Manage Manufacturers", type: "📱 Manage Device Types", band: "📡 Manage Bands" };
   var placeholders = { manufacturer: "New manufacturer name", type: "New device type name", band: "New band (e.g. n41)" };
-  var infos = {
-    manufacturer: "⚠ A manufacturer can only be deleted when all its devices have been removed.",
-    type: "⚠ Deleting a device type removes it from the dropdown — existing devices keep their label.",
-    band: "⚠ Deleting a band removes it from the dropdown — existing devices keep their band tags."
-  };
+  var infos = { manufacturer: "⚠ A manufacturer can only be deleted when all its devices have been removed.", type: "⚠ Deleting a device type removes it from the dropdown — existing devices keep their label.", band: "⚠ Deleting a band removes it from the dropdown — existing devices keep their band tags." };
   document.getElementById("manageTitle").textContent = titles[mode];
   document.getElementById("manageInput").placeholder = placeholders[mode];
   document.getElementById("manageInput").value = "";
@@ -715,21 +466,13 @@ function renderManageList() {
   var items = manageMode === "manufacturer" ? manufacturers : manageMode === "type" ? deviceTypes : bands;
   document.getElementById("manageList").innerHTML = items.map(function(item, i) {
     var count = 0, canDelete = true, tooltip = "";
-    if (manageMode === "manufacturer") {
-      count = devices.filter(function(d) { return d.manufacturer === item; }).length;
-      canDelete = count === 0;
-      tooltip = canDelete ? "" : "Cannot delete — " + count + " device(s) still assigned";
-    }
-    return '<li><span>' + item + '</span>' +
-      (manageMode === "manufacturer" ? '<span class="count">' + count + ' device' + (count !== 1 ? 's' : '') + '</span>' : '') +
-      '<button onclick="deleteManageItem(' + i + ')" ' + (canDelete ? '' : 'disabled') + ' title="' + tooltip + '">✕ Delete</button></li>';
+    if (manageMode === "manufacturer") { count = devices.filter(function(d) { return d.manufacturer === item; }).length; canDelete = count === 0; tooltip = canDelete ? "" : "Cannot delete — " + count + " device(s) still assigned"; }
+    return '<li><span>' + item + '</span>' + (manageMode === "manufacturer" ? '<span class="count">' + count + ' device' + (count !== 1 ? 's' : '') + '</span>' : '') + '<button onclick="deleteManageItem(' + i + ')" ' + (canDelete ? '' : 'disabled') + ' title="' + tooltip + '">✕ Delete</button></li>';
   }).join('');
 }
 function deleteManageItem(i) {
-  if (manageMode === "manufacturer") {
-    if (devices.some(function(d) { return d.manufacturer === manufacturers[i]; })) { showToast("⚠ Remove all devices first!"); return; }
-    manufacturers.splice(i, 1);
-  } else if (manageMode === "type") { deviceTypes.splice(i, 1); }
+  if (manageMode === "manufacturer") { if (devices.some(function(d) { return d.manufacturer === manufacturers[i]; })) { showToast("⚠ Remove all devices first!"); return; } manufacturers.splice(i, 1); }
+  else if (manageMode === "type") { deviceTypes.splice(i, 1); }
   else { bands.splice(i, 1); }
   refreshAll(); renderManageList(); render(); markUnsaved();
   showToast("✓ Deleted");
@@ -747,21 +490,11 @@ function addManageItem() {
 function closeManage() { document.getElementById("manageOverlay").classList.remove("open"); }
 
 // ── UNSAVED ───────────────────────────────────────────────────
-function markUnsaved() {
-  document.getElementById("saveStatus").textContent = "● Unsaved changes";
-  document.getElementById("saveStatus").style.color = "#dc2626";
-}
-function markSaved() {
-  document.getElementById("saveStatus").textContent = "✓ Saved to GitHub";
-  document.getElementById("saveStatus").style.color = "#16a34a";
-}
+function markUnsaved() { document.getElementById("saveStatus").textContent = "● Unsaved changes"; document.getElementById("saveStatus").style.color = "#dc2626"; }
+function markSaved() { document.getElementById("saveStatus").textContent = "✓ Saved to GitHub"; document.getElementById("saveStatus").style.color = "#16a34a"; }
 
 // ── SAVE TO GITHUB ────────────────────────────────────────────
-function openSaveToGitHub() {
-  document.getElementById("ghToken").value = "";
-  document.getElementById("errToken").style.display = "none";
-  document.getElementById("githubOverlay").classList.add("open");
-}
+function openSaveToGitHub() { document.getElementById("ghToken").value = ""; document.getElementById("errToken").style.display = "none"; document.getElementById("githubOverlay").classList.add("open"); }
 function closeGitHub() { document.getElementById("githubOverlay").classList.remove("open"); }
 
 async function saveToGitHub() {
@@ -771,25 +504,15 @@ async function saveToGitHub() {
   var btn = document.getElementById("ghSaveBtn");
   btn.textContent = "⏳ Saving..."; btn.disabled = true;
   try {
-    var metaRes = await fetch("https://api.github.com/repos/" + GITHUB_USER + "/" + GITHUB_REPO + "/contents/" + GITHUB_FILE + "?ref=" + GITHUB_BRANCH, {
-      headers: { Authorization: "token " + token, Accept: "application/vnd.github.v3+json" }
-    });
+    var metaRes = await fetch("https://api.github.com/repos/" + GITHUB_USER + "/" + GITHUB_REPO + "/contents/" + GITHUB_FILE + "?ref=" + GITHUB_BRANCH, { headers: { Authorization: "token " + token, Accept: "application/vnd.github.v3+json" } });
     if (!metaRes.ok) throw new Error("Could not fetch file (" + metaRes.status + "). Check your token and repo settings.");
     var meta = await metaRes.json();
     var sha = meta.sha;
     var currentHTML = await fetch(window.location.href.split('?')[0]).then(function(r) { return r.text(); });
-    var dataBlock =
-      "let manufacturers = " + JSON.stringify(manufacturers) + ";\n" +
-      "let deviceTypes   = " + JSON.stringify(deviceTypes) + ";\n" +
-      "let bands         = " + JSON.stringify(bands) + ";\n\n" +
-      "let devices = " + JSON.stringify(devices, null, 2) + ";";
+    var dataBlock = "let manufacturers = " + JSON.stringify(manufacturers) + ";\nlet deviceTypes   = " + JSON.stringify(deviceTypes) + ";\nlet bands         = " + JSON.stringify(bands) + ";\n\nlet devices = " + JSON.stringify(devices, null, 2) + ";";
     var updated = currentHTML.replace(/let manufacturers\s*=[\s\S]*?let devices\s*=[\s\S]*?];/m, dataBlock);
     var encoded = btoa(unescape(encodeURIComponent(updated)));
-    var pushRes = await fetch("https://api.github.com/repos/" + GITHUB_USER + "/" + GITHUB_REPO + "/contents/" + GITHUB_FILE, {
-      method: "PUT",
-      headers: { Authorization: "token " + token, Accept: "application/vnd.github.v3+json", "Content-Type": "application/json" },
-      body: JSON.stringify({ message: "Update device list via admin UI", content: encoded, sha: sha, branch: GITHUB_BRANCH })
-    });
+    var pushRes = await fetch("https://api.github.com/repos/" + GITHUB_USER + "/" + GITHUB_REPO + "/contents/" + GITHUB_FILE, { method: "PUT", headers: { Authorization: "token " + token, Accept: "application/vnd.github.v3+json", "Content-Type": "application/json" }, body: JSON.stringify({ message: "Update device list via admin UI", content: encoded, sha: sha, branch: GITHUB_BRANCH }) });
     if (!pushRes.ok) { var err = await pushRes.json(); throw new Error(err.message || "Push failed (" + pushRes.status + ")"); }
     closeGitHub(); markSaved();
     showToast("✓ Saved to GitHub! Page updates in ~30 seconds.");
@@ -812,30 +535,14 @@ function render() {
   var mfr = document.getElementById("filterMfr").value;
   var type = document.getElementById("filterType").value;
   var band = document.getElementById("filterBand").value;
-
-  var filtered = devices.map(function(d, i) {
-    return Object.assign({}, d, { _idx: i });
-  }).filter(function(d) {
-    return d.name.toLowerCase().includes(search) &&
-      (!mfr || d.manufacturer === mfr) &&
-      (!type || d.type === type) &&
-      (!band || d.bands.includes(band));
+  var filtered = devices.map(function(d, i) { return Object.assign({}, d, { _idx: i }); }).filter(function(d) {
+    return d.name.toLowerCase().includes(search) && (!mfr || d.manufacturer === mfr) && (!type || d.type === type) && (!band || d.bands.includes(band));
   });
-
   var byMfr = {};
-  filtered.forEach(function(d) {
-    if (!byMfr[d.manufacturer]) byMfr[d.manufacturer] = [];
-    byMfr[d.manufacturer].push(d);
-  });
-
+  filtered.forEach(function(d) { if (!byMfr[d.manufacturer]) byMfr[d.manufacturer] = []; byMfr[d.manufacturer].push(d); });
   document.getElementById("resultsBar").textContent = "Showing " + filtered.length + " of " + devices.length + " devices";
   var main = document.getElementById("main");
-
-  if (!filtered.length) {
-    main.innerHTML = '<div class="no-results"><span>🔍</span>No devices match your filters.</div>';
-    return;
-  }
-
+  if (!filtered.length) { main.innerHTML = '<div class="no-results"><span>🔍</span>No devices match your filters.</div>'; return; }
   var html = "";
   Object.keys(byMfr).forEach(function(mfrKey) {
     var list = byMfr[mfrKey];
@@ -844,48 +551,23 @@ function render() {
       var tidx = deviceTypes.indexOf(d.type);
       var style = tidx >= 0 ? typeColors[tidx % typeColors.length] : "background:#f3f4f6;color:#555";
       var emoji = getEmoji(d.type);
-
-      var imgHtml = "";
-      var placeholderStyle = "";
-      if (d.img) {
-        imgHtml = '<img class="card-img" src="' + IMG_BASE + d.img + '" alt="' + d.name + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">';
-        placeholderStyle = 'style="display:none"';
-      }
-
-      var nameHtml = d.url
-        ? '<a class="card-name-link" href="' + d.url + '" target="_blank" rel="noopener">' + d.name + '</a>'
-        : '<div class="card-name">' + d.name + '</div>';
-
-      var bandsHtml = d.bands.length
-        ? d.bands.map(function(b) { return '<span class="band-tag">' + b + '</span>'; }).join("")
-        : '<span class="band-tag empty">Bands TBD</span>';
-
+      var imgHtml = "", placeholderStyle = "";
+      if (d.img) { imgHtml = '<img class="card-img" src="' + IMG_BASE + d.img + '" alt="' + d.name + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'; placeholderStyle = 'style="display:none"'; }
+      var nameHtml = d.url ? '<a class="card-name-link" href="' + d.url + '" target="_blank" rel="noopener">' + d.name + '</a>' : '<div class="card-name">' + d.name + '</div>';
+      var bandsHtml = d.bands.length ? d.bands.map(function(b) { return '<span class="band-tag">' + b + '</span>'; }).join("") : '<span class="band-tag empty">Bands TBD</span>';
       var deleteBtn = isAdmin ? '<button class="delete-btn" onclick="deleteDevice(' + d._idx + ')" title="Remove">✕</button>' : '';
-
-      html += '<div class="card">' +
-        deleteBtn +
-        imgHtml +
-        '<div class="card-img-placeholder" ' + placeholderStyle + '>' + emoji + '</div>' +
-        nameHtml +
-        '<span class="type-tag" style="' + style + '">' + (d.type || 'Unknown') + '</span>' +
-        '<div class="card-bands">' + bandsHtml + '</div>' +
-        '</div>';
+      html += '<div class="card">' + deleteBtn + imgHtml + '<div class="card-img-placeholder" ' + placeholderStyle + '>' + emoji + '</div>' + nameHtml + '<span class="type-tag" style="' + style + '">' + (d.type || 'Unknown') + '</span><div class="card-bands">' + bandsHtml + '</div></div>';
     });
     html += '</div></div>';
   });
   main.innerHTML = html;
 }
 
-function clearFilters() {
-  ["searchInput","filterMfr","filterType","filterBand"].forEach(function(id) { document.getElementById(id).value = ""; });
-  render();
-}
+function clearFilters() { ["searchInput","filterMfr","filterType","filterBand"].forEach(function(id) { document.getElementById(id).value = ""; }); render(); }
 
 function showToast(msg, isError) {
   var t = document.getElementById("toast");
-  t.textContent = msg;
-  t.className = "toast" + (isError ? " error" : "");
-  t.classList.add("show");
+  t.textContent = msg; t.className = "toast" + (isError ? " error" : ""); t.classList.add("show");
   setTimeout(function() { t.classList.remove("show"); }, 3500);
 }
 
