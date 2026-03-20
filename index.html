@@ -223,7 +223,14 @@
     </div>
     <div id="editFields" style="display:none">
       <div class="form-row">
-        <label>Tested Bands</label>
+        <label>Device Name *</label>
+        <input type="text" id="editName" placeholder="e.g. Samsung Galaxy S23">
+        <div class="error-msg" id="errEditName">Please enter a device name.</div>
+      </div>
+      <div class="form-row">
+        <label>Device Type</label>
+        <select id="editType"></select>
+      </div>
         <div class="bands-grid" id="editBandsGrid"></div>
       </div>
       <div class="form-row">
@@ -455,6 +462,10 @@ function populateEditFields() {
   var idx = document.getElementById("editDevice").value;
   if (idx==="") { document.getElementById("editFields").style.display="none"; document.getElementById("editSaveBtn").style.display="none"; return; }
   var d = devices[idx];
+  document.getElementById("editName").value = d.name;
+  document.getElementById("errEditName").style.display = "none";
+  var sortedTypes = deviceTypes.slice().sort(function(a,b){return a.localeCompare(b);});
+  document.getElementById("editType").innerHTML = sortedTypes.map(function(t){return '<option'+(t===d.type?' selected':'')+'>'+t+'</option>';}).join('');
   var sortedBands = bands.slice().sort(function(a,b){return a.localeCompare(b);});
   document.getElementById("editBandsGrid").innerHTML = sortedBands.map(function(b){return '<label class="band-check"><input type="checkbox" value="'+b+'"'+(d.bands.includes(b)?' checked':'')+'>'+b+'</label>';}).join('');
   document.getElementById("editUrl").value = d.url||"";
@@ -467,11 +478,16 @@ function populateEditFields() {
 function saveEditDevice() {
   var idx = document.getElementById("editDevice").value;
   if (idx==="") return;
+  var newName = document.getElementById("editName").value.trim();
+  if (!newName) { document.getElementById("errEditName").style.display="block"; return; }
+  document.getElementById("errEditName").style.display="none";
+  devices[idx].name = newName;
+  devices[idx].type = document.getElementById("editType").value;
   devices[idx].bands = Array.from(document.querySelectorAll('#editBandsGrid input[type=checkbox]:checked')).map(function(c){return c.value;});
   devices[idx].url = document.getElementById("editUrl").value.trim();
   devices[idx].img = document.getElementById("editImg").value.trim();
   closeEdit(); render(); markUnsaved();
-  showToast('✓ "'+devices[idx].name+'" updated');
+  showToast('✓ "'+newName+'" updated');
 }
 function closeEdit() { document.getElementById("editOverlay").classList.remove("open"); }
 
