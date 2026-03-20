@@ -295,7 +295,7 @@ const isAdmin = new URLSearchParams(window.location.search).get("admin") === "tr
 if (!isAdmin) { document.getElementById("adminActions").classList.add("hidden"); }
 else { document.getElementById("adminPanel").classList.remove("hidden"); }
 
-let manufacturers = ["Apple","Asus","LG","Motorola","Haivision","Kiloview","OnePlus","SamSung","Perle","JaCS","Ericsson-Cradlepoint","Multitech","test"];
+let manufacturers = ["Apple","Asus","LG","Motorola","Haivision","Kiloview","OnePlus","SamSung","Perle","JaCS","Ericsson-Cradlepoint","Multitech"];
 let deviceTypes   = ["Smartphone","Tablet","Laptop","Router/CPE","Broadcasting","test"];
 let bands         = ["b48","n48","n77","n78"];
 
@@ -597,16 +597,6 @@ let devices = [
       "b48"
     ],
     "url": "https://multitech.com/all-products/cellular/cellular-modems/multiconnect-rcell-500-series/",
-    "img": ""
-  },
-  {
-    "name": "test",
-    "manufacturer": "test",
-    "type": "test",
-    "bands": [
-      "b48"
-    ],
-    "url": "",
     "img": ""
   }
 ];
