@@ -295,366 +295,43 @@ const isAdmin = new URLSearchParams(window.location.search).get("admin") === "tr
 if (!isAdmin) { document.getElementById("adminActions").classList.add("hidden"); }
 else { document.getElementById("adminPanel").classList.remove("hidden"); }
 
-let manufacturers = ["Apple","Asus","LG","Motorola","Haivision","Kiloview","OnePlus","SamSung","Perle","JaCS","Ericsson-Cradlepoint","Multitech","Sierra Wireless"];
-let deviceTypes   = ["Smartphone","Tablet","Laptop","Router/CPE","Broadcasting","test"];
+let manufacturers = ["Apple","Asus","LG","Motorola","Haivision","Kiloview","OnePlus","Samsung","Perle","JaCS","Ericsson-Cradlepoint","Multitech","Sierra Wireless"];
+let deviceTypes   = ["Smartphone","Tablet","Laptop","Router/CPE","Broadcasting"];
 let bands         = ["b48","n48","n77","n78","b28"];
 
 let devices = [
-  {
-    "name": "Apple iPhone 14",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/apple_iphone_14-11861.php",
-    "img": "images/apple14.png"
-  },
-  {
-    "name": "Apple iPhone 13",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/apple_iphone_13-11103.php",
-    "img": "images/apple13.png"
-  },
-  {
-    "name": "Apple iPhone 13 Pro",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/apple_iphone_13_pro-11102.php",
-    "img": "images/apple13pro.png"
-  },
-  {
-    "name": "Apple iPhone 12",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/apple_iphone_12-10509.php",
-    "img": "images/apple12.png"
-  },
-  {
-    "name": "Apple iPhone 11",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/apple_iphone_11-9848.php",
-    "img": "images/apple11.png"
-  },
-  {
-    "name": "Apple iPhone SE 2020",
-    "manufacturer": "Apple",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/apple_iphone_se_(2020)-10170.php",
-    "img": "images/appleSE2020.png"
-  },
-  {
-    "name": "Asus Zenfone 8",
-    "manufacturer": "Asus",
-    "type": "Smartphone",
-    "bands": [
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/asus_zenfone_8-10893.php",
-    "img": "images/AsusZenfone8.png"
-  },
-  {
-    "name": "Asus ROG 5",
-    "manufacturer": "Asus",
-    "type": "Smartphone",
-    "bands": [
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/asus_rog_phone_5-10715.php",
-    "img": "images/AsusROG5.png"
-  },
-  {
-    "name": "LG V60 5G",
-    "manufacturer": "LG",
-    "type": "Smartphone",
-    "bands": [],
-    "url": "https://www.gsmarena.com/lg_v60_thinq_5g-10103.php",
-    "img": "images/LG-V60-5G.png"
-  },
-  {
-    "name": "LG Velvet 5G",
-    "manufacturer": "LG",
-    "type": "Smartphone",
-    "bands": [],
-    "url": "https://www.gsmarena.com/lg_velvet_5g-10209.php",
-    "img": "images/LG-Velvet-5G.png"
-  },
-  {
-    "name": "Moto 5G 2024",
-    "manufacturer": "Motorola",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/motorola_moto_g_(2024)-12866.php",
-    "img": "images/Moto5G-2024.png"
-  },
-  {
-    "name": "Moto 5G 2025",
-    "manufacturer": "Motorola",
-    "type": "Smartphone",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/motorola_moto_g_(2025)-13624.php",
-    "img": "images/Moto5G-2025.png"
-  },
-  {
-    "name": "Moto G Stylus",
-    "manufacturer": "Motorola",
-    "type": "Smartphone",
-    "bands": [
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/motorola_moto_g_stylus-10057.php",
-    "img": "images/MotoG-Stylus.png"
-  },
-  {
-    "name": "Pro360-5G Transmitter",
-    "manufacturer": "Haivision",
-    "type": "Broadcasting",
-    "bands": [
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.haivision.com/products/pro-360g-transmitter/",
-    "img": "images/Pro360.png"
-  },
-  {
-    "name": "Falkon X2 Transmitter",
-    "manufacturer": "Haivision",
-    "type": "Broadcasting",
-    "bands": [
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.haivision.com/products/falkon-x2-mobile-transmitter/",
-    "img": "images/FalconX2.png"
-  },
-  {
-    "name": "Pro460 Transmitter",
-    "manufacturer": "Haivision",
-    "type": "Broadcasting",
-    "bands": [
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.haivision.com/products/haivision-pro460-transmitter/",
-    "img": "images/Pro460.png"
-  },
-  {
-    "name": "P3 5G Bonding Encoder",
-    "manufacturer": "Kiloview",
-    "type": "Broadcasting",
-    "bands": [
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.kiloview.com/en/products/encoders/p3/",
-    "img": "images/KiloviewP3.png"
-  },
-  {
-    "name": "OnePlus 9 Pro",
-    "manufacturer": "OnePlus",
-    "type": "Smartphone",
-    "bands": [
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/oneplus_9_pro-10806.php",
-    "img": "images/OnePlus9-Pro.png"
-  },
-  {
-    "name": "Samsung S21",
-    "manufacturer": "SamSung",
-    "type": "Smartphone",
-    "bands": [
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/samsung_galaxy_s21_5g-10626.php",
-    "img": "images/SamsungS21-5G.png"
-  },
-  {
-    "name": "Samsung S20",
-    "manufacturer": "SamSung",
-    "type": "Smartphone",
-    "bands": [
-      "n78"
-    ],
-    "url": "https://www.gsmarena.com/samsung_galaxy_s20_5g-10044.php",
-    "img": "images/SamsungS20-5G.png"
-  },
-  {
-    "name": "IRG5000",
-    "manufacturer": "Perle",
-    "type": "Router/CPE",
-    "bands": [
-      "b48"
-    ],
-    "url": "https://www.perle.com/products/routers-gateways/irg5500-cellular-lte-routers.shtml",
-    "img": "images/IRG5500.png"
-  },
-  {
-    "name": "IRG7000",
-    "manufacturer": "Perle",
-    "type": "Router/CPE",
-    "bands": [
-      "b48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.perle.com/products/routers-gateways/irg7000-5g-lte-routers.shtml",
-    "img": "images/IRG7000.png"
-  },
-  {
-    "name": "TD0701",
-    "manufacturer": "JaCS",
-    "type": "Router/CPE",
-    "bands": [
-      "b48"
-    ],
-    "url": "https://www.jacs-solutions.com/products/td0701-cbrs-industrial-router/",
-    "img": "images/TD0701.png"
-  },
-  {
-    "name": "R500",
-    "manufacturer": "Ericsson-Cradlepoint",
-    "type": "Router/CPE",
-    "bands": [
-      "b48"
-    ],
-    "url": "https://cradlepoint.com/product/endpoints/r500-plte/",
-    "img": "images/CradlepointR500.png"
-  },
-  {
-    "name": "R1900",
-    "manufacturer": "Ericsson-Cradlepoint",
-    "type": "Router/CPE",
-    "bands": [
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://cradlepoint.com/product/endpoints/r1900-series/",
-    "img": "images/CradlepointR1900.png"
-  },
-  {
-    "name": "MultiConnect eCell",
-    "manufacturer": "Multitech",
-    "type": "Router/CPE",
-    "bands": [
-      "b48"
-    ],
-    "url": "https://multitech.com/product/multiconnect-ecell-mte2-l12g2-b07-us/",
-    "img": "images/eCell.png"
-  },
-  {
-    "name": "MultiConnect rCell 500 series",
-    "manufacturer": "Multitech",
-    "type": "Router/CPE",
-    "bands": [
-      "b48"
-    ],
-    "url": "https://multitech.com/all-products/cellular/cellular-modems/multiconnect-rcell-500-series/",
-    "img": "images/rCell500.png"
-  },
-  {
-    "name": "LX60",
-    "manufacturer": "Sierra Wireless",
-    "type": "Router/CPE",
-    "bands": [
-      "b28"
-    ],
-    "url": "https://www.sierrawireless.com/router-solutions/lx60/#applications",
-    "img": "images/SW-LX60.png"
-  },
-  {
-    "name": "RV55 LTE-A PRO",
-    "manufacturer": "Sierra Wireless",
-    "type": "Router/CPE",
-    "bands": [
-      "b48"
-    ],
-    "url": "https://www.sierrawireless.com/router-solutions/rv55/#applications",
-    "img": "images/SW-RV55.png"
-  },
-  {
-    "name": "RX55",
-    "manufacturer": "Sierra Wireless",
-    "type": "Router/CPE",
-    "bands": [
-      "b48"
-    ],
-    "url": "https://www.sierrawireless.com/router-solutions/rx55/#applications",
-    "img": "images/SW-RX55.png"
-  },
-  {
-    "name": "XR60",
-    "manufacturer": "Sierra Wireless",
-    "type": "Router/CPE",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.sierrawireless.com/router-solutions/xr60/",
-    "img": "images/SW-XR60.png"
-  },
-  {
-    "name": "XR90",
-    "manufacturer": "Sierra Wireless",
-    "type": "Router/CPE",
-    "bands": [
-      "b48",
-      "n48",
-      "n77",
-      "n78"
-    ],
-    "url": "https://www.sierrawireless.com/router-solutions/xr90/",
-    "img": "images/SW-XR90.png"
-  }
+  { "name": "Apple iPhone 14",             "manufacturer": "Apple",               "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_14-11861.php",                                             "img": "images/apple14.png" },
+  { "name": "Apple iPhone 13",             "manufacturer": "Apple",               "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_13-11103.php",                                             "img": "images/apple13.png" },
+  { "name": "Apple iPhone 13 Pro",         "manufacturer": "Apple",               "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_13_pro-11102.php",                                         "img": "images/apple13pro.png" },
+  { "name": "Apple iPhone 12",             "manufacturer": "Apple",               "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_12-10509.php",                                             "img": "images/apple12.png" },
+  { "name": "Apple iPhone 11",             "manufacturer": "Apple",               "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_11-9848.php",                                              "img": "images/apple11.png" },
+  { "name": "Apple iPhone SE 2020",        "manufacturer": "Apple",               "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_se_(2020)-10170.php",                                      "img": "images/appleSE2020.png" },
+  { "name": "Asus Zenfone 8",              "manufacturer": "Asus",                "type": "Smartphone",   "bands": ["n78"],                  "url": "https://www.gsmarena.com/asus_zenfone_8-10893.php",                                              "img": "images/AsusZenfone8.png" },
+  { "name": "Asus ROG 5",                  "manufacturer": "Asus",                "type": "Smartphone",   "bands": ["n78"],                  "url": "https://www.gsmarena.com/asus_rog_phone_5-10715.php",                                            "img": "images/AsusROG5.png" },
+  { "name": "LG V60 5G",                   "manufacturer": "LG",                  "type": "Smartphone",   "bands": [],                       "url": "https://www.gsmarena.com/lg_v60_thinq_5g-10103.php",                                             "img": "images/LG-V60-5G.png" },
+  { "name": "LG Velvet 5G",                "manufacturer": "LG",                  "type": "Smartphone",   "bands": [],                       "url": "https://www.gsmarena.com/lg_velvet_5g-10209.php",                                                "img": "images/LG-Velvet-5G.png" },
+  { "name": "Moto 5G 2024",                "manufacturer": "Motorola",            "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/motorola_moto_g_(2024)-12866.php",                                      "img": "images/Moto5G-2024.png" },
+  { "name": "Moto 5G 2025",                "manufacturer": "Motorola",            "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/motorola_moto_g_(2025)-13624.php",                                      "img": "images/Moto5G-2025.png" },
+  { "name": "Moto G Stylus",               "manufacturer": "Motorola",            "type": "Smartphone",   "bands": ["n78"],                  "url": "https://www.gsmarena.com/motorola_moto_g_stylus-10057.php",                                      "img": "images/MotoG-Stylus.png" },
+  { "name": "Pro360-5G Transmitter",       "manufacturer": "Haivision",           "type": "Broadcasting", "bands": ["n77","n78"],            "url": "https://www.haivision.com/products/pro-360g-transmitter/",                                       "img": "images/Pro360.png" },
+  { "name": "Falkon X2 Transmitter",       "manufacturer": "Haivision",           "type": "Broadcasting", "bands": ["n77","n78"],            "url": "https://www.haivision.com/products/falkon-x2-mobile-transmitter/",                               "img": "images/FalconX2.png" },
+  { "name": "Pro460 Transmitter",          "manufacturer": "Haivision",           "type": "Broadcasting", "bands": ["n48","n77","n78"],      "url": "https://www.haivision.com/products/haivision-pro460-transmitter/",                               "img": "images/Pro460.png" },
+  { "name": "P3 5G Bonding Encoder",       "manufacturer": "Kiloview",            "type": "Broadcasting", "bands": ["n77","n78"],            "url": "https://www.kiloview.com/en/products/encoders/p3/",                                              "img": "images/KiloviewP3.png" },
+  { "name": "OnePlus 9 Pro",               "manufacturer": "OnePlus",             "type": "Smartphone",   "bands": ["n78"],                  "url": "https://www.gsmarena.com/oneplus_9_pro-10806.php",                                               "img": "images/OnePlus9-Pro.png" },
+  { "name": "Samsung S21",                 "manufacturer": "SamSung",             "type": "Smartphone",   "bands": ["n78"],                  "url": "https://www.gsmarena.com/samsung_galaxy_s21_5g-10626.php",                                       "img": "images/SamsungS21-5G.png" },
+  { "name": "Samsung S20",                 "manufacturer": "SamSung",             "type": "Smartphone",   "bands": ["n78"],                  "url": "https://www.gsmarena.com/samsung_galaxy_s20_5g-10044.php",                                       "img": "images/SamsungS20-5G.png" },
+  { "name": "IRG5000",                     "manufacturer": "Perle",               "type": "Router/CPE",   "bands": ["b48"],                  "url": "https://www.perle.com/products/routers-gateways/irg5500-cellular-lte-routers.shtml",             "img": "images/IRG5500.png" },
+  { "name": "IRG7000",                     "manufacturer": "Perle",               "type": "Router/CPE",   "bands": ["b48","n77","n78"],      "url": "https://www.perle.com/products/routers-gateways/irg7000-5g-lte-routers.shtml",                   "img": "images/IRG7000.png" },
+  { "name": "TD0701",                      "manufacturer": "JaCS",                "type": "Router/CPE",   "bands": ["b48"],                  "url": "https://www.jacs-solutions.com/products/td0701-cbrs-industrial-router/",                        "img": "images/TD0701.png" },
+  { "name": "R500",                        "manufacturer": "Ericsson-Cradlepoint", "type": "Router/CPE",  "bands": ["b48"],                  "url": "https://cradlepoint.com/product/endpoints/r500-plte/",                                           "img": "images/CradlepointR500.png" },
+  { "name": "R1900",                       "manufacturer": "Ericsson-Cradlepoint", "type": "Router/CPE",  "bands": ["n48","n77","n78"],      "url": "https://cradlepoint.com/product/endpoints/r1900-series/",                                        "img": "images/CradlepointR1900.png" },
+  { "name": "MultiConnect eCell",          "manufacturer": "Multitech",           "type": "Router/CPE",   "bands": ["b48"],                  "url": "https://multitech.com/product/multiconnect-ecell-mte2-l12g2-b07-us/",                            "img": "images/eCell.png" },
+  { "name": "MultiConnect rCell 500 series","manufacturer": "Multitech",          "type": "Router/CPE",   "bands": ["b48"],                  "url": "https://multitech.com/all-products/cellular/cellular-modems/multiconnect-rcell-500-series/",      "img": "images/rCell500.png" },
+  { "name": "LX60",                        "manufacturer": "Sierra Wireless",     "type": "Router/CPE",   "bands": ["b28"],                  "url": "https://www.sierrawireless.com/router-solutions/lx60/#applications",                             "img": "images/SW-LX60.png" },
+  { "name": "RV55 LTE-A PRO",              "manufacturer": "Sierra Wireless",     "type": "Router/CPE",   "bands": ["b48"],                  "url": "https://www.sierrawireless.com/router-solutions/rv55/#applications",                             "img": "images/SW-RV55.png" },
+  { "name": "RX55",                        "manufacturer": "Sierra Wireless",     "type": "Router/CPE",   "bands": ["b48"],                  "url": "https://www.sierrawireless.com/router-solutions/rx55/#applications",                             "img": "images/SW-RX55.png" },
+  { "name": "XR60",                        "manufacturer": "Sierra Wireless",     "type": "Router/CPE",   "bands": ["b48","n48","n77","n78"], "url": "https://www.sierrawireless.com/router-solutions/xr60/",                                          "img": "images/SW-XR60.png" },
+  { "name": "XR90",                        "manufacturer": "Sierra Wireless",     "type": "Router/CPE",   "bands": ["b48","n48","n77","n78"], "url": "https://www.sierrawireless.com/router-solutions/xr90/",                                          "img": "images/SW-XR90.png" }
 ];
 
 // ── IMAGE PREVIEW ─────────────────────────────────────────────
@@ -672,18 +349,18 @@ setupImgPreview("editImg", "editImgPreview", "editImgPreviewImg");
 
 // ── DROPDOWNS ─────────────────────────────────────────────────
 function refreshAll() {
-  var sortedMfr = manufacturers.slice().sort(function(a,b){return a.localeCompare(b);});
+  var sortedMfr   = manufacturers.slice().sort(function(a,b){return a.localeCompare(b);});
   var sortedTypes = deviceTypes.slice().sort(function(a,b){return a.localeCompare(b);});
   var sortedBands = bands.slice().sort(function(a,b){return a.localeCompare(b);});
   var fMfr = document.getElementById("filterMfr"), fMfrVal = fMfr.value;
-  fMfr.innerHTML = '<option value="">All</option>' + sortedMfr.map(function(m) { return '<option' + (m===fMfrVal?' selected':'') + '>' + m + '</option>'; }).join('');
+  fMfr.innerHTML = '<option value="">All</option>' + sortedMfr.map(function(m){return '<option'+(m===fMfrVal?' selected':'')+'>'+m+'</option>';}).join('');
   var fType = document.getElementById("filterType"), fTypeVal = fType.value;
-  fType.innerHTML = '<option value="">All</option>' + sortedTypes.map(function(t) { return '<option' + (t===fTypeVal?' selected':'') + '>' + t + '</option>'; }).join('');
+  fType.innerHTML = '<option value="">All</option>' + sortedTypes.map(function(t){return '<option'+(t===fTypeVal?' selected':'')+'>'+t+'</option>';}).join('');
   var fBand = document.getElementById("filterBand"), fBandVal = fBand.value;
-  fBand.innerHTML = '<option value="">All</option>' + sortedBands.map(function(b) { return '<option' + (b===fBandVal?' selected':'') + '>' + b + '</option>'; }).join('');
-  document.getElementById("inputMfr").innerHTML = '<option value="">— Select manufacturer —</option>' + sortedMfr.map(function(m) { return '<option>' + m + '</option>'; }).join('') + '<option value="__new__">+ Add new manufacturer…</option>';
-  document.getElementById("inputType").innerHTML = '<option value="">— Select device type —</option>' + sortedTypes.map(function(t) { return '<option>' + t + '</option>'; }).join('') + '<option value="__new__">+ Add new device type…</option>';
-  document.getElementById("bandsGrid").innerHTML = sortedBands.map(function(b) { return '<label class="band-check"><input type="checkbox" value="' + b + '"> ' + b + '</label>'; }).join('');
+  fBand.innerHTML = '<option value="">All</option>' + sortedBands.map(function(b){return '<option'+(b===fBandVal?' selected':'')+'>'+b+'</option>';}).join('');
+  document.getElementById("inputMfr").innerHTML = '<option value="">— Select manufacturer —</option>' + sortedMfr.map(function(m){return '<option>'+m+'</option>';}).join('') + '<option value="__new__">+ Add new manufacturer…</option>';
+  document.getElementById("inputType").innerHTML = '<option value="">— Select device type —</option>' + sortedTypes.map(function(t){return '<option>'+t+'</option>';}).join('') + '<option value="__new__">+ Add new device type…</option>';
+  document.getElementById("bandsGrid").innerHTML = sortedBands.map(function(b){return '<label class="band-check"><input type="checkbox" value="'+b+'"> '+b+'</label>';}).join('');
 }
 
 // ── ADD DEVICE ────────────────────────────────────────────────
@@ -700,7 +377,7 @@ function openModal() {
   document.getElementById("addImgPreview").style.display = "none";
   document.getElementById("newMfrRow").style.display = "none";
   document.getElementById("newTypeRow").style.display = "none";
-  ["errName","errMfr","errNewMfr","errType","errNewType"].forEach(function(id) { document.getElementById(id).style.display = 'none'; });
+  ["errName","errMfr","errNewMfr","errType","errNewType"].forEach(function(id){document.getElementById(id).style.display='none';});
 }
 function closeModal() { document.getElementById("overlay").classList.remove("open"); }
 
@@ -720,43 +397,40 @@ function saveDevice() {
   var newTypeVal = document.getElementById("inputNewType").value.trim();
   var urlVal = document.getElementById("inputUrl").value.trim();
   var imgVal = document.getElementById("inputImg").value.trim();
-
   document.getElementById("errName").style.display = name ? 'none' : 'block';
   if (!name) valid = false;
-
   var manufacturer = "";
-  if (!mfrVal) { document.getElementById("errMfr").style.display = 'block'; valid = false; }
+  if (!mfrVal) { document.getElementById("errMfr").style.display='block'; valid=false; }
   else if (mfrVal === "__new__") {
-    document.getElementById("errMfr").style.display = 'none';
-    if (!newMfrVal) { document.getElementById("errNewMfr").style.display = 'block'; valid = false; }
-    else { document.getElementById("errNewMfr").style.display = 'none'; manufacturer = newMfrVal; if (!manufacturers.includes(newMfrVal)) manufacturers.push(newMfrVal); }
-  } else { document.getElementById("errMfr").style.display = 'none'; manufacturer = mfrVal; }
-
+    document.getElementById("errMfr").style.display='none';
+    if (!newMfrVal) { document.getElementById("errNewMfr").style.display='block'; valid=false; }
+    else { document.getElementById("errNewMfr").style.display='none'; manufacturer=newMfrVal; if(!manufacturers.includes(newMfrVal)) manufacturers.push(newMfrVal); }
+  } else { document.getElementById("errMfr").style.display='none'; manufacturer=mfrVal; }
   var deviceType = "";
-  if (!typeVal) { document.getElementById("errType").style.display = 'block'; valid = false; }
+  if (!typeVal) { document.getElementById("errType").style.display='block'; valid=false; }
   else if (typeVal === "__new__") {
-    document.getElementById("errType").style.display = 'none';
-    if (!newTypeVal) { document.getElementById("errNewType").style.display = 'block'; valid = false; }
-    else { document.getElementById("errNewType").style.display = 'none'; deviceType = newTypeVal; if (!deviceTypes.includes(newTypeVal)) deviceTypes.push(newTypeVal); }
-  } else { document.getElementById("errType").style.display = 'none'; deviceType = typeVal; }
-
+    document.getElementById("errType").style.display='none';
+    if (!newTypeVal) { document.getElementById("errNewType").style.display='block'; valid=false; }
+    else { document.getElementById("errNewType").style.display='none'; deviceType=newTypeVal; if(!deviceTypes.includes(newTypeVal)) deviceTypes.push(newTypeVal); }
+  } else { document.getElementById("errType").style.display='none'; deviceType=typeVal; }
   if (!valid) return;
-  var selBands = Array.from(document.querySelectorAll('#bandsGrid input[type=checkbox]:checked')).map(function(c) { return c.value; });
-  devices.push({ name: name, manufacturer: manufacturer, type: deviceType, bands: selBands, url: urlVal, img: imgVal });
+  var selBands = Array.from(document.querySelectorAll('#bandsGrid input[type=checkbox]:checked')).map(function(c){return c.value;});
+  devices.push({name:name, manufacturer:manufacturer, type:deviceType, bands:selBands, url:urlVal, img:imgVal});
   closeModal(); refreshAll(); render(); markUnsaved();
-  showToast('✓ "' + name + '" added');
+  showToast('✓ "'+name+'" added');
 }
 
 function deleteDevice(idx) {
   var name = devices[idx].name;
-  devices.splice(idx, 1);
+  devices.splice(idx,1);
   refreshAll(); render(); markUnsaved();
-  showToast('"' + name + '" removed');
+  showToast('"'+name+'" removed');
 }
 
 // ── EDIT DEVICE ───────────────────────────────────────────────
 function openEdit() {
-  document.getElementById("editMfr").innerHTML = '<option value="">— Select manufacturer —</option>' + manufacturers.map(function(m) { return '<option>' + m + '</option>'; }).join('');
+  var sortedMfr = manufacturers.slice().sort(function(a,b){return a.localeCompare(b);});
+  document.getElementById("editMfr").innerHTML = '<option value="">— Select manufacturer —</option>' + sortedMfr.map(function(m){return '<option>'+m+'</option>';}).join('');
   document.getElementById("editDevice").innerHTML = '<option value="">— Select device —</option>';
   document.getElementById("editFields").style.display = "none";
   document.getElementById("editSaveBtn").style.display = "none";
@@ -769,30 +443,31 @@ function populateEditDevices() {
   document.getElementById("editFields").style.display = "none";
   document.getElementById("editSaveBtn").style.display = "none";
   if (!mfr) return;
-  devices.forEach(function(d, i) {
-    if (d.manufacturer === mfr) { var o = document.createElement("option"); o.value = i; o.textContent = d.name; devSel.appendChild(o); }
+  devices.forEach(function(d,i) {
+    if (d.manufacturer===mfr) { var o=document.createElement("option"); o.value=i; o.textContent=d.name; devSel.appendChild(o); }
   });
 }
 function populateEditFields() {
   var idx = document.getElementById("editDevice").value;
-  if (idx === "") { document.getElementById("editFields").style.display = "none"; document.getElementById("editSaveBtn").style.display = "none"; return; }
+  if (idx==="") { document.getElementById("editFields").style.display="none"; document.getElementById("editSaveBtn").style.display="none"; return; }
   var d = devices[idx];
-  document.getElementById("editBandsGrid").innerHTML = bands.map(function(b) { return '<label class="band-check"><input type="checkbox" value="' + b + '"' + (d.bands.includes(b) ? ' checked' : '') + '> ' + b + '</label>'; }).join('');
-  document.getElementById("editUrl").value = d.url || "";
-  document.getElementById("editImg").value = d.img || "";
-  var wrap = document.getElementById("editImgPreview"), img = document.getElementById("editImgPreviewImg");
-  if (d.img) { img.src = IMG_BASE + d.img; wrap.style.display = "block"; } else { wrap.style.display = "none"; }
-  document.getElementById("editFields").style.display = "block";
-  document.getElementById("editSaveBtn").style.display = "block";
+  var sortedBands = bands.slice().sort(function(a,b){return a.localeCompare(b);});
+  document.getElementById("editBandsGrid").innerHTML = sortedBands.map(function(b){return '<label class="band-check"><input type="checkbox" value="'+b+'"'+(d.bands.includes(b)?' checked':'')+'>'+b+'</label>';}).join('');
+  document.getElementById("editUrl").value = d.url||"";
+  document.getElementById("editImg").value = d.img||"";
+  var wrap=document.getElementById("editImgPreview"), img=document.getElementById("editImgPreviewImg");
+  if (d.img) { img.src=IMG_BASE+d.img; wrap.style.display="block"; } else { wrap.style.display="none"; }
+  document.getElementById("editFields").style.display="block";
+  document.getElementById("editSaveBtn").style.display="block";
 }
 function saveEditDevice() {
   var idx = document.getElementById("editDevice").value;
-  if (idx === "") return;
-  devices[idx].bands = Array.from(document.querySelectorAll('#editBandsGrid input[type=checkbox]:checked')).map(function(c) { return c.value; });
+  if (idx==="") return;
+  devices[idx].bands = Array.from(document.querySelectorAll('#editBandsGrid input[type=checkbox]:checked')).map(function(c){return c.value;});
   devices[idx].url = document.getElementById("editUrl").value.trim();
   devices[idx].img = document.getElementById("editImg").value.trim();
   closeEdit(); render(); markUnsaved();
-  showToast('✓ "' + devices[idx].name + '" updated');
+  showToast('✓ "'+devices[idx].name+'" updated');
 }
 function closeEdit() { document.getElementById("editOverlay").classList.remove("open"); }
 
@@ -800,81 +475,82 @@ function closeEdit() { document.getElementById("editOverlay").classList.remove("
 var manageMode = "";
 function openManage(mode) {
   manageMode = mode;
-  var titles = { manufacturer: "🏢 Manage Manufacturers", type: "📱 Manage Device Types", band: "📡 Manage Bands" };
-  var placeholders = { manufacturer: "New manufacturer name", type: "New device type name", band: "New band (e.g. n41)" };
-  var infos = { manufacturer: "⚠ A manufacturer can only be deleted when all its devices have been removed.", type: "⚠ Deleting a device type removes it from the dropdown — existing devices keep their label.", band: "⚠ Deleting a band removes it from the dropdown — existing devices keep their band tags." };
-  document.getElementById("manageTitle").textContent = titles[mode];
-  document.getElementById("manageInput").placeholder = placeholders[mode];
-  document.getElementById("manageInput").value = "";
-  document.getElementById("manageInfo").textContent = infos[mode];
+  var titles={manufacturer:"🏢 Manage Manufacturers",type:"📱 Manage Device Types",band:"📡 Manage Bands"};
+  var placeholders={manufacturer:"New manufacturer name",type:"New device type name",band:"New band (e.g. n41)"};
+  var infos={manufacturer:"⚠ A manufacturer can only be deleted when all its devices have been removed.",type:"⚠ Deleting a device type removes it from the dropdown — existing devices keep their label.",band:"⚠ Deleting a band removes it from the dropdown — existing devices keep their band tags."};
+  document.getElementById("manageTitle").textContent=titles[mode];
+  document.getElementById("manageInput").placeholder=placeholders[mode];
+  document.getElementById("manageInput").value="";
+  document.getElementById("manageInfo").textContent=infos[mode];
   renderManageList();
   document.getElementById("manageOverlay").classList.add("open");
 }
 function renderManageList() {
-  var items = manageMode === "manufacturer" ? manufacturers : manageMode === "type" ? deviceTypes : bands;
-  document.getElementById("manageList").innerHTML = items.map(function(item, i) {
-    var count = 0, canDelete = true, tooltip = "";
-    if (manageMode === "manufacturer") { count = devices.filter(function(d) { return d.manufacturer === item; }).length; canDelete = count === 0; tooltip = canDelete ? "" : "Cannot delete — " + count + " device(s) still assigned"; }
-    return '<li><span>' + item + '</span>' + (manageMode === "manufacturer" ? '<span class="count">' + count + ' device' + (count !== 1 ? 's' : '') + '</span>' : '') + '<button onclick="deleteManageItem(' + i + ')" ' + (canDelete ? '' : 'disabled') + ' title="' + tooltip + '">✕ Delete</button></li>';
+  var items = manageMode==="manufacturer" ? manufacturers.slice().sort(function(a,b){return a.localeCompare(b);}) : manageMode==="type" ? deviceTypes.slice().sort(function(a,b){return a.localeCompare(b);}) : bands.slice().sort(function(a,b){return a.localeCompare(b);});
+  document.getElementById("manageList").innerHTML = items.map(function(item,i) {
+    var origIdx = (manageMode==="manufacturer"?manufacturers:manageMode==="type"?deviceTypes:bands).indexOf(item);
+    var count=0, canDelete=true, tooltip="";
+    if (manageMode==="manufacturer") { count=devices.filter(function(d){return d.manufacturer===item;}).length; canDelete=count===0; tooltip=canDelete?"":'Cannot delete — '+count+' device(s) still assigned'; }
+    return '<li><span>'+item+'</span>'+(manageMode==="manufacturer"?'<span class="count">'+count+' device'+(count!==1?'s':'')+'</span>':'')+'<button onclick="deleteManageItem('+origIdx+')" '+(canDelete?'':'disabled')+' title="'+tooltip+'">✕ Delete</button></li>';
   }).join('');
 }
 function deleteManageItem(i) {
-  if (manageMode === "manufacturer") { if (devices.some(function(d) { return d.manufacturer === manufacturers[i]; })) { showToast("⚠ Remove all devices first!"); return; } manufacturers.splice(i, 1); }
-  else if (manageMode === "type") { deviceTypes.splice(i, 1); }
-  else { bands.splice(i, 1); }
+  if (manageMode==="manufacturer") { if(devices.some(function(d){return d.manufacturer===manufacturers[i];})){showToast("⚠ Remove all devices first!");return;} manufacturers.splice(i,1); }
+  else if (manageMode==="type") { deviceTypes.splice(i,1); }
+  else { bands.splice(i,1); }
   refreshAll(); renderManageList(); render(); markUnsaved();
   showToast("✓ Deleted");
 }
 function addManageItem() {
   var val = document.getElementById("manageInput").value.trim();
   if (!val) return;
-  var list = manageMode === "manufacturer" ? manufacturers : manageMode === "type" ? deviceTypes : bands;
+  var list = manageMode==="manufacturer"?manufacturers:manageMode==="type"?deviceTypes:bands;
   if (list.includes(val)) { showToast("Already exists!"); return; }
   list.push(val);
-  document.getElementById("manageInput").value = "";
+  document.getElementById("manageInput").value="";
   refreshAll(); renderManageList(); markUnsaved();
-  showToast('✓ "' + val + '" added');
+  showToast('✓ "'+val+'" added');
 }
 function closeManage() { document.getElementById("manageOverlay").classList.remove("open"); }
 
 // ── UNSAVED ───────────────────────────────────────────────────
-function markUnsaved() { document.getElementById("saveStatus").textContent = "● Unsaved changes"; document.getElementById("saveStatus").style.color = "#dc2626"; }
-function markSaved() { document.getElementById("saveStatus").textContent = "✓ Saved to GitHub"; document.getElementById("saveStatus").style.color = "#16a34a"; }
+function markUnsaved() { document.getElementById("saveStatus").textContent="● Unsaved changes"; document.getElementById("saveStatus").style.color="#dc2626"; }
+function markSaved() { document.getElementById("saveStatus").textContent="✓ Saved to GitHub"; document.getElementById("saveStatus").style.color="#16a34a"; }
 
 // ── SAVE TO GITHUB ────────────────────────────────────────────
-function openSaveToGitHub() { document.getElementById("ghToken").value = ""; document.getElementById("errToken").style.display = "none"; document.getElementById("githubOverlay").classList.add("open"); }
+function openSaveToGitHub() { document.getElementById("ghToken").value=""; document.getElementById("errToken").style.display="none"; document.getElementById("githubOverlay").classList.add("open"); }
 function closeGitHub() { document.getElementById("githubOverlay").classList.remove("open"); }
 
 async function saveToGitHub() {
   var token = document.getElementById("ghToken").value.trim();
-  if (!token) { document.getElementById("errToken").style.display = "block"; return; }
-  document.getElementById("errToken").style.display = "none";
+  if (!token) { document.getElementById("errToken").style.display="block"; return; }
+  document.getElementById("errToken").style.display="none";
   var btn = document.getElementById("ghSaveBtn");
-  btn.textContent = "⏳ Saving..."; btn.disabled = true;
+  btn.textContent="⏳ Saving..."; btn.disabled=true;
   try {
-    var metaRes = await fetch("https://api.github.com/repos/" + GITHUB_USER + "/" + GITHUB_REPO + "/contents/" + GITHUB_FILE + "?ref=" + GITHUB_BRANCH, { headers: { Authorization: "token " + token, Accept: "application/vnd.github.v3+json" } });
-    if (!metaRes.ok) throw new Error("Could not fetch file (" + metaRes.status + "). Check your token and repo settings.");
+    var metaRes = await fetch("https://api.github.com/repos/"+GITHUB_USER+"/"+GITHUB_REPO+"/contents/"+GITHUB_FILE+"?ref="+GITHUB_BRANCH,{headers:{Authorization:"token "+token,Accept:"application/vnd.github.v3+json"}});
+    if (!metaRes.ok) throw new Error("Could not fetch file ("+metaRes.status+"). Check your token and repo settings.");
     var meta = await metaRes.json();
     var sha = meta.sha;
-    var currentHTML = await fetch(window.location.href.split('?')[0]).then(function(r) { return r.text(); });
-    var dataBlock = "let manufacturers = " + JSON.stringify(manufacturers) + ";\nlet deviceTypes   = " + JSON.stringify(deviceTypes) + ";\nlet bands         = " + JSON.stringify(bands) + ";\n\nlet devices = " + JSON.stringify(devices, null, 2) + ";";
-    var updated = currentHTML.replace(/let manufacturers\s*=[\s\S]*?let devices\s*=[\s\S]*?];/m, dataBlock);
+    var currentHTML = await fetch(window.location.href.split('?')[0]).then(function(r){return r.text();});
+    var dataBlock = "let manufacturers = "+JSON.stringify(manufacturers)+";\nlet deviceTypes   = "+JSON.stringify(deviceTypes)+";\nlet bands         = "+JSON.stringify(bands)+";\n\nlet devices = "+JSON.stringify(devices,null,2)+";";
+    var updated = currentHTML.replace(/let manufacturers\s*=[\s\S]*?let devices\s*=[\s\S]*?];/m,dataBlock);
     var encoded = btoa(unescape(encodeURIComponent(updated)));
-    var pushRes = await fetch("https://api.github.com/repos/" + GITHUB_USER + "/" + GITHUB_REPO + "/contents/" + GITHUB_FILE, { method: "PUT", headers: { Authorization: "token " + token, Accept: "application/vnd.github.v3+json", "Content-Type": "application/json" }, body: JSON.stringify({ message: "Update device list via admin UI", content: encoded, sha: sha, branch: GITHUB_BRANCH }) });
-    if (!pushRes.ok) { var err = await pushRes.json(); throw new Error(err.message || "Push failed (" + pushRes.status + ")"); }
+    var pushRes = await fetch("https://api.github.com/repos/"+GITHUB_USER+"/"+GITHUB_REPO+"/contents/"+GITHUB_FILE,{method:"PUT",headers:{Authorization:"token "+token,Accept:"application/vnd.github.v3+json","Content-Type":"application/json"},body:JSON.stringify({message:"Update device list via admin UI",content:encoded,sha:sha,branch:GITHUB_BRANCH})});
+    if (!pushRes.ok) { var err=await pushRes.json(); throw new Error(err.message||"Push failed ("+pushRes.status+")"); }
     closeGitHub(); markSaved();
     showToast("✓ Saved to GitHub! Page updates in ~30 seconds.");
-  } catch(e) { showToast("✗ " + e.message, true); }
-  finally { btn.textContent = "☁ Save to GitHub"; btn.disabled = false; }
+  } catch(e) { showToast("✗ "+e.message,true); }
+  finally { btn.textContent="☁ Save to GitHub"; btn.disabled=false; }
 }
 
 // ── RENDER ────────────────────────────────────────────────────
 function getEmoji(type) {
-  if (type === "Smartphone") return "📱";
-  if (type === "Tablet") return "📟";
-  if (type === "Laptop") return "💻";
-  if (type === "Router/CPE") return "📡";
-  if (type === "Broadcasting") return "📹";
+  if (type==="Smartphone") return "📱";
+  if (type==="Tablet") return "📟";
+  if (type==="Laptop") return "💻";
+  if (type==="Router/CPE") return "📡";
+  if (type==="Broadcasting") return "📹";
   return "📦";
 }
 
@@ -883,52 +559,62 @@ function render() {
   var mfr = document.getElementById("filterMfr").value;
   var type = document.getElementById("filterType").value;
   var band = document.getElementById("filterBand").value;
-  var filtered = devices.map(function(d, i) { return Object.assign({}, d, { _idx: i }); }).filter(function(d) {
-    return d.name.toLowerCase().includes(search) && (!mfr || d.manufacturer === mfr) && (!type || d.type === type) && (!band || d.bands.includes(band));
+  var filtered = devices.map(function(d,i){return Object.assign({},d,{_idx:i});}).filter(function(d){
+    return d.name.toLowerCase().includes(search) && (!mfr||d.manufacturer===mfr) && (!type||d.type===type) && (!band||d.bands.includes(band));
   });
   var byMfr = {};
-  filtered.forEach(function(d) { if (!byMfr[d.manufacturer]) byMfr[d.manufacturer] = []; byMfr[d.manufacturer].push(d); });
-  document.getElementById("resultsBar").textContent = "Showing " + filtered.length + " of " + devices.length + " devices";
+  filtered.forEach(function(d){if(!byMfr[d.manufacturer])byMfr[d.manufacturer]=[];byMfr[d.manufacturer].push(d);});
+  document.getElementById("resultsBar").textContent="Showing "+filtered.length+" of "+devices.length+" devices";
   var main = document.getElementById("main");
-  if (!filtered.length) { main.innerHTML = '<div class="no-results"><span>🔍</span>No devices match your filters.</div>'; return; }
+  if (!filtered.length) { main.innerHTML='<div class="no-results"><span>🔍</span>No devices match your filters.</div>'; return; }
   var html = "";
-  Object.keys(byMfr).sort(function(a, b) { return a.localeCompare(b); }).forEach(function(mfrKey) {
+  Object.keys(byMfr).sort(function(a,b){return a.localeCompare(b);}).forEach(function(mfrKey) {
     var list = byMfr[mfrKey];
-    html += '<div class="manufacturer-section"><h2>' + mfrKey + '</h2><div class="grid">';
+    html += '<div class="manufacturer-section"><h2>'+mfrKey+'</h2><div class="grid">';
     list.forEach(function(d) {
       var emoji = getEmoji(d.type);
-      var imgHtml = "", placeholderStyle = "";
-      if (d.img) { imgHtml = '<img class="card-img" src="' + IMG_BASE + d.img + '" alt="' + d.name + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'; placeholderStyle = 'style="display:none"'; }
-      var nameHtml = d.url ? '<a class="card-name-link" href="' + d.url + '" target="_blank" rel="noopener">' + d.name + '</a>' : '<div class="card-name">' + d.name + '</div>';
-      var bandsHtml = d.bands.length ? d.bands.map(function(b) { return '<span class="band-tag">' + b + '</span>'; }).join("") : '<span class="band-tag empty">Bands TBD</span>';
-      var deleteBtn = isAdmin ? '<button class="delete-btn" onclick="deleteDevice(' + d._idx + ')" title="Remove">✕</button>' : '';
-      html += '<div class="card">' + deleteBtn + imgHtml + '<div class="card-img-placeholder" ' + placeholderStyle + '>' + emoji + '</div>' + nameHtml + '<span class="type-tag">' + (d.type || 'Unknown') + '</span><div class="card-bands">' + bandsHtml + '</div></div>';
+      var imgHtml="", placeholderStyle="";
+      if (d.img) { imgHtml='<img class="card-img" src="'+IMG_BASE+d.img+'" alt="'+d.name+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'; placeholderStyle='style="display:none"'; }
+      var nameHtml = d.url ? '<a class="card-name-link" href="'+d.url+'" target="_blank" rel="noopener">'+d.name+'</a>' : '<div class="card-name">'+d.name+'</div>';
+      var bandsHtml = d.bands.length ? d.bands.map(function(b){return '<span class="band-tag">'+b+'</span>';}).join("") : '<span class="band-tag empty">Bands TBD</span>';
+      var deleteBtn = isAdmin ? '<button class="delete-btn" onclick="deleteDevice('+d._idx+')" title="Remove">✕</button>' : '';
+      html += '<div class="card">'+deleteBtn+imgHtml+'<div class="card-img-placeholder" '+placeholderStyle+'>'+emoji+'</div>'+nameHtml+'<span class="type-tag">'+(d.type||'Unknown')+'</span><div class="card-bands">'+bandsHtml+'</div></div>';
     });
     html += '</div></div>';
   });
   main.innerHTML = html;
 }
 
-function clearFilters() { ["searchInput","filterMfr","filterType","filterBand"].forEach(function(id) { document.getElementById(id).value = ""; }); render(); }
+function clearFilters() { ["searchInput","filterMfr","filterType","filterBand"].forEach(function(id){document.getElementById(id).value="";});render(); }
 
-function showToast(msg, isError) {
-  var t = document.getElementById("toast");
-  t.textContent = msg; t.className = "toast" + (isError ? " error" : ""); t.classList.add("show");
-  setTimeout(function() { t.classList.remove("show"); }, 3500);
+function showToast(msg,isError) {
+  var t=document.getElementById("toast");
+  t.textContent=msg; t.className="toast"+(isError?" error":""); t.classList.add("show");
+  setTimeout(function(){t.classList.remove("show");},3500);
 }
 
-["overlay","editOverlay","manageOverlay","githubOverlay"].forEach(function(id) {
-  var el = document.getElementById(id);
-  if (el) el.addEventListener("click", function(e) { if (e.target === el) el.classList.remove("open"); });
+["overlay","editOverlay","manageOverlay","githubOverlay"].forEach(function(id){
+  var el=document.getElementById(id);
+  if(el) el.addEventListener("click",function(e){if(e.target===el)el.classList.remove("open");});
 });
 
-document.getElementById("searchInput").addEventListener("input", render);
-document.getElementById("filterMfr").addEventListener("change", render);
-document.getElementById("filterType").addEventListener("change", render);
-document.getElementById("filterBand").addEventListener("change", render);
+document.getElementById("searchInput").addEventListener("input",render);
+document.getElementById("filterMfr").addEventListener("change",render);
+document.getElementById("filterType").addEventListener("change",render);
+document.getElementById("filterBand").addEventListener("change",render);
 
 refreshAll();
 render();
+
+// ── IFRAME HEIGHT ─────────────────────────────────────────────
+function notifyHeight() {
+  var h = document.body.scrollHeight;
+  window.parent.postMessage({ type: "setHeight", height: h }, "*");
+}
+window.addEventListener("load", notifyHeight);
+window.addEventListener("resize", notifyHeight);
+var observer = new MutationObserver(notifyHeight);
+observer.observe(document.getElementById("main"), { childList: true, subtree: true });
 </script>
 </body>
 </html>
