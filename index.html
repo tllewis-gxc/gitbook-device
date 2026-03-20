@@ -312,38 +312,361 @@ let deviceTypes   = ["Smartphone","Tablet","Laptop","Router/CPE","Broadcasting"]
 let bands         = ["b48","n48","n77","n78","b28"];
 
 let devices = [
-  { "name": "Apple iPhone 14",             "manufacturer": "Apple",               "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_14-11861.php",                                             "img": "images/apple14.png" },
-  { "name": "Apple iPhone 13",             "manufacturer": "Apple",               "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_13-11103.php",                                             "img": "images/apple13.png" },
-  { "name": "Apple iPhone 13 Pro",         "manufacturer": "Apple",               "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_13_pro-11102.php",                                         "img": "images/apple13pro.png" },
-  { "name": "Apple iPhone 12",             "manufacturer": "Apple",               "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_12-10509.php",                                             "img": "images/apple12.png" },
-  { "name": "Apple iPhone 11",             "manufacturer": "Apple",               "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_11-9848.php",                                              "img": "images/apple11.png" },
-  { "name": "Apple iPhone SE 2020",        "manufacturer": "Apple",               "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/apple_iphone_se_(2020)-10170.php",                                      "img": "images/appleSE2020.png" },
-  { "name": "Asus Zenfone 8",              "manufacturer": "Asus",                "type": "Smartphone",   "bands": ["n78"],                  "url": "https://www.gsmarena.com/asus_zenfone_8-10893.php",                                              "img": "images/AsusZenfone8.png" },
-  { "name": "Asus ROG 5",                  "manufacturer": "Asus",                "type": "Smartphone",   "bands": ["n78"],                  "url": "https://www.gsmarena.com/asus_rog_phone_5-10715.php",                                            "img": "images/AsusROG5.png" },
-  { "name": "LG V60 5G",                   "manufacturer": "LG",                  "type": "Smartphone",   "bands": [],                       "url": "https://www.gsmarena.com/lg_v60_thinq_5g-10103.php",                                             "img": "images/LG-V60-5G.png" },
-  { "name": "LG Velvet 5G",                "manufacturer": "LG",                  "type": "Smartphone",   "bands": [],                       "url": "https://www.gsmarena.com/lg_velvet_5g-10209.php",                                                "img": "images/LG-Velvet-5G.png" },
-  { "name": "Moto 5G 2024",                "manufacturer": "Motorola",            "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/motorola_moto_g_(2024)-12866.php",                                      "img": "images/Moto5G-2024.png" },
-  { "name": "Moto 5G 2025",                "manufacturer": "Motorola",            "type": "Smartphone",   "bands": ["b48","n48","n77","n78"], "url": "https://www.gsmarena.com/motorola_moto_g_(2025)-13624.php",                                      "img": "images/Moto5G-2025.png" },
-  { "name": "Moto G Stylus",               "manufacturer": "Motorola",            "type": "Smartphone",   "bands": ["n78"],                  "url": "https://www.gsmarena.com/motorola_moto_g_stylus-10057.php",                                      "img": "images/MotoG-Stylus.png" },
-  { "name": "Pro360-5G Transmitter",       "manufacturer": "Haivision",           "type": "Broadcasting", "bands": ["n77","n78"],            "url": "https://www.haivision.com/products/pro-360g-transmitter/",                                       "img": "images/Pro360.png" },
-  { "name": "Falkon X2 Transmitter",       "manufacturer": "Haivision",           "type": "Broadcasting", "bands": ["n77","n78"],            "url": "https://www.haivision.com/products/falkon-x2-mobile-transmitter/",                               "img": "images/FalconX2.png" },
-  { "name": "Pro460 Transmitter",          "manufacturer": "Haivision",           "type": "Broadcasting", "bands": ["n48","n77","n78"],      "url": "https://www.haivision.com/products/haivision-pro460-transmitter/",                               "img": "images/Pro460.png" },
-  { "name": "P3 5G Bonding Encoder",       "manufacturer": "Kiloview",            "type": "Broadcasting", "bands": ["n77","n78"],            "url": "https://www.kiloview.com/en/products/encoders/p3/",                                              "img": "images/KiloviewP3.png" },
-  { "name": "OnePlus 9 Pro",               "manufacturer": "OnePlus",             "type": "Smartphone",   "bands": ["n78"],                  "url": "https://www.gsmarena.com/oneplus_9_pro-10806.php",                                               "img": "images/OnePlus9-Pro.png" },
-  { "name": "Samsung S21", "manufacturer": "Samsung", "type": "Smartphone", "bands": ["n78"], "url": "https://www.gsmarena.com/samsung_galaxy_s21_5g-10626.php", "img": "images/SamsungS21-5G.png" },
-  { "name": "Samsung S20", "manufacturer": "Samsung", "type": "Smartphone", "bands": ["n78"], "url": "https://www.gsmarena.com/samsung_galaxy_s20_5g-10044.php", "img": "images/SamsungS20-5G.png" },
-  { "name": "IRG5000",                     "manufacturer": "Perle",               "type": "Router/CPE",   "bands": ["b48"],                  "url": "https://www.perle.com/products/routers-gateways/irg5500-cellular-lte-routers.shtml",             "img": "images/IRG5500.png" },
-  { "name": "IRG7000",                     "manufacturer": "Perle",               "type": "Router/CPE",   "bands": ["b48","n77","n78"],      "url": "https://www.perle.com/products/routers-gateways/irg7000-5g-lte-routers.shtml",                   "img": "images/IRG7000.png" },
-  { "name": "TD0701",                      "manufacturer": "JaCS",                "type": "Router/CPE",   "bands": ["b48"],                  "url": "https://www.jacs-solutions.com/products/td0701-cbrs-industrial-router/",                        "img": "images/TD0701.png" },
-  { "name": "R500",                        "manufacturer": "Ericsson-Cradlepoint", "type": "Router/CPE",  "bands": ["b48"],                  "url": "https://cradlepoint.com/product/endpoints/r500-plte/",                                           "img": "images/CradlepointR500.png" },
-  { "name": "R1900",                       "manufacturer": "Ericsson-Cradlepoint", "type": "Router/CPE",  "bands": ["n48","n77","n78"],      "url": "https://cradlepoint.com/product/endpoints/r1900-series/",                                        "img": "images/CradlepointR1900.png" },
-  { "name": "MultiConnect eCell",          "manufacturer": "Multitech",           "type": "Router/CPE",   "bands": ["b48"],                  "url": "https://multitech.com/product/multiconnect-ecell-mte2-l12g2-b07-us/",                            "img": "images/eCell.png" },
-  { "name": "MultiConnect rCell 500 series","manufacturer": "Multitech",          "type": "Router/CPE",   "bands": ["b48"],                  "url": "https://multitech.com/all-products/cellular/cellular-modems/multiconnect-rcell-500-series/",      "img": "images/rCell500.png" },
-  { "name": "LX60",                        "manufacturer": "Sierra Wireless",     "type": "Router/CPE",   "bands": ["b28"],                  "url": "https://www.sierrawireless.com/router-solutions/lx60/#applications",                             "img": "images/SW-LX60.png" },
-  { "name": "RV55 LTE-A PRO",              "manufacturer": "Sierra Wireless",     "type": "Router/CPE",   "bands": ["b48"],                  "url": "https://www.sierrawireless.com/router-solutions/rv55/#applications",                             "img": "images/SW-RV55.png" },
-  { "name": "RX55",                        "manufacturer": "Sierra Wireless",     "type": "Router/CPE",   "bands": ["b48"],                  "url": "https://www.sierrawireless.com/router-solutions/rx55/#applications",                             "img": "images/SW-RX55.png" },
-  { "name": "XR60",                        "manufacturer": "Sierra Wireless",     "type": "Router/CPE",   "bands": ["b48","n48","n77","n78"], "url": "https://www.sierrawireless.com/router-solutions/xr60/",                                          "img": "images/SW-XR60.png" },
-  { "name": "XR90",                        "manufacturer": "Sierra Wireless",     "type": "Router/CPE",   "bands": ["b48","n48","n77","n78"], "url": "https://www.sierrawireless.com/router-solutions/xr90/",                                          "img": "images/SW-XR90.png" }
+  {
+    "name": "iPhone 14",
+    "manufacturer": "Apple",
+    "type": "Smartphone",
+    "bands": [
+      "b48",
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/apple_iphone_14-11861.php",
+    "img": "images/apple14.png"
+  },
+  {
+    "name": "iPhone 13",
+    "manufacturer": "Apple",
+    "type": "Smartphone",
+    "bands": [
+      "b48",
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/apple_iphone_13-11103.php",
+    "img": "images/apple13.png"
+  },
+  {
+    "name": "iPhone 13 Pro",
+    "manufacturer": "Apple",
+    "type": "Smartphone",
+    "bands": [
+      "b48",
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/apple_iphone_13_pro-11102.php",
+    "img": "images/apple13pro.png"
+  },
+  {
+    "name": "iPhone 12",
+    "manufacturer": "Apple",
+    "type": "Smartphone",
+    "bands": [
+      "b48",
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/apple_iphone_12-10509.php",
+    "img": "images/apple12.png"
+  },
+  {
+    "name": "iPhone 11",
+    "manufacturer": "Apple",
+    "type": "Smartphone",
+    "bands": [
+      "b48",
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/apple_iphone_11-9848.php",
+    "img": "images/apple11.png"
+  },
+  {
+    "name": "iPhone SE 2020",
+    "manufacturer": "Apple",
+    "type": "Smartphone",
+    "bands": [
+      "b48",
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/apple_iphone_se_(2020)-10170.php",
+    "img": "images/appleSE2020.png"
+  },
+  {
+    "name": "Zenfone 8",
+    "manufacturer": "Asus",
+    "type": "Smartphone",
+    "bands": [
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/asus_zenfone_8-10893.php",
+    "img": "images/AsusZenfone8.png"
+  },
+  {
+    "name": "ROG 5",
+    "manufacturer": "Asus",
+    "type": "Smartphone",
+    "bands": [
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/asus_rog_phone_5-10715.php",
+    "img": "images/AsusROG5.png"
+  },
+  {
+    "name": "V60 5G",
+    "manufacturer": "LG",
+    "type": "Smartphone",
+    "bands": [],
+    "url": "https://www.gsmarena.com/lg_v60_thinq_5g-10103.php",
+    "img": "images/LG-V60-5G.png"
+  },
+  {
+    "name": "Velvet 5G",
+    "manufacturer": "LG",
+    "type": "Smartphone",
+    "bands": [],
+    "url": "https://www.gsmarena.com/lg_velvet_5g-10209.php",
+    "img": "images/LG-Velvet-5G.png"
+  },
+  {
+    "name": "Moto 5G 2024",
+    "manufacturer": "Motorola",
+    "type": "Smartphone",
+    "bands": [
+      "b48",
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/motorola_moto_g_(2024)-12866.php",
+    "img": "images/Moto5G-2024.png"
+  },
+  {
+    "name": "Moto 5G 2025",
+    "manufacturer": "Motorola",
+    "type": "Smartphone",
+    "bands": [
+      "b48",
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/motorola_moto_g_(2025)-13624.php",
+    "img": "images/Moto5G-2025.png"
+  },
+  {
+    "name": "Moto G Stylus",
+    "manufacturer": "Motorola",
+    "type": "Smartphone",
+    "bands": [
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/motorola_moto_g_stylus-10057.php",
+    "img": "images/MotoG-Stylus.png"
+  },
+  {
+    "name": "Pro360-5G Transmitter",
+    "manufacturer": "Haivision",
+    "type": "Broadcasting",
+    "bands": [
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.haivision.com/products/pro-360g-transmitter/",
+    "img": "images/Pro360.png"
+  },
+  {
+    "name": "Falkon X2 Transmitter",
+    "manufacturer": "Haivision",
+    "type": "Broadcasting",
+    "bands": [
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.haivision.com/products/falkon-x2-mobile-transmitter/",
+    "img": "images/FalconX2.png"
+  },
+  {
+    "name": "Pro460 Transmitter",
+    "manufacturer": "Haivision",
+    "type": "Broadcasting",
+    "bands": [
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.haivision.com/products/haivision-pro460-transmitter/",
+    "img": "images/Pro460.png"
+  },
+  {
+    "name": "P3 5G Bonding Encoder",
+    "manufacturer": "Kiloview",
+    "type": "Broadcasting",
+    "bands": [
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.kiloview.com/en/products/encoders/p3/",
+    "img": "images/KiloviewP3.png"
+  },
+  {
+    "name": "9 Pro",
+    "manufacturer": "OnePlus",
+    "type": "Smartphone",
+    "bands": [
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/oneplus_9_pro-10806.php",
+    "img": "images/OnePlus9-Pro.png"
+  },
+  {
+    "name": "S21",
+    "manufacturer": "Samsung",
+    "type": "Smartphone",
+    "bands": [
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/samsung_galaxy_s21_5g-10626.php",
+    "img": "images/SamsungS21-5G.png"
+  },
+  {
+    "name": "S20",
+    "manufacturer": "Samsung",
+    "type": "Smartphone",
+    "bands": [
+      "n78"
+    ],
+    "url": "https://www.gsmarena.com/samsung_galaxy_s20_5g-10044.php",
+    "img": "images/SamsungS20-5G.png"
+  },
+  {
+    "name": "IRG5000",
+    "manufacturer": "Perle",
+    "type": "Router/CPE",
+    "bands": [
+      "b48"
+    ],
+    "url": "https://www.perle.com/products/routers-gateways/irg5500-cellular-lte-routers.shtml",
+    "img": "images/IRG5500.png"
+  },
+  {
+    "name": "IRG7000",
+    "manufacturer": "Perle",
+    "type": "Router/CPE",
+    "bands": [
+      "b48",
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.perle.com/products/routers-gateways/irg7000-5g-lte-routers.shtml",
+    "img": "images/IRG7000.png"
+  },
+  {
+    "name": "TD0701",
+    "manufacturer": "JaCS",
+    "type": "Router/CPE",
+    "bands": [
+      "b48"
+    ],
+    "url": "https://www.jacs-solutions.com/products/td0701-cbrs-industrial-router/",
+    "img": "images/TD0701.png"
+  },
+  {
+    "name": "R500",
+    "manufacturer": "Ericsson-Cradlepoint",
+    "type": "Router/CPE",
+    "bands": [
+      "b48"
+    ],
+    "url": "https://cradlepoint.com/product/endpoints/r500-plte/",
+    "img": "images/CradlepointR500.png"
+  },
+  {
+    "name": "R1900",
+    "manufacturer": "Ericsson-Cradlepoint",
+    "type": "Router/CPE",
+    "bands": [
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "https://cradlepoint.com/product/endpoints/r1900-series/",
+    "img": "images/CradlepointR1900.png"
+  },
+  {
+    "name": "MultiConnect eCell",
+    "manufacturer": "Multitech",
+    "type": "Router/CPE",
+    "bands": [
+      "b48"
+    ],
+    "url": "https://multitech.com/product/multiconnect-ecell-mte2-l12g2-b07-us/",
+    "img": "images/eCell.png"
+  },
+  {
+    "name": "MultiConnect rCell 500 series",
+    "manufacturer": "Multitech",
+    "type": "Router/CPE",
+    "bands": [
+      "b48"
+    ],
+    "url": "https://multitech.com/all-products/cellular/cellular-modems/multiconnect-rcell-500-series/",
+    "img": "images/rCell500.png"
+  },
+  {
+    "name": "LX60",
+    "manufacturer": "Sierra Wireless",
+    "type": "Router/CPE",
+    "bands": [
+      "b28"
+    ],
+    "url": "https://www.sierrawireless.com/router-solutions/lx60/#applications",
+    "img": "images/SW-LX60.png"
+  },
+  {
+    "name": "RV55 LTE-A PRO",
+    "manufacturer": "Sierra Wireless",
+    "type": "Router/CPE",
+    "bands": [
+      "b48"
+    ],
+    "url": "https://www.sierrawireless.com/router-solutions/rv55/#applications",
+    "img": "images/SW-RV55.png"
+  },
+  {
+    "name": "RX55",
+    "manufacturer": "Sierra Wireless",
+    "type": "Router/CPE",
+    "bands": [
+      "b48"
+    ],
+    "url": "https://www.sierrawireless.com/router-solutions/rx55/#applications",
+    "img": "images/SW-RX55.png"
+  },
+  {
+    "name": "XR60",
+    "manufacturer": "Sierra Wireless",
+    "type": "Router/CPE",
+    "bands": [
+      "b48",
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.sierrawireless.com/router-solutions/xr60/",
+    "img": "images/SW-XR60.png"
+  },
+  {
+    "name": "XR90",
+    "manufacturer": "Sierra Wireless",
+    "type": "Router/CPE",
+    "bands": [
+      "b48",
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.sierrawireless.com/router-solutions/xr90/",
+    "img": "images/SW-XR90.png"
+  }
 ];
 
 // ── IMAGE PREVIEW ─────────────────────────────────────────────
