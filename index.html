@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- GXC Compatible Devices | Build 33 | GitHub Commit: v56 | Last updated: 2026-03-20 02:10 CST -->
+<!-- GXC Compatible Devices | Build 34 | GitHub Commit: v57 | Last updated: 2026-03-20 02:10 CST -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -103,7 +103,15 @@
   .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--text-dark); color: #fff; padding: 9px 18px; border-radius: 6px; font-size: 0.82rem; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 200; white-space: nowrap; }
   .toast.show { opacity: 1; }
   .toast.error { background: #dc2626; }
-  .hidden { display: none !important; }
+  .tooltip-wrap { display: inline-block; position: relative; margin-left: 6px; vertical-align: middle; }
+  .tooltip-icon { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; background: #9ca3af; color: #fff; border-radius: 50%; font-size: 0.65rem; font-weight: 700; cursor: pointer; user-select: none; }
+  .tooltip-icon:hover { background: var(--orange); }
+  .tooltip-box { display: none; position: absolute; left: 22px; top: -6px; width: 220px; background: var(--text-dark); color: #fff; border-radius: 7px; padding: 10px 12px; font-size: 0.75rem; line-height: 1.6; z-index: 300; box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+  .tooltip-box::before { content: ''; position: absolute; left: -6px; top: 12px; border: 6px solid transparent; border-right-color: var(--text-dark); border-left: none; }
+  .tooltip-wrap:hover .tooltip-box, .tooltip-icon:focus + .tooltip-box { display: block; }
+  .tooltip-box table { width: 100%; border-collapse: collapse; margin-top: 4px; }
+  .tooltip-box td { padding: 2px 4px; }
+  .tooltip-box td:first-child { color: #9ca3af; width: 40%; }
 </style>
 </head>
 <body>
@@ -217,6 +225,7 @@
       <div style="display:flex;gap:8px;margin-top:6px;align-items:center;">
         <input type="file" id="addImgUpload" accept="image/png,image/jpeg,image/gif,image/webp" style="display:none">
         <button class="btn btn-secondary" style="padding:5px 10px;font-size:0.78rem;" onclick="triggerAddImgUpload()">⬆ Upload Image</button>
+        <span class="tooltip-wrap"><span class="tooltip-icon">?</span><div class="tooltip-box"><strong>Image Guidelines</strong><table><tr><td>Format</td><td>PNG (transparent bg)</td></tr><tr><td>Size</td><td>144 × 180 px</td></tr><tr><td>Ratio</td><td>4:5 portrait</td></tr><tr><td>Max size</td><td>100 KB</td></tr></table></div></span>
         <span id="addUploadStatus" style="font-size:0.75rem;color:#6b7280;font-style:italic;"></span>
       </div>
       <div class="img-preview-wrap" id="addImgPreview">
@@ -272,6 +281,7 @@
         <div style="display:flex;gap:8px;margin-top:6px;align-items:center;">
           <input type="file" id="editImgUpload" accept="image/png,image/jpeg,image/gif,image/webp" style="display:none">
           <button class="btn btn-secondary" style="padding:5px 10px;font-size:0.78rem;" onclick="triggerImgUpload()">⬆ Upload Image</button>
+          <span class="tooltip-wrap"><span class="tooltip-icon">?</span><div class="tooltip-box"><strong>Image Guidelines</strong><table><tr><td>Format</td><td>PNG (transparent bg)</td></tr><tr><td>Size</td><td>144 × 180 px</td></tr><tr><td>Ratio</td><td>4:5 portrait</td></tr><tr><td>Max size</td><td>100 KB</td></tr></table></div></span>
           <span id="uploadStatus" style="font-size:0.75rem;color:#6b7280;font-style:italic;"></span>
         </div>
         <div class="img-preview-wrap" id="editImgPreview">
