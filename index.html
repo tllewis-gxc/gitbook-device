@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- GXC Compatible Devices | Build 34 | GitHub Commit: v57 | Last updated: 2026-03-20 02:10 CST -->
+<!-- GXC Compatible Devices | Build 35 | GitHub Commit: v58 | Last updated: 2026-03-20 02:10 CST -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -345,8 +345,12 @@ const GITHUB_BRANCH = "main";
 const IMG_BASE      = "https://" + GITHUB_USER + ".github.io/" + GITHUB_REPO + "/";
 
 const isAdmin = new URLSearchParams(window.location.search).get("admin") === "true";
-if (!isAdmin) { document.getElementById("adminActions").classList.add("hidden"); }
-else { document.getElementById("adminPanel").classList.remove("hidden"); }
+document.getElementById("adminActions").classList.add("hidden");
+document.getElementById("adminPanel").classList.add("hidden");
+if (isAdmin) {
+  document.getElementById("adminActions").classList.remove("hidden");
+  document.getElementById("adminPanel").classList.remove("hidden");
+}
 
 let manufacturers = ["Apple","Asus","LG","Motorola","Haivision","Kiloview","OnePlus","Samsung","Perle","JaCS","Ericsson-Cradlepoint","Multitech","Sierra Wireless"];
 let deviceTypes   = ["Smartphone","Tablet","Laptop","Router/CPE","Broadcasting"];
