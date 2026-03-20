@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- GXC Compatible Devices | Build 32 | GitHub Commit: v55 | Last updated: 2026-03-20 10:15 CST -->
+<!-- GXC Compatible Devices | Build 33 | GitHub Commit: v56 | Last updated: 2026-03-20 02:10 CST -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -213,7 +213,12 @@
     <div class="form-row">
       <label>Device Image</label>
       <input type="text" id="inputImg" placeholder="images/your-filename.png">
-      <p class="hint-msg">Upload PNG to GitHub <code>images/</code> folder first, then enter filename e.g. <code>images/iphone-14.png</code></p>
+      <p class="hint-msg">Enter filename or use Upload to add a new image.</p>
+      <div style="display:flex;gap:8px;margin-top:6px;align-items:center;">
+        <input type="file" id="addImgUpload" accept="image/png,image/jpeg,image/gif,image/webp" style="display:none">
+        <button class="btn btn-secondary" style="padding:5px 10px;font-size:0.78rem;" onclick="triggerAddImgUpload()">⬆ Upload Image</button>
+        <span id="addUploadStatus" style="font-size:0.75rem;color:#6b7280;font-style:italic;"></span>
+      </div>
       <div class="img-preview-wrap" id="addImgPreview">
         <img id="addImgPreviewImg" src="" alt="preview">
       </div>
@@ -374,18 +379,22 @@ let devices = [
 
 // ── IMAGE UPLOAD ──────────────────────────────────────────────
 var pendingUploadFile = null;
+var pendingUploadTarget = "edit"; // "edit" or "add"
 
-function triggerImgUpload() { document.getElementById("editImgUpload").click(); }
+function triggerImgUpload() { pendingUploadTarget="edit"; document.getElementById("editImgUpload").click(); }
+function triggerAddImgUpload() { pendingUploadTarget="add"; document.getElementById("addImgUpload").click(); }
 
-document.getElementById("editImgUpload").addEventListener("change", function() {
-  if (!this.files || !this.files[0]) return;
-  pendingUploadFile = this.files[0];
-  document.getElementById("uploadFileName").textContent = pendingUploadFile.name;
+function handleImgUploadChange(file) {
+  if (!file) return;
+  pendingUploadFile = file;
+  document.getElementById("uploadFileName").textContent = file.name;
   document.getElementById("uploadToken").value = "";
   document.getElementById("errUploadToken").style.display = "none";
   document.getElementById("uploadTokenOverlay").classList.add("open");
-  this.value = "";
-});
+}
+
+document.getElementById("editImgUpload").addEventListener("change", function() { handleImgUploadChange(this.files[0]); this.value=""; });
+document.getElementById("addImgUpload").addEventListener("change", function() { handleImgUploadChange(this.files[0]); this.value=""; });
 
 function closeUploadToken() { document.getElementById("uploadTokenOverlay").classList.remove("open"); pendingUploadFile = null; }
 
@@ -395,7 +404,6 @@ async function confirmUpload() {
   document.getElementById("errUploadToken").style.display="none";
   var btn = document.getElementById("uploadConfirmBtn");
   btn.textContent="⏳ Uploading..."; btn.disabled=true;
-  var statusEl = document.getElementById("uploadStatus");
   try {
     var file = pendingUploadFile;
     var filename = file.name.replace(/\s+/g,"-");
@@ -411,10 +419,14 @@ async function confirmUpload() {
         if (sha) body.sha = sha;
         var pushRes = await fetch("https://api.github.com/repos/"+GITHUB_USER+"/"+GITHUB_REPO+"/contents/"+path,{method:"PUT",headers:{Authorization:"token "+token,Accept:"application/vnd.github.v3+json","Content-Type":"application/json"},body:JSON.stringify(body)});
         if (!pushRes.ok) { var err=await pushRes.json(); throw new Error(err.message||"Upload failed"); }
-        document.getElementById("editImg").value = path;
-        var imgEl = document.getElementById("editImgPreviewImg");
+        var imgField = pendingUploadTarget==="add" ? "inputImg" : "editImg";
+        var previewWrap = pendingUploadTarget==="add" ? "addImgPreview" : "editImgPreview";
+        var previewImg = pendingUploadTarget==="add" ? "addImgPreviewImg" : "editImgPreviewImg";
+        var statusEl = document.getElementById(pendingUploadTarget==="add" ? "addUploadStatus" : "uploadStatus");
+        document.getElementById(imgField).value = path;
+        var imgEl = document.getElementById(previewImg);
         imgEl.src = IMG_BASE+path+"?t="+Date.now();
-        document.getElementById("editImgPreview").style.display="block";
+        document.getElementById(previewWrap).style.display="block";
         statusEl.textContent="✓ Uploaded!"; statusEl.style.color="#16a34a";
         closeUploadToken();
         showToast('✓ "'+filename+'" uploaded to images/');
@@ -463,6 +475,7 @@ function openModal() {
   document.getElementById("inputUrl").value="";
   document.getElementById("inputImg").value="";
   document.getElementById("addImgPreview").style.display="none";
+  document.getElementById("addUploadStatus").textContent="";
   document.getElementById("newMfrRow").style.display="none";
   document.getElementById("newTypeRow").style.display="none";
   ["errName","errMfr","errNewMfr","errType","errNewType"].forEach(function(id){document.getElementById(id).style.display='none';});
