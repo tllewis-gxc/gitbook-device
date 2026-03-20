@@ -51,7 +51,11 @@
   .manage-list li span { flex: 1; }
   .manage-list li .count { font-size: 0.72rem; color: #9ca3af; margin-right: 10px; }
   .manage-list li button { background: #fee2e2; border: none; border-radius: 5px; padding: 3px 8px; font-size: 0.72rem; color: #dc2626; cursor: pointer; font-weight: 600; }
-  .manage-list li button:disabled { background: #f3f4f6; color: #d1d5db; cursor: not-allowed; }
+  .manage-list li button.edit-btn { background: #eff6ff; color: #2563eb; margin-right: 4px; }
+  .manage-list li button.edit-btn:hover { background: #dbeafe; }
+  .manage-list li input.edit-input { flex: 1; border: 1px solid var(--orange); border-radius: 5px; padding: 3px 7px; font-size: 0.82rem; background: #fff; margin-right: 4px; }
+  .manage-list li button.save-btn { background: #f0fdf4; color: #16a34a; margin-right: 4px; }
+  .manage-list li button.save-btn:hover { background: #dcfce7; }
   .manage-list li button:not(:disabled):hover { background: #fecaca; }
   .add-inline { display: flex; gap: 8px; margin-top: 10px; }
   .add-inline input { flex: 1; border: 1px solid var(--border); border-radius: 6px; padding: 7px 11px; font-size: 0.85rem; background: var(--bg-subtle); }
@@ -487,12 +491,48 @@ function openManage(mode) {
 }
 function renderManageList() {
   var items = manageMode==="manufacturer" ? manufacturers.slice().sort(function(a,b){return a.localeCompare(b);}) : manageMode==="type" ? deviceTypes.slice().sort(function(a,b){return a.localeCompare(b);}) : bands.slice().sort(function(a,b){return a.localeCompare(b);});
-  document.getElementById("manageList").innerHTML = items.map(function(item,i) {
+  document.getElementById("manageList").innerHTML = items.map(function(item) {
     var origIdx = (manageMode==="manufacturer"?manufacturers:manageMode==="type"?deviceTypes:bands).indexOf(item);
     var count=0, canDelete=true, tooltip="";
     if (manageMode==="manufacturer") { count=devices.filter(function(d){return d.manufacturer===item;}).length; canDelete=count===0; tooltip=canDelete?"":'Cannot delete — '+count+' device(s) still assigned'; }
-    return '<li><span>'+item+'</span>'+(manageMode==="manufacturer"?'<span class="count">'+count+' device'+(count!==1?'s':'')+'</span>':'')+'<button onclick="deleteManageItem('+origIdx+')" '+(canDelete?'':'disabled')+' title="'+tooltip+'">✕ Delete</button></li>';
+    return '<li id="mli-'+origIdx+'">' +
+      '<span class="mli-label">'+item+'</span>' +
+      (manageMode==="manufacturer"?'<span class="count">'+count+' device'+(count!==1?'s':'')+'</span>':'') +
+      '<button class="edit-btn" onclick="startEditItem('+origIdx+')">✏️ Rename</button>' +
+      '<button onclick="deleteManageItem('+origIdx+')" '+(canDelete?'':'disabled')+' title="'+tooltip+'">✕ Delete</button>' +
+      '</li>';
   }).join('');
+}
+
+function startEditItem(origIdx) {
+  var list = manageMode==="manufacturer"?manufacturers:manageMode==="type"?deviceTypes:bands;
+  var current = list[origIdx];
+  var li = document.getElementById("mli-"+origIdx);
+  li.innerHTML =
+    '<input class="edit-input" id="edit-input-'+origIdx+'" value="'+current+'">' +
+    '<button class="save-btn" onclick="saveEditItem('+origIdx+')">✓ Save</button>' +
+    '<button onclick="renderManageList()">✕ Cancel</button>';
+  document.getElementById("edit-input-"+origIdx).focus();
+  document.getElementById("edit-input-"+origIdx).select();
+}
+
+function saveEditItem(origIdx) {
+  var list = manageMode==="manufacturer"?manufacturers:manageMode==="type"?deviceTypes:bands;
+  var oldVal = list[origIdx];
+  var newVal = document.getElementById("edit-input-"+origIdx).value.trim();
+  if (!newVal) { showToast("Name cannot be empty!"); return; }
+  if (newVal === oldVal) { renderManageList(); return; }
+  if (list.includes(newVal)) { showToast("Already exists!"); return; }
+  list[origIdx] = newVal;
+  if (manageMode==="manufacturer") {
+    devices.forEach(function(d) { if (d.manufacturer===oldVal) d.manufacturer=newVal; });
+  } else if (manageMode==="type") {
+    devices.forEach(function(d) { if (d.type===oldVal) d.type=newVal; });
+  } else {
+    devices.forEach(function(d) { d.bands=d.bands.map(function(b){return b===oldVal?newVal:b;}); });
+  }
+  refreshAll(); renderManageList(); render(); markUnsaved();
+  showToast('✓ Renamed "'+oldVal+'" to "'+newVal+'"');
 }
 function deleteManageItem(i) {
   if (manageMode==="manufacturer") { if(devices.some(function(d){return d.manufacturer===manufacturers[i];})){showToast("⚠ Remove all devices first!");return;} manufacturers.splice(i,1); }
