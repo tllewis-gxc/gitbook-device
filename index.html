@@ -295,9 +295,9 @@ const isAdmin = new URLSearchParams(window.location.search).get("admin") === "tr
 if (!isAdmin) { document.getElementById("adminActions").classList.add("hidden"); }
 else { document.getElementById("adminPanel").classList.remove("hidden"); }
 
-let manufacturers = ["Apple","Asus","LG","Motorola","Haivision","Kiloview","OnePlus","SamSung","Perle","JaCS","Ericsson-Cradlepoint","Multitech"];
+let manufacturers = ["Apple","Asus","LG","Motorola","Haivision","Kiloview","OnePlus","SamSung","Perle","JaCS","Ericsson-Cradlepoint","Multitech","Sierra Wireless"];
 let deviceTypes   = ["Smartphone","Tablet","Laptop","Router/CPE","Broadcasting","test"];
-let bands         = ["b48","n48","n77","n78"];
+let bands         = ["b48","n48","n77","n78","b28"];
 
 let devices = [
   {
@@ -598,6 +598,62 @@ let devices = [
     ],
     "url": "https://multitech.com/all-products/cellular/cellular-modems/multiconnect-rcell-500-series/",
     "img": "images/rCell500.png"
+  },
+  {
+    "name": "LX60",
+    "manufacturer": "Sierra Wireless",
+    "type": "Router/CPE",
+    "bands": [
+      "b28"
+    ],
+    "url": "https://www.sierrawireless.com/router-solutions/lx60/#applications",
+    "img": "images/SW-LX60.png"
+  },
+  {
+    "name": "RV55 LTE-A PRO",
+    "manufacturer": "Sierra Wireless",
+    "type": "Router/CPE",
+    "bands": [
+      "b48"
+    ],
+    "url": "https://www.sierrawireless.com/router-solutions/rv55/#applications",
+    "img": "images/SW-RV55.png"
+  },
+  {
+    "name": "RX55",
+    "manufacturer": "Sierra Wireless",
+    "type": "Router/CPE",
+    "bands": [
+      "b48"
+    ],
+    "url": "https://www.sierrawireless.com/router-solutions/rx55/#applications",
+    "img": "images/SW-RX55.png"
+  },
+  {
+    "name": "XR60",
+    "manufacturer": "Sierra Wireless",
+    "type": "Router/CPE",
+    "bands": [
+      "b48",
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.sierrawireless.com/router-solutions/xr60/",
+    "img": "images/SW-XR60.png"
+  },
+  {
+    "name": "XR90",
+    "manufacturer": "Sierra Wireless",
+    "type": "Router/CPE",
+    "bands": [
+      "b48",
+      "n48",
+      "n77",
+      "n78"
+    ],
+    "url": "https://www.sierrawireless.com/router-solutions/xr90/",
+    "img": "images/SW-XR90.png"
   }
 ];
 
